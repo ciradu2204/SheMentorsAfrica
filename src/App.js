@@ -1,24 +1,36 @@
-import logo from './logo.svg';
+import { Route } from 'react-router-dom';
 import './App.css';
+import {Routes} from 'react-router-dom';
+import AnauthLayout from './Components/Layout/unauthLayout';
+import Home from './Components/Home';
+import { createTheme, ThemeProvider } from '@material-ui/core';
+
+const theme = createTheme({
+    palette:{
+      primary:{
+        main: "#E49433", 
+      }, 
+      secondary:{
+        main: "#408FAA"
+      }, 
+      error:{
+        main: "#FE0000"
+      }
+    }
+})
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+  return (  
+    <ThemeProvider theme={theme}>
+    <AnauthLayout>
+    <Routes>
+     <Route exact path="/" component={Home}/>
+
+    </Routes>
+    </AnauthLayout>
+    </ThemeProvider>
+     
+   
   );
 }
 

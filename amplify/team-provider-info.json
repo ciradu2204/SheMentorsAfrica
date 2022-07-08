@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-shementorsafrica-dev-124643-authRole",
+      "UnauthRoleArn": "arn:aws:iam::456838801062:role/amplify-shementorsafrica-dev-124643-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::456838801062:role/amplify-shementorsafrica-dev-124643-authRole",
+      "Region": "us-east-1",
+      "DeploymentBucketName": "amplify-shementorsafrica-dev-124643-deployment",
+      "UnauthRoleName": "amplify-shementorsafrica-dev-124643-unauthRole",
+      "StackName": "amplify-shementorsafrica-dev-124643",
+      "StackId": "arn:aws:cloudformation:us-east-1:456838801062:stack/amplify-shementorsafrica-dev-124643/c5ac1d90-fc4f-11ec-8d1f-12098a2b5487",
+      "AmplifyAppId": "d355u8qyf4162x"
+    }
+  }
+}
