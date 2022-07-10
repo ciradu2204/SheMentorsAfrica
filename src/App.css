@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+
 }
 
 .App-logo {
@@ -27,7 +28,9 @@
 .App-link {
   color: #61dafb;
 }
-
+.slide-routes {
+  height: 100% !important;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

@@ -5,37 +5,25 @@ import { Box } from "@material-ui/core";
 import useStyles from "./styles";
 import List from "@material-ui/core/List";
 import { ListItem } from "@material-ui/core";
-import ListItemText from "@material-ui/core/ListItemText";
 import IconButton from "@material-ui/core/IconButton";
-import MenuIcon from "@material-ui/icons/MenuOutlined"
+import MenuIcon from "@material-ui/icons/MenuOutlined";
+import { Drawer } from "@material-ui/core";
+import CancelIcon from "@material-ui/icons/Cancel";
+import { NavLink } from "react-router-dom";
+ import { v4 as uuid } from 'uuid';
 
-const pages = [
-  {
-    id: 1,
-    text: "HOME",
-    path: "/home",
-  },
-  {
-    id: 2,
-    text: "ABOUT US",
-    path: "/aboutUs",
-  },
-  {
-    id: 3,
-    text: "FAQS",
-    path: "/faqs",
-  },
-  {
-    id: 4,
-    text: "TESTIMONY",
-    path: "/testimony",
-  },
-];
 
-const Navbar = () => {
+const Navbar = (props) => {
   const classes = useStyles();
-  const [handleDrawerToggle, sethandleDrawerToggle] = React.useState(false); 
- 
+  const { window, pages, authLinks } = props;
+  const container = window !== undefined ? () => window().document.body : undefined;
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const handleDrawerToggle = () => {
+    setMobileOpen(!mobileOpen);
+  };
+  const handleCloseDrawer = () => {
+    setMobileOpen(false);
+  };
 
   return (
     <AppBar position="static" className={classes.appBar}>
@@ -55,28 +43,45 @@ const Navbar = () => {
           />
 
           <Box className={classes.linksContainer}>
-            <List className={classes.links} alt="Links">
+            <List className={classes.links} alt="Links" >
               {pages.map((page) => (
-                <ListItem key={page.text} className={classes.link}>
-                  <ListItemText primary={page.text} />
+                <ListItem
+                  key={uuid()}
+                  exact="true"
+                  className={classes.link}
+                  component={NavLink}
+                  to={page.path}
+                  >
+                    {page.text}
                 </ListItem>
               ))}
+              <Box className={classes.authLinksBox}>
               <ListItem
-                key="SIGN IN"
-                className={`${classes.authLinks} ${classes.leftAlign}`}
+                key={uuid()}
+                exact="true"
+                component={NavLink}
+                to={authLinks[1].path}
+                className={`${classes.authLink} ${classes.alignRight}`}
               >
-                <ListItemText primary="SIGN IN" />
+                {authLinks[1].text}
               </ListItem>
-              <Divider flexItem orientation="vertical" sx={{ my: 1 }} />
-              <ListItem key="SIGN UP" className={classes.authLinks}>
-                <ListItemText primary="SIGN UP" />
+              <Divider flexItem orientation="vertical" className={classes.divider} />
+              <ListItem
+                key={uuid()}
+                component={NavLink}
+                exact="true"
+                to={authLinks[0].path}
+                className={`${classes.authLink} ${classes.alignLeft}`}
+              >
+                {authLinks[0].text}
               </ListItem>
+              </Box>
             </List>
           </Box>
 
           <Box className={classes.menuItem}>
-          <IconButton
-              size="large"
+            <IconButton
+              size="medium"
               aria-label="menu of items"
               aria-controls="menu-appbar"
               aria-haspopup="true"
@@ -85,7 +90,68 @@ const Navbar = () => {
             >
               <MenuIcon />
             </IconButton>
-      
+
+            <Drawer
+              container={container}
+              anchor="right"
+              classes={{ paper: classes.paper }}
+              className={classes.drawer}
+              variant="temporary"
+              open={mobileOpen}
+              onClose={handleDrawerToggle}
+              ModalProps={{
+                keepMounted: true, // Better open performance on mobile.
+              }}
+            >
+              <IconButton
+                size="medium"
+                aria-label="cancel drawer"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleCloseDrawer}
+                className={classes.cancelIcon}
+              >
+                <CancelIcon />
+              </IconButton>
+
+              <List className={classes.linksMob} alt="Links">
+                <Box className={classes.authLinksBox}>
+                  <ListItem
+                    key={uuid()}
+                    exact="true"
+                    component={NavLink}
+                    to={authLinks[1].path}
+                        className={`${classes.authLink} ${classes.alignRight}`}
+                  >
+                    {authLinks[1].text}
+                  </ListItem>
+                  <Divider flexItem orientation="vertical" variant="middle"  className={classes.divider}/>
+                  <ListItem
+                    key={uuid()}
+                    component={NavLink}
+                    exact="true"
+                    to={authLinks[0].path}
+                    className={`${classes.authLink} ${classes.alignLeft}`}
+                  >
+                    {authLinks[0].text}
+                  </ListItem>
+                </Box>
+                {pages.map((page) => (
+                  <div>
+                    <ListItem
+                      key={uuid()}
+                      component={NavLink}
+                      exact="true"
+                      to={page.path}
+                      className={`${classes.linkMob} ${classes.link}`}
+                    >
+                    {page.text}
+                    </ListItem>
+                    <Divider />
+                  </div>
+                ))}
+              </List>
+            </Drawer>
           </Box>
         </Toolbar>
       </Container>
