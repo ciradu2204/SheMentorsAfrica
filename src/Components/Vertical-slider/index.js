@@ -7,7 +7,7 @@ import { useLocation } from 'react-router-dom';
 
 const VerticalSlider = (props) => {
   const location = useLocation();
-  const found = props.pages.findIndex(element => element.path === location.pathname);
+  let found = props.pages.findIndex(element => element.path === location.pathname);
   const [activeID, setActiveID] = useState(props.pages[found].id);
   const classes = useStyles();
   let navigate = useNavigate(); 
@@ -29,6 +29,15 @@ const VerticalSlider = (props) => {
     if (props.activeID === props.id) {
        activeClass =  true;
     }
+
+    // useEffect(() => {
+    //    if(location.pathname !== props.pages[activeID].path){
+    //    found =  props.pages.findIndex(element => element.path === location.pathname);
+    //   setActiveID(props.pages[found].id)
+
+    //    }
+    // })
+
     return (
       <div className={activeClass? classes.active: null}>
       <div

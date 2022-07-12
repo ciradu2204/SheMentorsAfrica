@@ -31,7 +31,7 @@ const Home = () => {
           </Box>
           GROW
         </Typography>
-        <Typography variant="body2" className={classes.body}>
+        <Typography variant="subtitle1" className={classes.body}>
           Our goal is to provide you with mentorship from experienced African
           women on how to build a career in tech. What we expect from you is to
           give back to the community as you benefit from the platform.

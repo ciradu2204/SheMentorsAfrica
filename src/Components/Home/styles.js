@@ -33,9 +33,10 @@ const useStyles = makeStyles((theme) => {
              
         }, 
         info:{
-            width: "60%",
+            width: "50%",
             textAlign:"center",
             justifySelf: "center",
+            marginLeft: "auto",
             [theme.breakpoints.down("sm")]:{
                 width: "70%",
                 alignSelf: "center",
@@ -44,6 +45,8 @@ const useStyles = makeStyles((theme) => {
                 marginRight: "15px",
                 alignItems: "center",
                 flexDirection: "column",
+                marginLeft: "0px",
+
 
             },
             [theme.breakpoints.down("xs")]:{
@@ -58,28 +61,28 @@ const useStyles = makeStyles((theme) => {
         }, 
         header:{
              color: theme.palette.secondary.main,
-             fontSize: "40px",
              lineHeight: "60px",
              fontFamily: "'Poppins', sans-serif !important",
              margin:20,
              letterSpacing: "0.1em",
              fontWeight: "600",
+
              [theme.breakpoints.down("md")]:{
-                fontSize: "30px"
-              },
+                fontSize: "30px",
+
+            },
              [theme.breakpoints.down("sm")]:{
-                 fontSize: "25px"
-            }
+                 fontSize: "25px",
+             }
+                 
 
         }, 
         body:{
             fontWeight: "400",
-            fontSize: "19px",
             lineHeight: "32px",
             fontFamily: "'Poppins', sans-serif !important",
             textAlign: "center",
             letterSpacing: "0.05em",
-         
             [theme.breakpoints.down("xs")]:{
                  width: "100%",
             }
@@ -91,7 +94,6 @@ const useStyles = makeStyles((theme) => {
             height: "50px",
             fontFamily: "'Poppins', sans-serif !important",
             fontWeight: "700",
-            fontSize: "20px",
             lineHeight:"36px",
             letterSpacing: "0.1em",
         }, 

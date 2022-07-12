@@ -30,11 +30,12 @@ const useStyles = makeStyles((theme) => {
     linksContainer: {
       display: "flex",
       alignItems: "end",
+      width: "45%",
 
-      [theme.breakpoints.up("lg")]: {
-        width: "60%",
+      [theme.breakpoints.down("lg")]: {
+        width: "58%",
       },
-      [theme.breakpoints.up("md")]: {
+      [theme.breakpoints.down("md")]: {
         width: "72%",
       },
       [theme.breakpoints.down("sm")]: {
