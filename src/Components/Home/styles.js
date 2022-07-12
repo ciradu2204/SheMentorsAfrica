@@ -62,7 +62,7 @@ const useStyles = makeStyles((theme) => {
         header:{
              color: theme.palette.secondary.main,
              lineHeight: "60px",
-             fontFamily: "'Poppins', sans-serif !important",
+             fontFamily: "Poppins, sans-serif !important",
              margin:20,
              letterSpacing: "0.1em",
              fontWeight: "600",
@@ -80,7 +80,7 @@ const useStyles = makeStyles((theme) => {
         body:{
             fontWeight: "400",
             lineHeight: "32px",
-            fontFamily: "'Poppins', sans-serif !important",
+            fontFamily: "Poppins, sans-serif !important",
             textAlign: "center",
             letterSpacing: "0.05em",
             [theme.breakpoints.down("xs")]:{
@@ -92,7 +92,7 @@ const useStyles = makeStyles((theme) => {
             margin: 30,
             width: "150px",
             height: "50px",
-            fontFamily: "'Poppins', sans-serif !important",
+            fontFamily: "Poppins, sans-serif !important",
             fontWeight: "700",
             lineHeight:"36px",
             letterSpacing: "0.1em",

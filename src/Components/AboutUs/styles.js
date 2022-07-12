@@ -6,7 +6,7 @@ const useStyles = makeStyles((theme) => {
       display: "flex",
       height: "100%",
       maxWidth: "unset",
-      flexDirection: "column",
+      flexDirection: "row",
     },
     cardBox: {
       display: "flex",
@@ -22,10 +22,14 @@ const useStyles = makeStyles((theme) => {
         alignSelf: "flex-end",
       },
 
-      [theme.breakpoints.down("sm")]: {
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
+      [theme.breakpoints.down("xs")]: {
+        // flexDirection: "column",
+        // alignItems: "center ",
+        // justifyContent: "center",
+
+        "& :nth-child(2)": {
+            alignSelf: "center",
+          },
       },
     },
     card: {
@@ -58,7 +62,7 @@ const useStyles = makeStyles((theme) => {
       alignItems: "center",
       lineHeight: "45px",
       letterSpacing: "0.05em",
-      fontFamily: "Poppins, sans serif !important",
+      fontFamily: "Poppins, sans-serif !important",
       fontWeight: "600",
       color: theme.palette.secondary.main,
       margin: 5,
@@ -69,8 +73,12 @@ const useStyles = makeStyles((theme) => {
       fontWeight: "400",
       textAlign: "center",
       letterSpacing: "0.05em",
-      fontFamily: "Poppins, sans serif !important",
+      fontFamily: "Poppins, sans-serif !important",
       lineHeight: "25px",
+    }, 
+    carouselIcons: {
+      borderRadius: "unset !important", 
+
     }
   };
 });

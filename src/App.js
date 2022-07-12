@@ -5,7 +5,9 @@ import AnauthLayout from "./Components/Layout/unauthLayout";
 import Home from "./Components/Home";
 import { createTheme, ThemeProvider } from "@material-ui/core";
 import SlideRoutes from "react-slide-routes";
-import AboutUs from "./Components/AboutUs"
+import AboutUs from "./Components/AboutUs"; 
+import FAQs from "./Components/Faqs";
+import Testimony from "./Components/Testimony";
 
 const theme = createTheme({
   palette: {
@@ -29,7 +31,8 @@ function App() {
         <SlideRoutes animation="vertical-slide">
           <Route exact path="/" element={<Home/>} />
           <Route  path="/aboutus" element={<AboutUs/>} />
-
+          <Route  path="/faqs" element={<FAQs/>} />
+          <Route  path="/testimony" element={<Testimony/>} />
         </SlideRoutes>
       </AnauthLayout>
     </ThemeProvider>

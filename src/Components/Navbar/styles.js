@@ -70,7 +70,7 @@ const useStyles = makeStyles((theme) => {
       color: "inherit",
       cursor: "pointer",
       justifyContent: "center !important",
-      fontFamily: "'Poppins', sans-serif !important",
+      fontFamily: "Poppins, sans-serif !important",
       fontWeight: "500",
       fontSize: "15px",
       lineHeight: "20px",
@@ -93,7 +93,7 @@ const useStyles = makeStyles((theme) => {
     },
     linkMob: {
       fontWeight: "500",
-      fontFamily: "'Poppins', sans-serif !important",
+      fontFamily: "Poppins, sans-serif !important",
       fontSize: "15px",
       lineHeight: "30px",
       letterSpacing: "0.15em",
@@ -111,7 +111,7 @@ const useStyles = makeStyles((theme) => {
 
     authLink: {
       cursor: "pointer",
-      fontFamily: "'Poppins', sans-serif !important",
+      fontFamily: "Poppins, sans-serif !important",
       fontWeight: "600",
       fontSize: "14px",
       lineHeight: "20px",

@@ -52,6 +52,10 @@ const useStyles = makeStyles((theme) => {
     partner: {
       maxWidth: "400px",
       height: "80px",
+
+      [theme.breakpoints.down("xs")]:{
+        height: "40px"
+      }
     },
     footer: {
       display: "flex",

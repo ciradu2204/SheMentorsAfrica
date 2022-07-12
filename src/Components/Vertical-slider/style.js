@@ -16,7 +16,7 @@ const useStyles = makeStyles((theme) => {
     },
     selector: {
       border: "1px solid #D9D9D9 ",
-      background: "#D9D9D9",
+      background: theme.palette.grey[300],
       position: "relative",
       width: 20,
       height: 20,

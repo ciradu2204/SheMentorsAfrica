@@ -10,7 +10,6 @@ import InstagramIcon from "@material-ui/icons/Instagram";
 import { useLocation } from "react-router-dom";
 import VerticalSlider from "../Vertical-slider";
 import { Link } from "react-router-dom";
-import { Divider } from "@material-ui/core";
 import { useState } from "react";
 import NavigateNext from "@material-ui/icons/NavigateNext";
   
@@ -102,13 +101,11 @@ export default function AnauthLayout({ children }) {
   };
 
   const handleNext = () => {
-    console.log(countStart);
-    console.log(countEnd);
+
     if (countEnd < pages.length - 1) {
       SetCounterEnd(prev => prev + 1);
       SetCounterStart(prev => prev + 1);
-      console.log(countStart);
-      console.log(countEnd);
+     
     }
   
   };
@@ -134,7 +131,7 @@ export default function AnauthLayout({ children }) {
 
       {location.pathname === pages[1].path ? (
         <Box className={classes.partnersContainer}>
-          <IconButton onClick={handlePrev} size="medium"  className={classes.carouselIcons}>
+          <IconButton onClick={handlePrev} fontSize="large"  className={classes.carouselIcons}>
             <NavigateBefore />
           </IconButton>
           <Box className={classes.partnersInfoBox}>
