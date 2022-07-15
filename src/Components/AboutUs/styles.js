@@ -18,17 +18,13 @@ const useStyles = makeStyles((theme) => {
       backgroundPosition: "0% 0%",
       backgroundSize: "auto 250px",
       alignItems: "center !important",
-      "& :nth-child(2)": {
-        alignSelf: "flex-end",
+      "& :nth-child(3)": {
+        alignSelf: "flex-end !important",
       },
 
       [theme.breakpoints.down("xs")]: {
-        // flexDirection: "column",
-        // alignItems: "center ",
-        // justifyContent: "center",
-
-        "& :nth-child(2)": {
-            alignSelf: "center",
+        "& :nth-child(3)": {
+            alignSelf: "center !important",
           },
       },
     },
@@ -78,6 +74,10 @@ const useStyles = makeStyles((theme) => {
     }, 
     carouselIcons: {
       borderRadius: "unset !important", 
+      display: "none",
+      [theme.breakpoints.down("sm")]:{
+      display: "block",
+      }
 
     }
   };

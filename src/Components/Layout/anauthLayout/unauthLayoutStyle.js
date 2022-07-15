@@ -88,8 +88,8 @@ const useStyles = makeStyles((theme) => {
       },
     },
     socialIcon: {
-      paddingLeft: 40,
-      color: theme.palette.common.white,
+      paddingLeft: "40px !important",
+      color: ` ${theme.palette.common.white} !important`,
       borderRadius: "unset",
 
       "&:hover": {

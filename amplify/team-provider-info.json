@@ -10,6 +10,11 @@
       "StackName": "amplify-shementorsafrica-dev-124643",
       "StackId": "arn:aws:cloudformation:us-east-1:456838801062:stack/amplify-shementorsafrica-dev-124643/c5ac1d90-fc4f-11ec-8d1f-12098a2b5487",
       "AmplifyAppId": "d355u8qyf4162x"
+    },
+    "categories": {
+      "auth": {
+        "shementorsafrica9d562494": {}
+      }
     }
   }
 }

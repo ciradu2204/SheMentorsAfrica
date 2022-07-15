@@ -21,8 +21,8 @@ const useStyles = makeStyles((theme) => {
       },
     },
     appBar: {
-      background: "none",
-      boxShadow: "none",
+      background: "none !important",
+      boxShadow: "none !important",
     },
     toolbar: {
       justifyContent: "space-between",
@@ -88,8 +88,14 @@ const useStyles = makeStyles((theme) => {
         fontSize: "15px",
       },
     },
+    linksMobContainer:{
+      display: "flex", 
+      flexDirection: "column"
+    },
     linksMob: {
       paddingTop: 10,
+      
+
     },
     linkMob: {
       fontWeight: "500",
@@ -102,43 +108,23 @@ const useStyles = makeStyles((theme) => {
       color: theme.palette.common.white,
     },
 
-    authLinksBox: {
-      display: "flex",
-      flexDirection: "row",
-      width: "100%",
-      alignItems: "center",
-    },
-
-    authLink: {
-      cursor: "pointer",
-      fontFamily: "Poppins, sans-serif !important",
-      fontWeight: "600",
-      fontSize: "14px",
-      lineHeight: "20px",
-      letterSpacing: "0.15em",
-      [theme.breakpoints.down("sm")]: {
-        color: theme.palette.common.white,
-      },
-      [theme.breakpoints.up("sm")]: {
-        color: theme.palette.secondary.main,
-      },
-      "&:hover": {
-        color: theme.palette.primary.main,
-      },
-      "&.active": {
-        color: theme.palette.primary.main,
-      },
-      "&.MuiListItem-root": {
-        width: "100px",
-        padding: "none !important",
-      },
-
-      [theme.breakpoints.down("sm")]: {
-        fontSize: "11px",
-      },
-      [theme.breakpoints.down("xs")]: {
-        fontSize: "14px",
-      },
+    signinButton:{
+     width: "400px !important",
+     background: theme.palette.primary.main,
+     color: theme.palette.common.white,
+     boxShadow: "0px 3px 1px -2px rgb(0 0 0 / 5%), 0px 2px 2px 0px rgb(0 0 0 / 5%), 0px 1px 5px 0px rgb(0 0 0 / 5%)",
+     "&:hover":{
+      background: theme.palette.primary.main,
+      boxShadow: "0px 3px 1px -2px rgb(0 0 0 / 5%), 0px 2px 2px 0px rgb(0 0 0 / 5%), 0px 1px 5px 0px rgb(0 0 0 / 5%)",
+      backgroundColor: theme.palette.common.white,
+      color: theme.palette.primary.main,
+      border: `1px solid ${theme.palette.primary.main} !important`,
+     },
+     [theme.breakpoints.down("sm")]:{
+           width: "60% !important",
+           alignSelf: "center"
+           
+     }
     },
 
     drawer: {

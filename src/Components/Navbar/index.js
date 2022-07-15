@@ -1,5 +1,5 @@
 import * as React from "react";
-import { AppBar, Divider, Toolbar } from "@material-ui/core";
+import { AppBar, Button, Divider, Toolbar } from "@material-ui/core";
 import { Container } from "@material-ui/core";
 import { Box } from "@material-ui/core";
 import useStyles from "./styles";
@@ -10,13 +10,14 @@ import MenuIcon from "@material-ui/icons/MenuOutlined";
 import { Drawer } from "@material-ui/core";
 import CancelIcon from "@material-ui/icons/Cancel";
 import { NavLink } from "react-router-dom";
- import { v4 as uuid } from 'uuid';
-
+import { v4 as uuid } from "uuid";
+import { Link } from "react-router-dom";
 
 const Navbar = (props) => {
   const classes = useStyles();
-  const { window, pages, authLinks } = props;
-  const container = window !== undefined ? () => window().document.body : undefined;
+  const { window, pages } = props;
+  const container =
+    window !== undefined ? () => window().document.body : undefined;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -43,7 +44,7 @@ const Navbar = (props) => {
           />
 
           <Box className={classes.linksContainer}>
-            <List className={classes.links} alt="Links" >
+            <List className={classes.links} alt="Links">
               {pages.map((page) => (
                 <ListItem
                   key={uuid()}
@@ -51,31 +52,19 @@ const Navbar = (props) => {
                   className={classes.link}
                   component={NavLink}
                   to={page.path}
-                  >
-                    {page.text}
+                >
+                  {page.text}
                 </ListItem>
               ))}
-              <Box className={classes.authLinksBox}>
-              <ListItem
-                key={uuid()}
-                exact="true"
-                component={NavLink}
-                to={authLinks[1].path}
-                className={`${classes.authLink} ${classes.alignRight}`}
+              <Button
+                variant="contained"
+                size="large"
+                component={Link}
+                to="/login"
+                className={classes.signinButton}
               >
-                {authLinks[1].text}
-              </ListItem>
-              <Divider flexItem orientation="vertical" className={classes.divider} />
-              <ListItem
-                key={uuid()}
-                component={NavLink}
-                exact="true"
-                to={authLinks[0].path}
-                className={`${classes.authLink} ${classes.alignLeft}`}
-              >
-                {authLinks[0].text}
-              </ListItem>
-              </Box>
+                LOGIN
+              </Button>
             </List>
           </Box>
 
@@ -114,43 +103,34 @@ const Navbar = (props) => {
                 <CancelIcon />
               </IconButton>
 
-              <List className={classes.linksMob} alt="Links">
-                <Box className={classes.authLinksBox}>
-                  <ListItem
-                    key={uuid()}
-                    exact="true"
-                    component={NavLink}
-                    to={authLinks[1].path}
-                        className={`${classes.authLink} ${classes.alignRight}`}
-                  >
-                    {authLinks[1].text}
-                  </ListItem>
-                  <Divider flexItem orientation="vertical" variant="middle"  className={classes.divider}/>
-                  <ListItem
-                    key={uuid()}
-                    component={NavLink}
-                    exact="true"
-                    to={authLinks[0].path}
-                    className={`${classes.authLink} ${classes.alignLeft}`}
-                  >
-                    {authLinks[0].text}
-                  </ListItem>
-                </Box>
-                {pages.map((page) => (
-                  <div>
-                    <ListItem
-                      key={uuid()}
-                      component={NavLink}
-                      exact="true"
-                      to={page.path}
-                      className={`${classes.linkMob} ${classes.link}`}
-                    >
-                    {page.text}
-                    </ListItem>
-                    <Divider />
-                  </div>
-                ))}
-              </List>
+              <Box className={classes.linksMobContainer}>
+                <Button
+                  variant="contained"
+                  size="large"
+                  component={Link}
+                  to="/login"
+                  className={classes.signinButton}
+                >
+                  LOGIN
+                </Button>
+
+                <List className={classes.linksMob} alt="Links">
+                  {pages.map((page) => (
+                    <div>
+                      <ListItem
+                        key={uuid()}
+                        component={NavLink}
+                        exact="true"
+                        to={page.path}
+                        className={`${classes.linkMob} ${classes.link}`}
+                      >
+                        {page.text}
+                      </ListItem>
+                      <Divider />
+                    </div>
+                  ))}
+                </List>
+              </Box>
             </Drawer>
           </Box>
         </Toolbar>

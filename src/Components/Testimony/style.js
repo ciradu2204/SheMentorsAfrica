@@ -11,10 +11,10 @@ const useStyles = makeStyles((theme) =>{
             maxWidth: "unset",
             justifyContent: "center",
              alignItems: "center",
-             backgroundImage: "url(https://shementorsafrica-img.s3.amazonaws.com/testimonyPage.png)",
-             backgroundSize: "25% auto" , 
+             backgroundImage: "url(https://shementorsafrica-img.s3.amazonaws.com/auth-sample2.png)",
              backgroundRepeat: "no-repeat",
-             backgroundPosition: "-8% 0%",
+             backgroundSize: "auto 250px",
+             backgroundPosition: "left top",
             gap: "12%",
             [theme.breakpoints.down("sm")]:{
                 gap: "2%",
@@ -36,6 +36,7 @@ const useStyles = makeStyles((theme) =>{
           justifyContent: "center", 
           flexDirection: "column",
           padding: 20,
+          border: `solid 1px ${theme.palette.secondary.main} `,
 
           [theme.breakpoints.down("sm")]:{
             width: "90%", 
@@ -48,15 +49,15 @@ const useStyles = makeStyles((theme) =>{
         }, 
         role:{
             position: "absolute",
-            zIndex: "4 !important",
+            zIndex: "-4 !important",
             right: "20px", 
-            top: "0px",
+            top: "-1px",
             fontFamily: 'Poppins, sans-serif !important',
             fontWeight: "600",
             lineHeight: "30px",
             letterspacing: "0.1em",
             padding: "10px",
-            backgroundColor: theme.palette.primary.main, 
+            backgroundColor: theme.palette.secondary.main, 
             color: theme.palette.common.white
         }, 
         body: {

@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Navbar from "../Navbar";
+import Navbar from "../../Navbar";
 import Box from "@material-ui/core/Box";
 import { Container, IconButton, Typography } from "@material-ui/core";
 import useStyles from "./unauthLayoutStyle";
@@ -8,11 +8,10 @@ import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import { useLocation } from "react-router-dom";
-import VerticalSlider from "../Vertical-slider";
+import VerticalSlider from "../../Vertical-slider";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import NavigateNext from "@material-ui/icons/NavigateNext";
-  
 
 import NavigateBefore from "@material-ui/icons/NavigateBefore";
 
@@ -37,18 +36,14 @@ const pages = [
     text: "TESTIMONY",
     path: "/testimony",
   },
+  {
+    id: 4, 
+    text: "LOGIN", 
+    path: "/login"
+  }
 ];
 
-const authLinks = [
-  {
-    text: "SIGN UP",
-    path: "/signup",
-  },
-  {
-    text: "SIGN IN",
-    path: "/signin",
-  },
-];
+ 
 
 const partners = [
   {
@@ -84,45 +79,36 @@ const ButtonMailto = ({ mailto, ...props }) => {
   );
 };
 
-export default function AnauthLayout({ children }) {
+export default function AnauthLayout({ children, open }) {
   const location = useLocation();
   const [countStart, SetCounterStart] = useState(0);
-  const [countEnd, SetCounterEnd] = useState(pages.length-1);
-
-
- 
+  const [countEnd, SetCounterEnd] = useState(pages.length - 1);
 
   const handlePrev = () => {
     if (countStart > 0) {
-      SetCounterStart(prev => prev - 1);
-      SetCounterEnd(prev => prev- 1);
+      SetCounterStart((prev) => prev - 1);
+      SetCounterEnd((prev) => prev - 1);
     }
-
   };
 
   const handleNext = () => {
-
     if (countEnd < pages.length - 1) {
-      SetCounterEnd(prev => prev + 1);
-      SetCounterStart(prev => prev + 1);
-     
+      SetCounterEnd((prev) => prev + 1);
+      SetCounterStart((prev) => prev + 1);
     }
-  
   };
 
-  useEffect(() =>{
-
-    if(window.innerWidth <= 600){
-      SetCounterEnd(1)
+  useEffect(() => {
+    if (window.innerWidth <= 600) {
+      SetCounterEnd(1);
     }
-  }, [])
-
+  }, []);
 
   const classes = useStyles();
 
   return (
     <div className={classes.parent}>
-      <Navbar authLinks={authLinks} pages={pages} />
+      <Navbar  pages={pages.slice(0, 4)} />
 
       <Container className={classes.container} maxWidth={false} disableGutters>
         <Box className={classes.childrenBox}>{children}</Box>
@@ -131,7 +117,11 @@ export default function AnauthLayout({ children }) {
 
       {location.pathname === pages[1].path ? (
         <Box className={classes.partnersContainer}>
-          <IconButton onClick={handlePrev} fontSize="large"  className={classes.carouselIcons}>
+          <IconButton
+            onClick={handlePrev}
+            fontSize="large"
+            className={classes.carouselIcons}
+          >
             <NavigateBefore />
           </IconButton>
           <Box className={classes.partnersInfoBox}>
@@ -156,10 +146,14 @@ export default function AnauthLayout({ children }) {
             </Box>
           </Box>
 
-          <IconButton onClick={handleNext} size="medium" className={classes.carouselIcons}>
+          <IconButton
+            onClick={handleNext}
+            size="medium"
+            className={classes.carouselIcons}
+          >
             <NavigateNext />
           </IconButton>
-          </Box>
+        </Box>
       ) : null}
 
       {location.pathname !== pages[0].path ? (
