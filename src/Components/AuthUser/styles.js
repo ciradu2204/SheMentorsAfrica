@@ -16,12 +16,11 @@ const useStyles = makeStyles((theme) => {
     },
     card: {
       width: "45%",
-      minHeight: "500px",
+      height: "auto",
       display: "flex",
       flexDirection: "column",
       textAlign: "center",
       border: `1px solid ${theme.palette.secondary.main}`,
-
       [theme.breakpoints.down("md")]:{
         width: "50%",
 
@@ -66,7 +65,7 @@ const useStyles = makeStyles((theme) => {
       width: "100%",
       fontFamily: "Poppins, sans-serif !important",
       fontWeight: "300",
-      lineHeight: "26px",
+      lineHeight: "20px",
     },
     forgotPassword: {
       fontFamily: "Poppins, sans-serif !important",
@@ -104,11 +103,11 @@ const useStyles = makeStyles((theme) => {
       flexDirection: "column", 
       alignItems: "center",
       justifyContent: "center",
-      marginBottom: 5,
+      marginBottom: 15,
       alignSelf: 'center'
   },
   header: {
-    marginTop: 20,
+    marginTop: 5,
   },
   changeState:{
     width: "100%",
@@ -149,8 +148,16 @@ const useStyles = makeStyles((theme) => {
      gridTemplateColumns: "50%  50%",
      columnGap: "20px",
      fontSize: "13px",
-     fontFamily: "Poppins, sans-serif"
+     fontFamily: "Poppins, sans-serif",
 
+     [theme.breakpoints.down("xs")]:{
+       gridTemplateColumns: "100%",
+     }
+
+   }, 
+   backdrop:{
+     color: '#fff',
+     zIndex: theme.zIndex.drawer + 100
    }
 }});
 

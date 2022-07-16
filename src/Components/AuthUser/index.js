@@ -1,12 +1,14 @@
 import {
+  Backdrop,
   Button,
   Card,
+  CircularProgress,
   Container,
   Typography,
 } from "@material-ui/core";
 import useStyles from "./styles";
 import { Box } from "@material-ui/core";
-import { Auth, Hub } from "aws-amplify";
+import { Auth } from "aws-amplify";
 import React, { useEffect } from "react";
 import Divider from "@mui/material/Divider";
 import { useState } from "react";
@@ -17,9 +19,7 @@ import SignUp from "./signup";
 import ConfirmSignUp from "./confirmsignup";
 import ResetPassword from "./resetpassword";
 import ConfirmResetPassword from "./confirmresetpassword";
-
-
-const Login = () => {
+const AuthUser = () => {
   const initialFormState = {
     name: "",
     password: "",
@@ -36,14 +36,15 @@ const Login = () => {
     "Welcome back, You have been missed!"
   );
   const [validPasswordChecklist, SetValidPasswordChecklist] = useState(false)
-  console.log(validPasswordChecklist); 
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const [loading, setLoading] = useState(false); 
 
   const authenticate = async() => {
     const { name, email, password, code } = formState;
     let username = email; 
     if(areFieldsValid()){
+      setLoading(true)
       try {
         if (formType === "Sign In") {
           await Auth.signIn({ username, password });
@@ -51,23 +52,29 @@ const Login = () => {
         } else if (formType === "Sign Up") {
            await Auth.signUp({username, password, attributes: { email, name } });
            setFormType( "Confirm Sign Up" );
+           setSuccess("Auth code successfully sent to your email")
         } else if (formType === "Confirm Sign Up") {
-          setSuccess("Auth code successfully sent to your email")
           await Auth.confirmSignUp(username, code );
           setFormType( "Sign In" );
+          setSuccess("Successfully signed up, sign in!")
         } else if (formType === "Reset Password") {
           await Auth.forgotPassword(username)
-          setFormType("Confirm Reset Password" );
-        }else if (formType === "Confirm Reset Password"){
+          setFormType("Confirm Reset Password");
           setSuccess("Auth code successfully sent to your email")
+        }else if (formType === "Confirm Reset Password"){
           await Auth.forgotPasswordSubmit(username, code, password);
           setFormType( "Sign In" ); 
+          setSuccess("Successfully changed password, sign in!")
         }else if(formType === "SignedIn"){
 
         }
         setError("");
+        setLoading(false)
       } catch (exception_var) {
+        setSuccess(""); 
         setError(exception_var.message);
+        setLoading(false)
+
       }
 
     }
@@ -75,7 +82,7 @@ const Login = () => {
     };
 
   const forgotPassword =  () => {
-     updateFormState({ ...formState, formType: "Reset Password" });
+    setFormType("Reset Password");
 
    };
   const changeForm = () => {
@@ -101,8 +108,9 @@ const Login = () => {
   }
 
   const areFieldsValid = () => {
-    const { name, email, password, confirmPassword, code, passwordChecklistValid} = formState;
-    if (formType === "Sign Up") {
+    const { name, email, password, confirmPassword, code} = formState;
+    setSuccess("")
+     if (formType === "Sign Up") {
       if (
         name.length === 0 ||
         email.length === 0 ||
@@ -112,7 +120,7 @@ const Login = () => {
         setError("All fields should be filled");
         return false;
       } else if(!validPasswordChecklist) {
-        setError("The checklist is not satified");
+        setError("Password does not meet the requirements!");
         return false;
       }else{
         return true;
@@ -138,7 +146,7 @@ const Login = () => {
           confirmPassword.length === 0 || code.length === 0){
             setError("The fields can not be empty")
             return false
-        }else if(!passwordChecklistValid){
+        }else if(!validPasswordChecklist){
             setError("The password does not follow the checklist")
             return false
         }else{
@@ -179,27 +187,6 @@ const Login = () => {
     updateFormState(() => ({ ...formState, [e.target.name]: e.target.value }));
   };
 
-  const passwordCheck = (isValid) =>{
-    console.log(isValid)
-
-  }
-
-  const setAuthListener = async() => {
-      Hub.listen('auth', (data) =>{
-        switch (data.payload.event) {
-          case 'signUp':
-              setSuccess("You have successfully signed up, Sign in now")
-              break;
-          case 'signOut':
-              break; 
-          case 'signIn': 
-              break;
-          default : 
-
-      }
-      })
-  }
-
 
   useEffect(() => {
     if (formType === "Sign Up") {
@@ -209,16 +196,16 @@ const Login = () => {
     } else {
       SetSubtitle("Welcome back, You have been missed!");
     }
-    setAuthListener()
 
   }, [formType]);
 
   return (
     <Container className={classes.container}>
+   
       <Card className={classes.card}>
         <Box className={classes.header}>
           <Typography
-            variant="h4"
+            variant="h5"
             color="secondary"
             className={classes.formType}
           >
@@ -236,6 +223,7 @@ const Login = () => {
           <Button
             variant="outlined"
             className={classes.googleAuthenticateButton}
+            onClick={() => Auth.federatedSignIn({provider: "Google"})}
           >
             Sign In with Google
           </Button>
@@ -253,7 +241,7 @@ const Login = () => {
           <ConfirmSignUp formState={formState} onChange={onChange}/>
         )}
         {formType === "Reset Password" && (
-         <ResetPassword formState={formState}/>
+         <ResetPassword onChange={onChange}/>
         )}
         {formType === "Confirm Reset Password" && (
          <ConfirmResetPassword formState={formState} onChange={onChange}  handleClickShowConfirmPassword={handleClickShowConfirmPassword} handleClickShowPassword={handleClickShowPassword} handleMouseDownPassword={handleMouseDownPassword}/>
@@ -320,7 +308,7 @@ const Login = () => {
               </Button>
             </Box>
           )}
-          {formType === "Reset Password" && (
+          {(formType === "Reset Password" || formType === "Confirm Reset Password") && (
             <Box component="" className={classes.changeState}>
               Remember your password?
               <Button
@@ -334,8 +322,14 @@ const Login = () => {
           )}
         </Box>
       </Card>
+      <Backdrop
+        className={classes.backdrop}
+        open={loading}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </Container>
   );
 };
 
-export default Login;
+export default AuthUser;

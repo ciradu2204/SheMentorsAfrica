@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Navbar from "../../Navbar";
 import Box from "@material-ui/core/Box";
-import { Container, IconButton, Typography } from "@material-ui/core";
+import {Container, IconButton, Typography } from "@material-ui/core";
 import useStyles from "./unauthLayoutStyle";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
@@ -108,6 +108,7 @@ export default function AnauthLayout({ children, open }) {
 
   return (
     <div className={classes.parent}>
+     
       <Navbar  pages={pages.slice(0, 4)} />
 
       <Container className={classes.container} maxWidth={false} disableGutters>
