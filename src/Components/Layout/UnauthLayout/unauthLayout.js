@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Navbar from "../../Navbar";
 import Box from "@material-ui/core/Box";
-import {Container, IconButton, Typography } from "@material-ui/core";
+import { Container, IconButton, Typography } from "@material-ui/core";
 import useStyles from "./unauthLayoutStyle";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
@@ -12,6 +12,8 @@ import VerticalSlider from "../../Vertical-slider";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import NavigateNext from "@material-ui/icons/NavigateNext";
+import { Outlet } from "react-router-dom";
+import { motion } from "framer-motion";
 
 import NavigateBefore from "@material-ui/icons/NavigateBefore";
 
@@ -37,13 +39,11 @@ const pages = [
     path: "/testimony",
   },
   {
-    id: 4, 
-    text: "LOGIN", 
-    path: "/login"
-  }
+    id: 4,
+    text: "LOGIN",
+    path: "/login",
+  },
 ];
-
- 
 
 const partners = [
   {
@@ -79,7 +79,30 @@ const ButtonMailto = ({ mailto, ...props }) => {
   );
 };
 
-export default function AnauthLayout({ children, open }) {
+const pageVariants = {
+  initial: {
+    opacity: 0,
+    transform: "translate(0, -10%)"
+  },
+  in: {
+    opacity: 1,
+    transform: "translate(0, 0%)"
+
+  },
+  out: {
+    opacity: 0,
+    transform: "translate(0, 10%)"
+
+  },
+};
+ 
+const pageTransition = {
+  type: "tween",
+  ease: "linear",
+  duration: 1,
+};
+
+export default function UnauthLayout() {
   const location = useLocation();
   const [countStart, SetCounterStart] = useState(0);
   const [countEnd, SetCounterEnd] = useState(pages.length - 1);
@@ -108,11 +131,21 @@ export default function AnauthLayout({ children, open }) {
 
   return (
     <div className={classes.parent}>
-     
-      <Navbar  pages={pages.slice(0, 4)} />
+      <Navbar pages={pages.slice(0, 4)} />
 
       <Container className={classes.container} maxWidth={false} disableGutters>
-        <Box className={classes.childrenBox}>{children}</Box>
+        <Box className={classes.childrenBox}>
+          <motion.div
+            key={location.pathname}
+            initial="initial"
+            animate="in"
+            style={{height: "100%"}}
+            variants={pageVariants}
+            transition={pageTransition}
+          >
+            <Outlet />
+          </motion.div>
+        </Box>
         <VerticalSlider pages={pages} className={classes.verticalSlider} />
       </Container>
 

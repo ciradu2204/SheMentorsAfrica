@@ -19,6 +19,8 @@ import SignUp from "./signup";
 import ConfirmSignUp from "./confirmsignup";
 import ResetPassword from "./resetpassword";
 import ConfirmResetPassword from "./confirmresetpassword";
+import { useNavigate } from "react-router-dom";
+
 const AuthUser = () => {
   const initialFormState = {
     name: "",
@@ -29,6 +31,7 @@ const AuthUser = () => {
     showPassword: false,
     showConfirmPassword: false,
   };
+  const navigate = useNavigate(); 
   const [formState, updateFormState] = useState(initialFormState);
   const classes = useStyles();
   const [formType, setFormType] = useState("Sign In")
@@ -66,7 +69,7 @@ const AuthUser = () => {
           setFormType( "Sign In" ); 
           setSuccess("Successfully changed password, sign in!")
         }else if(formType === "SignedIn"){
-
+         // navigate("/dasboard")
         }
         setError("");
         setLoading(false)
