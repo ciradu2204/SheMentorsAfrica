@@ -10,6 +10,8 @@ const useStyles = makeStyles((theme) => {
     },
     container: {
       display: "flex",
+      maxWidth: "none !important",
+      padding: "unset !important",
       flexDirection: "row",
       width: "100%",
       flexGrow: 2,

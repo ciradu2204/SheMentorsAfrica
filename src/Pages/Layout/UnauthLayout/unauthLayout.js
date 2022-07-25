@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import Navbar from "../../Navbar";
+import Navbar from "../../../Components/Navbar";
 import Box from "@material-ui/core/Box";
 import { Container, IconButton, Typography } from "@material-ui/core";
 import useStyles from "./unauthLayoutStyle";
@@ -44,6 +44,11 @@ const pages = [
     path: "/login",
   },
 ];
+
+const settings  = [];
+
+
+
 
 const partners = [
   {
@@ -127,13 +132,14 @@ export default function UnauthLayout() {
     }
   }, []);
 
+
   const classes = useStyles();
 
   return (
     <div className={classes.parent}>
-      <Navbar pages={pages.slice(0, 4)} />
+      <Navbar pages={pages.slice(0, 4)} settings={settings} />
 
-      <Container className={classes.container} maxWidth={false} disableGutters>
+      <Container className={classes.container} disableGutters>
         <Box className={classes.childrenBox}>
           <motion.div
             key={location.pathname}
@@ -170,6 +176,7 @@ export default function UnauthLayout() {
                 .map((partner, index) => {
                   return (
                     <Box
+                      key={index}
                       className={classes.partner}
                       component="img"
                       alt={partner.alt}

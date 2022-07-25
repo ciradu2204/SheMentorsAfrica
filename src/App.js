@@ -1,15 +1,15 @@
 import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import "./index.css";
-import UnauthLayout from "./Components/Layout/UnauthLayout/unauthLayout";
-import Home from "./Components/Home";
+import UnauthLayout from "./Pages/Layout/UnauthLayout/unauthLayout";
+import Home from "./Pages/Home";
 import { createTheme, ThemeProvider } from "@material-ui/core";
-import AboutUs from "./Components/AboutUs";
-import FAQs from "./Components/Faqs";
+import AboutUs from "./Pages/AboutUs";
+import FAQs from "./Pages/Faqs";
 import { Auth } from "aws-amplify";
-import Testimony from "./Components/Testimony";
-import AuthUser from "./Components/AuthUser";
-import AuthLayout from "./Components/Layout/AuthLayout/authLayout";
+import Testimony from "./Pages/Testimony";
+import AuthUser from "./Pages/AuthUser";
+import AuthLayout from "./Pages/Layout/AuthLayout/authLayout";
 import { useEffect, useState } from "react";
 import { Dashboard } from "@material-ui/icons";
 
@@ -29,32 +29,33 @@ const theme = createTheme({
 
 function App() {
   const [user, setUser] = useState(null);
-  const checkUser = async () => {
+  console.log(user); 
+  const checkUser = async() => {
     try {
       const currentUser = await Auth.currentAuthenticatedUser();
-      currentUser && setUser(currentUser);
+      currentUser? setUser(currentUser): setUser(null);
     } catch (error) {
       setUser(null);
     }
   };
- 
 
   useEffect(() => {
+
     checkUser();
   }, []);
 
   return (
     <ThemeProvider theme={theme}>
       <Routes >
-        <Route path="/" element={<UnauthLayout />}>
+        <Route element={<UnauthLayout user={{user}} />}>
           <Route exact path="/" element={<Home />} />
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/faqs" element={<FAQs />} />
           <Route path="/testimony" element={<Testimony />} />
           <Route path="/login" element={<AuthUser />} />
         </Route>
-        <Route path="/dashboard" element={<AuthLayout />}>
-          <Route exact path="/dashboard" element={<Dashboard />} />
+        <Route  element={<AuthLayout user={user}/>}>
+          <Route exact path="/dashboard" element={<Dashboard/>} />
         </Route>
       </Routes>
     </ThemeProvider>

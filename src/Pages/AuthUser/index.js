@@ -51,7 +51,7 @@ const AuthUser = () => {
       try {
         if (formType === "Sign In") {
           await Auth.signIn({ username, password });
-          setFormType("SignedIn");
+          navigate("/dashboard")
         } else if (formType === "Sign Up") {
            await Auth.signUp({username, password, attributes: { email, name } });
            setFormType( "Confirm Sign Up" );
@@ -68,8 +68,6 @@ const AuthUser = () => {
           await Auth.forgotPasswordSubmit(username, code, password);
           setFormType( "Sign In" ); 
           setSuccess("Successfully changed password, sign in!")
-        }else if(formType === "SignedIn"){
-         // navigate("/dasboard")
         }
         setError("");
         setLoading(false)

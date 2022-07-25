@@ -15,7 +15,7 @@ const useStyles = makeStyles((theme) => {
       width: "100%",
       backgroundImage: "url(https://shementorsafrica-img.s3.amazonaws.com/AboutUs.png) ",
       backgroundRepeat: "no-repeat",
-      backgroundPosition: "0% 0%",
+      backgroundPosition: "0% 50%",
       backgroundSize: "auto 250px",
       alignItems: "center !important",
       "& :nth-child(3)": {

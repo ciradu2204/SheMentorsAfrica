@@ -14,7 +14,7 @@ const useStyles = makeStyles((theme) =>{
              backgroundImage: "url(https://shementorsafrica-img.s3.amazonaws.com/auth-sample2.png)",
              backgroundRepeat: "no-repeat",
              backgroundSize: "auto 250px",
-             backgroundPosition: "left top",
+             backgroundPosition: "0% 50%",
             gap: "12%",
             [theme.breakpoints.down("sm")]:{
                 gap: "2%",

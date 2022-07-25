@@ -2,53 +2,76 @@ import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => {
   return {
-    logoMd: {
-      width: "20%",
-      [theme.breakpoints.up("sm")]: {
-        display: "block",
-      },
+    logoMdContainer: {
+      display: "flex",
+      flexBasis: "200px",
+      padding: "10px",
+      maxWidth: "200px",
+      flex: 1,
+      alignItems: "center",
+      justifyContent: "center",
       [theme.breakpoints.down("sm")]: {
-        display: "none",
+        display: "none !important",
+      },
+    },
+    logoMd: {
+      width: "100%",
+      [theme.breakpoints.down("sm")]: {
+        display: "none !important",
+      },
+    },
+    logoSmContainer: {
+      [theme.breakpoints.up("sm")]: {
+        display: "none !important",
       },
     },
     logoSm: {
-      width: "20%",
+      flex: 1,
       [theme.breakpoints.up("sm")]: {
-        display: "none",
-      },
-      [theme.breakpoints.down("sm")]: {
-        display: "block",
+        display: "none !important",
       },
     },
     appBar: {
       background: "none !important",
       boxShadow: "none !important",
     },
+    container: {
+      maxWidth: "none !important",
+      padding: "unset !important",
+    },
     toolbar: {
       justifyContent: "space-between",
     },
+    nonMobileContainer: {
+      display: "flex",
+      flexDirection: "row",
+      width: "100%",
+      height: "100px",
+      [theme.breakpoints.down("sm")]: {
+        display: "none",
+      },
+    },
     linksContainer: {
       display: "flex",
-      alignItems: "end",
-      width: "45%",
-
-      [theme.breakpoints.down("lg")]: {
-        width: "58%",
-      },
+      justifyContent: "center",
+      flexDirection: "row",
+      alignItems: "flex-end",
+      flexGrow: 3,
+    },
+    links: {
+      display: "flex",
+      width: "70%",
+      gap: "2%",
+      justifyContent: "center",
       [theme.breakpoints.down("md")]: {
-        width: "72%",
-      },
-      [theme.breakpoints.down("sm")]: {
-        width: "80%",
-      },
+        display: "1%",
+        width: "90%",
 
-      [theme.breakpoints.down("xs")]: {
-        display: "none",
       },
     },
     menuItem: {
       [theme.breakpoints.up("xs")]: {
-        display: "none",
+        display: "none !important",
       },
       [theme.breakpoints.down("xs")]: {
         display: "block",
@@ -61,25 +84,34 @@ const useStyles = makeStyles((theme) => {
         borderRadius: 0,
       },
     },
-    links: {
-      width: "100%",
-      display: "flex",
-    },
 
     link: {
       color: "inherit",
       cursor: "pointer",
-      justifyContent: "center !important",
+      position: "relative",
+      display: "inline-block",
       fontFamily: "Poppins, sans-serif !important",
-      fontWeight: "500",
+      fontWeight: "650",
       fontSize: "15px",
+      textAlign: "center !important",
       lineHeight: "20px",
       letterSpacing: "0.15em",
-      "&:hover": {
-        color: theme.palette.primary.main,
+      "&:after": {
+        content: '""',
+        position: "absolute",
+        left: "0",
+        top: "100%",
+        width: "0%",
+        height: "2px",
+        margin: "auto",
+        backgroundColor: theme.palette.primary.main,
+        transition: "width .3s ease-in-out",
       },
-      "&.active": {
-        color: theme.palette.primary.main,
+      "&:hover:after": {
+        width: "100%",
+      },
+      "&.active:after": {
+        width: "100%",
       },
       [theme.breakpoints.down("sm")]: {
         fontSize: "11px",
@@ -88,53 +120,72 @@ const useStyles = makeStyles((theme) => {
         fontSize: "15px",
       },
     },
-    linksMobContainer:{
+    user: {
       display: "flex", 
-      flexDirection: "column"
+    },
+
+    AuthButtonBox: {
+      flexGrow: 1,
+      maxWidth: "200px",
+      flexBasis: "200px",
+      textAlign: "center",
+      display: "flex",
+      alignItems: "center",
+      justifyContent: "center",
+      [theme.breakpoints.down("sm")]:{
+        flexBasis: "unset !important", 
+        alignItems: "flex-end",
+        width: "100% !important",
+        maxWidth: "unset !important",
+        justifyContent: "unset",
+
+
+      }
+    },
+
+    authButton: {
+      width: "50% !important",
+      background: `${theme.palette.primary.main} !important`,
+      color: theme.palette.common.white,
+      boxShadow:"0px 3px 1px -2px rgb(0 0 0 / 5%), 0px 2px 2px 0px rgb(0 0 0 / 5%), 0px 1px 5px 0px rgb(0 0 0 / 5%)",
+      "&:hover": {
+        background: theme.palette.primary.main,
+        boxShadow:
+          "0px 3px 1px -2px rgb(0 0 0 / 5%), 0px 2px 2px 0px rgb(0 0 0 / 5%), 0px 1px 5px 0px rgb(0 0 0 / 5%)",
+        backgroundColor: theme.palette.common.white,
+        color: theme.palette.primary.main,
+        border: `1px solid ${theme.palette.primary.main} !important`,
+      },
+      [theme.breakpoints.down("sm")]: {
+        backgroundColor: theme.palette.primary.main,
+        width: "100% !important",
+      },
+    },
+
+    linksMobContainer: {
+      display: "flex",
+      flexDirection: "column",
     },
     linksMob: {
       paddingTop: 10,
-      
-
     },
     linkMob: {
-      fontWeight: "500",
+      fontWeight: "650",
       fontFamily: "Poppins, sans-serif !important",
       fontSize: "15px",
       lineHeight: "30px",
       letterSpacing: "0.15em",
       justifyContent: "center !important",
       paddingTop: 30,
-      color: theme.palette.common.white,
     },
 
-    signinButton:{
-     width: "400px !important",
-     background: theme.palette.primary.main,
-     color: theme.palette.common.white,
-     boxShadow: "0px 3px 1px -2px rgb(0 0 0 / 5%), 0px 2px 2px 0px rgb(0 0 0 / 5%), 0px 1px 5px 0px rgb(0 0 0 / 5%)",
-     "&:hover":{
-      background: theme.palette.primary.main,
-      boxShadow: "0px 3px 1px -2px rgb(0 0 0 / 5%), 0px 2px 2px 0px rgb(0 0 0 / 5%), 0px 1px 5px 0px rgb(0 0 0 / 5%)",
-      backgroundColor: theme.palette.common.white,
-      color: theme.palette.primary.main,
-      border: `1px solid ${theme.palette.primary.main} !important`,
-     },
-     [theme.breakpoints.down("sm")]:{
-           width: "60% !important",
-           alignSelf: "center"
-           
-     }
-    },
+
 
     drawer: {
       "& .MuiDrawer-paper": {
         boxSizing: "border-box",
         width: 240,
       },
-    },
-    paper: {
-      backgroundColor: theme.palette.secondary.main,
     },
     alignRight: {
       justifyContent: "flex-end",
@@ -144,8 +195,7 @@ const useStyles = makeStyles((theme) => {
     },
     cancelIcon: {
       display: "flex",
-      color: "white",
-      backgroundColor: "none",
+       backgroundColor: "none",
       justifyContent: "flex-end !important",
       marginX: 10,
       "&:hover": {

@@ -12,7 +12,7 @@ const useStyles = makeStyles((theme) => {
       maxWidth: "unset !important", 
       padding: "none",
       backgroundSize: "auto 250px",
-      backgroundPosition: "left top",
+      backgroundPosition: "0% 50%",
     },
     card: {
       width: "45%",
