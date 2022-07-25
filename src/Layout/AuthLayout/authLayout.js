@@ -1,4 +1,4 @@
-import { Navigate, Outlet} from "react-router-dom";
+import { Navigate} from "react-router-dom";
 import { Container } from "@material-ui/core";
  import Navbar from "../../../Components/Navbar";
 import useStyles from "./authLayoutStyles";

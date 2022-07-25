@@ -8,7 +8,7 @@ import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import { useLocation } from "react-router-dom";
-import VerticalSlider from "../../Vertical-slider";
+import VerticalSlider from "../../../Components/Vertical-slider";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import NavigateNext from "@material-ui/icons/NavigateNext";
