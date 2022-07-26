@@ -4,7 +4,6 @@ const useStyles = makeStyles((theme) => {
   return {
     selectors: {
       display: "flex",
-      //height: "100%" ,
       flexDirection: "column",
       justifyContent: "center",
       flexGrow: 1,

@@ -4,6 +4,7 @@ const useStyles = makeStyles((theme) => {
   return {
     logoMdContainer: {
       display: "flex",
+      cursor: "pointer", 
       flexBasis: "200px",
       padding: "10px",
       maxWidth: "200px",
@@ -27,6 +28,7 @@ const useStyles = makeStyles((theme) => {
     },
     logoSm: {
       flex: 1,
+      cursor: "pointer", 
       [theme.breakpoints.up("sm")]: {
         display: "none !important",
       },
@@ -92,7 +94,7 @@ const useStyles = makeStyles((theme) => {
       display: "inline-block",
       fontFamily: "Poppins, sans-serif !important",
       fontWeight: "650",
-      fontSize: "15px",
+      fontSize: "13px",
       textAlign: "center !important",
       lineHeight: "20px",
       letterSpacing: "0.15em",
@@ -122,7 +124,19 @@ const useStyles = makeStyles((theme) => {
     },
     user: {
       display: "flex", 
+      alignItems: "center",
     },
+    avatar:{
+
+    }, 
+    dropdownIcon:{
+      marginTop: "20px",
+      color: theme.palette.primary.main,
+      "&:hover":{
+        background: "none !important", 
+        borderRadius: "unset !important",
+      }
+    }, 
 
     AuthButtonBox: {
       flexGrow: 1,
@@ -152,8 +166,8 @@ const useStyles = makeStyles((theme) => {
         background: theme.palette.primary.main,
         boxShadow:
           "0px 3px 1px -2px rgb(0 0 0 / 5%), 0px 2px 2px 0px rgb(0 0 0 / 5%), 0px 1px 5px 0px rgb(0 0 0 / 5%)",
-        backgroundColor: theme.palette.common.white,
-        color: theme.palette.primary.main,
+        backgroundColor: ` ${theme.palette.common.white} !important`,
+        color: `${theme.palette.common.black} !important`,
         border: `1px solid ${theme.palette.primary.main} !important`,
       },
       [theme.breakpoints.down("sm")]: {
@@ -214,6 +228,7 @@ const useStyles = makeStyles((theme) => {
         alignSelf: "center",
       },
     },
+  
   };
 });
 

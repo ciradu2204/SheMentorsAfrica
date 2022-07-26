@@ -111,6 +111,13 @@ const useStyles = makeStyles((theme) => {
       [theme.breakpoints.up("md")]:{
        display: "none",
       }
+    },
+    loading:{
+     display: "flex",
+     justifyContent: "center", 
+     alignItems:"center", 
+     width: "100% !important", 
+     height: "100vh !important"
     }
   };
 });

@@ -1,5 +1,14 @@
 import * as React from "react";
-import { AppBar, Avatar, Button, Divider, MenuItem, Toolbar, Typography } from "@material-ui/core";
+import {
+  AppBar,
+  Avatar,
+  Button,
+  Divider,
+  ListItemIcon,
+  MenuItem,
+  Toolbar,
+  Typography,
+} from "@material-ui/core";
 import { Container } from "@material-ui/core";
 import { Box } from "@material-ui/core";
 import useStyles from "./styles";
@@ -7,37 +16,50 @@ import List from "@material-ui/core/List";
 import { ListItem } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import { Drawer } from "@material-ui/core";
-import { NavLink, useLocation } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
+import MenuIcon from "@material-ui/icons/Menu";
 import Menu from "@material-ui/core/Menu";
 import Cancel from "@material-ui/icons/Cancel";
-import ArrowDropDown from '@material-ui/icons/ArrowDropDown';
-const Navbar = ({user, pages, settings, ...props}) => {
+import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
+import { Auth } from "aws-amplify";
+
+const Navbar = ({ user, pages, settings, ...props }) => {
   const classes = useStyles();
   const { window } = props;
-  const location = useLocation();
   const container =
     window !== undefined ? () => window().document.body : undefined;
   const [mobileOpen, setMobileOpen] = React.useState(false);
-  const [anchorEl, setAnchorEl] = React.useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const  navigate = useNavigate()
+  const ref = React.useRef();
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
   const handleCloseDrawer = () => {
     setMobileOpen(false);
   };
-  const handleCloseSettingsMenu = () => {
-    setAnchorEl(false);
+  const handleCloseSettingsMenu = (e) => {
+    setAnchorEl(null);
   };
-  const openSettingsMenu = () =>{
-    setAnchorEl(true)
-  }
+
+  const logoutUser = async() => {
+    await Auth.signOut();
+    navigate("/login")
+  };
+  const openSettingsMenu = () => {
+    setAnchorEl(ref.current);
+  };
+
+  // React.useEffect(() => {
+  //   setAnchorEl(ref.current);
+  // }, [ref]);
 
   return (
     <AppBar position="static" className={classes.appBar}>
       <Container className={classes.container}>
         <Toolbar className={classes.toolbar} disableGutters>
-          <Box className={classes.logoSmContainer}>
+          <Box className={classes.logoSmContainer} component={NavLink} to="/">
             <Box
               className={classes.logoSm}
               component="img"
@@ -46,7 +68,7 @@ const Navbar = ({user, pages, settings, ...props}) => {
             />
           </Box>
           <Box className={classes.nonMobileContainer}>
-            <Box className={classes.logoMdContainer}>
+            <Box className={classes.logoMdContainer} component={NavLink} to="/">
               <Box
                 className={classes.logoMd}
                 component="img"
@@ -70,22 +92,26 @@ const Navbar = ({user, pages, settings, ...props}) => {
                 ))}
               </List>
             </Box>
-              {user?(
-               <Box className={classes.user}>
+            {user !== null ? (
+              <Box className={classes.user}>
                 <Avatar
-                  className={classes.purple}
+                  className={classes.avatar}
                   alt={user.attributes.name}
-                 // src={user.attributes.imageUrl}
+                  // src={user.attributes.imageUrl}
                 >
                   {user.attributes.name.charAt(0)}
                 </Avatar>
 
-                <IconButton arial-label="dropdown" onClick={openSettingsMenu}>
-                 <ArrowDropDown/>
+                <IconButton
+                  ref={ref}
+                  onClick={openSettingsMenu}
+                  className={classes.dropdownIcon}
+                >
+                  <ArrowDropDown />
                 </IconButton>
-                </Box>
-              ) : (
-                <Box component="div" className={classes.AuthButtonBox}>
+              </Box>
+            ) : (
+              <Box component="div" className={classes.AuthButtonBox}>
                 <Button
                   variant="contained"
                   size="large"
@@ -95,33 +121,41 @@ const Navbar = ({user, pages, settings, ...props}) => {
                 >
                   LOGIN
                 </Button>
-                </Box>
-
-              )}
-              <Menu
-              sx={{ mt: '45px' }}
-              id="menu-appbar"
-              // anchorEl={anchorEl}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={anchorEl}
+              </Box>
+            )}
+            <Menu
+              id="fade-menu"
+              open={Boolean(anchorEl)}
               onClose={handleCloseSettingsMenu}
+              anchorEl={anchorEl}
+              keepmounted="true"
             >
-              {settings.map((setting, index) => (
-                <MenuItem key={index} onClick={handleCloseSettingsMenu}>
-                  <Typography textAlign="center">{setting.text}</Typography>
-                </MenuItem>
-              ))}
+              {settings.map((setting, index) =>
+                setting.path === "/login" ? (
+                  <MenuItem
+                    component={NavLink}
+                    to={setting.path}
+                    key={index}
+                    onClick={logoutUser}
+                  >
+                    <ListItemIcon>{setting.icon}</ListItemIcon>
+                    <Typography textalign="center">{setting.text}</Typography>
+                  </MenuItem>
+                ) : (
+                  <MenuItem
+                    component={NavLink}
+                    to={setting.path}
+                    key={index}
+                    onClick={handleCloseSettingsMenu}
+                  >
+                    <ListItemIcon>{setting.icon}</ListItemIcon>
+                    <Typography textalign="center">{setting.text}</Typography>
+                  </MenuItem>
+                )
+              )}
             </Menu>
-            </Box>
-          
+          </Box>
+
           <Box className={classes.menuItem}>
             <IconButton
               size="medium"
@@ -131,7 +165,7 @@ const Navbar = ({user, pages, settings, ...props}) => {
               onClick={handleDrawerToggle}
               className={classes.menuIcon}
             >
-              <Menu />
+              <MenuIcon />
             </IconButton>
 
             <Drawer
@@ -160,9 +194,8 @@ const Navbar = ({user, pages, settings, ...props}) => {
               <Box className={classes.linksMobContainer}>
                 <List className={classes.linksMob} alt="Links">
                   {pages.map((page, index) => (
-                    <div>
+                    <div key={index}>
                       <ListItem
-                        key={index}
                         component={NavLink}
                         exact="true"
                         to={page.path}

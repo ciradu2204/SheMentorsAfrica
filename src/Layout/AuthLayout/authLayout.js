@@ -1,7 +1,12 @@
 import { Navigate} from "react-router-dom";
 import { Container } from "@material-ui/core";
- import Navbar from "../../../Components/Navbar";
+ import Navbar from "../../Components/Navbar";
 import useStyles from "./authLayoutStyles";
+import LogoutIcon from '@material-ui/icons/ExitToApp';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
+import CircularProgress from "@material-ui/core/CircularProgress";
+import Box from '@material-ui/core/Box'
+import { useEffect } from "react";
 const pages = [
     {
       text: "DASHBOARD",
@@ -27,25 +32,35 @@ const pages = [
 
   const settings = [
     {
-        text: "Profile",
-        path: "/profile",
-      },
-      {
-        text: "Logout",
-        path: "/logout",
-      },
+      text: "Profile",
+      path: "/profile",
+      icon: <AccountCircleIcon/>
+    },
+    {
+      text: "Logout",
+      path: "/login",
+      icon: <LogoutIcon/>
+
+    },
   ]
-export default function AuthLayout({ user}) {
+export default function AuthLayout({user, loading}) {
   const classes = useStyles();
-  return user ? (
+ console.log(loading);
+
+  
+  return loading? ( 
+      <Box className={classes.loading}> 
+          <CircularProgress/>
+      </Box>
+  ): user !== null?(
     <Container className={classes.container}>
-      <Navbar pages={pages} settings={settings} user={user}/> 
+      <Navbar user={user} pages={pages} settings={settings} /> 
       {/* <Box>
         <Outlet/>
       </Box> */}
     
     </Container>
-  ) : (
+  ):(
     <Navigate to="/login" />
   );
-}
+};

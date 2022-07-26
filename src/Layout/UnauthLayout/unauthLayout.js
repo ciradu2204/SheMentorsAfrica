@@ -1,19 +1,22 @@
 import React, { useEffect } from "react";
-import Navbar from "../../../Components/Navbar";
+import Navbar from "../../Components/Navbar";
 import Box from "@material-ui/core/Box";
-import { Container, IconButton, Typography } from "@material-ui/core";
+import { CircularProgress, Container, IconButton, Typography } from "@material-ui/core";
 import useStyles from "./unauthLayoutStyle";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
 import FacebookIcon from "@material-ui/icons/Facebook";
 import InstagramIcon from "@material-ui/icons/Instagram";
 import { useLocation } from "react-router-dom";
-import VerticalSlider from "../../../Components/Vertical-slider";
+import VerticalSlider from "../../Components/Vertical-slider";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import NavigateNext from "@material-ui/icons/NavigateNext";
 import { Outlet } from "react-router-dom";
 import { motion } from "framer-motion";
+import HomeIcon from '@material-ui/icons/Home';
+import LogoutIcon from '@material-ui/icons/ExitToApp';
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 import NavigateBefore from "@material-ui/icons/NavigateBefore";
 
@@ -45,7 +48,6 @@ const pages = [
   },
 ];
 
-const settings  = [];
 
 
 
@@ -69,6 +71,25 @@ const partners = [
     link: "https://shementorsafrica-img.s3.amazonaws.com/akirachix.png",
   },
 ];
+
+const settings = [
+  {
+    text: "Home",
+    path: "/dashboard",
+    icon: <HomeIcon/>,
+  },
+  {
+      text: "Profile",
+      path: "/profile",
+      icon: <AccountCircleIcon/>
+    },
+    {
+      text: "Logout",
+      path: "/login",
+      icon: <LogoutIcon/>
+
+    },
+]
 
 const ButtonMailto = ({ mailto, ...props }) => {
   return (
@@ -107,11 +128,10 @@ const pageTransition = {
   duration: 1,
 };
 
-export default function UnauthLayout() {
+export default function UnauthLayout({user, loading}) {
   const location = useLocation();
   const [countStart, SetCounterStart] = useState(0);
   const [countEnd, SetCounterEnd] = useState(pages.length - 1);
-
   const handlePrev = () => {
     if (countStart > 0) {
       SetCounterStart((prev) => prev - 1);
@@ -136,8 +156,12 @@ export default function UnauthLayout() {
   const classes = useStyles();
 
   return (
-    <div className={classes.parent}>
-      <Navbar pages={pages.slice(0, 4)} settings={settings} />
+    loading? 
+      (<Box className={classes.loading}> 
+          <CircularProgress/>
+      </Box>)
+    : (<div className={classes.parent}>
+      <Navbar  user={user} pages={pages.slice(0, 4)} settings={settings} />
 
       <Container className={classes.container} disableGutters>
         <Box className={classes.childrenBox}>
@@ -152,7 +176,7 @@ export default function UnauthLayout() {
             <Outlet />
           </motion.div>
         </Box>
-        <VerticalSlider pages={pages} className={classes.verticalSlider} />
+        <VerticalSlider pages={pages} className={classes.verticalSlider}  />
       </Container>
 
       {location.pathname === pages[1].path ? (
@@ -246,6 +270,6 @@ export default function UnauthLayout() {
           </Box>
         </Box>
       ) : null}
-    </div>
+    </div>)
   );
 }

@@ -66,11 +66,10 @@
     },
     "breakCircularDependency": true,
     "dependsOn": [],
-    "hostedUIProviderCreds": "[]",
-    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/dashboard/\"],\"LogoutURLs\":[\"http://localhost:3000/\"]}",
     "parentStack": {
       "Ref": "AWS::StackId"
     },
-    "permissions": []
+    "permissions": [],
+    "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/dashboard/\"],\"LogoutURLs\":[\"http://localhost:3000/\"]}"
   }
 }

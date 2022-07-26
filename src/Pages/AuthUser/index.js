@@ -57,7 +57,7 @@ const AuthUser = () => {
            setFormType( "Confirm Sign Up" );
            setSuccess("Auth code successfully sent to your email")
         } else if (formType === "Confirm Sign Up") {
-          await Auth.confirmSignUp(username, code );
+          await Auth.confirmSignUp(username, code);
           setFormType( "Sign In" );
           setSuccess("Successfully signed up, sign in!")
         } else if (formType === "Reset Password") {
@@ -73,7 +73,13 @@ const AuthUser = () => {
         setLoading(false)
       } catch (exception_var) {
         setSuccess(""); 
-        setError(exception_var.message);
+        if(exception_var.message === "User is not confirmed."){
+          setFormType( "Confirm Sign Up" ); 
+          setError("You have not confirmed your email yet");
+          resendConfirmationCode()
+        }else{
+          setError(exception_var.message);
+        }
         setLoading(false)
 
       }
@@ -184,6 +190,10 @@ const AuthUser = () => {
       event.preventDefault();
     }
   };
+
+  const googleAuthenticate = async() =>{
+    await Auth.federatedSignIn({provider: "Google"})
+  }
   const onChange = (e) => {
     updateFormState(() => ({ ...formState, [e.target.name]: e.target.value }));
   };
@@ -224,7 +234,7 @@ const AuthUser = () => {
           <Button
             variant="outlined"
             className={classes.googleAuthenticateButton}
-            onClick={() => Auth.federatedSignIn({provider: "Google"})}
+            onClick={googleAuthenticate}
           >
             Sign In with Google
           </Button>

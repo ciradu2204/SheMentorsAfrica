@@ -4,7 +4,14 @@ const useStyles = makeStyles((theme) => {
        container:{
           maxWidth: "none !important",
           padding: "unset !important"
-        }
+        }, 
+        loading:{
+            display: "flex",
+            justifyContent: "center", 
+            alignItems:"center", 
+            width: "100% !important", 
+            height: "100vh !important"
+           }
 
     }
 
