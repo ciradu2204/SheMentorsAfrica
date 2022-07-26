@@ -1,8 +1,6 @@
 import {
-  Backdrop,
   Button,
   Card,
-  CircularProgress,
   Container,
   Typography,
 } from "@material-ui/core";
@@ -19,9 +17,8 @@ import SignUp from "./signup";
 import ConfirmSignUp from "./confirmsignup";
 import ResetPassword from "./resetpassword";
 import ConfirmResetPassword from "./confirmresetpassword";
-import { useNavigate } from "react-router-dom";
 
-const AuthUser = () => {
+const AuthUser = ({checkUser, setBackdropOpen}) => {
   const initialFormState = {
     name: "",
     password: "",
@@ -31,7 +28,6 @@ const AuthUser = () => {
     showPassword: false,
     showConfirmPassword: false,
   };
-  const navigate = useNavigate(); 
   const [formState, updateFormState] = useState(initialFormState);
   const classes = useStyles();
   const [formType, setFormType] = useState("Sign In")
@@ -41,17 +37,16 @@ const AuthUser = () => {
   const [validPasswordChecklist, SetValidPasswordChecklist] = useState(false)
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
-  const [loading, setLoading] = useState(false); 
 
   const authenticate = async() => {
     const { name, email, password, code } = formState;
     let username = email; 
     if(areFieldsValid()){
-      setLoading(true)
+      setBackdropOpen(true)
       try {
         if (formType === "Sign In") {
           await Auth.signIn({ username, password });
-          navigate("/dashboard")
+          checkUser()
         } else if (formType === "Sign Up") {
            await Auth.signUp({username, password, attributes: { email, name } });
            setFormType( "Confirm Sign Up" );
@@ -70,7 +65,7 @@ const AuthUser = () => {
           setSuccess("Successfully changed password, sign in!")
         }
         setError("");
-        setLoading(false)
+        setBackdropOpen(false)
       } catch (exception_var) {
         setSuccess(""); 
         if(exception_var.message === "User is not confirmed."){
@@ -80,7 +75,7 @@ const AuthUser = () => {
         }else{
           setError(exception_var.message);
         }
-        setLoading(false)
+        setBackdropOpen(false)
 
       }
 
@@ -333,12 +328,7 @@ const AuthUser = () => {
           )}
         </Box>
       </Card>
-      <Backdrop
-        className={classes.backdrop}
-        open={loading}
-      >
-        <CircularProgress color="inherit" />
-      </Backdrop>
+      
     </Container>
   );
 };

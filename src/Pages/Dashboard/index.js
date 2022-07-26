@@ -1,12 +1,14 @@
 import { Container } from "@material-ui/core";
-
+import useStyles from "./styles";
 
 const Dashboard = () =>{
+const classes = useStyles(); 
 return (
 
-    <Container>
-        You are on the dashboard
+    <Container className={classes.container}>
+    <h1>hello</h1>
     </Container>
+    
 )
 
 }

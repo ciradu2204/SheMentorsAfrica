@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import Navbar from "../../Components/Navbar";
 import Box from "@material-ui/core/Box";
-import { CircularProgress, Container, IconButton, Typography } from "@material-ui/core";
+import { Backdrop, CircularProgress, Container, IconButton, Typography } from "@material-ui/core";
 import useStyles from "./unauthLayoutStyle";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
@@ -128,7 +128,8 @@ const pageTransition = {
   duration: 1,
 };
 
-export default function UnauthLayout({user, loading}) {
+
+export default function UnauthLayout({user, loading, checkUser, backdropOpen}) {
   const location = useLocation();
   const [countStart, SetCounterStart] = useState(0);
   const [countEnd, SetCounterEnd] = useState(pages.length - 1);
@@ -152,6 +153,7 @@ export default function UnauthLayout({user, loading}) {
     }
   }, []);
 
+ 
 
   const classes = useStyles();
 
@@ -161,7 +163,7 @@ export default function UnauthLayout({user, loading}) {
           <CircularProgress/>
       </Box>)
     : (<div className={classes.parent}>
-      <Navbar  user={user} pages={pages.slice(0, 4)} settings={settings} />
+      <Navbar  user={user} pages={pages.slice(0, 4)} settings={settings} checkUser={checkUser} />
 
       <Container className={classes.container} disableGutters>
         <Box className={classes.childrenBox}>
@@ -270,6 +272,12 @@ export default function UnauthLayout({user, loading}) {
           </Box>
         </Box>
       ) : null}
+      <Backdrop
+        className={classes.backdrop}
+        open={backdropOpen}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
     </div>)
   );
 }

@@ -16,7 +16,7 @@ import List from "@material-ui/core/List";
 import { ListItem } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import { Drawer } from "@material-ui/core";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Link } from "react-router-dom";
 import MenuIcon from "@material-ui/icons/Menu";
 import Menu from "@material-ui/core/Menu";
@@ -24,14 +24,13 @@ import Cancel from "@material-ui/icons/Cancel";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
 import { Auth } from "aws-amplify";
 
-const Navbar = ({ user, pages, settings, ...props }) => {
+const Navbar = ({ user, pages, settings, checkUser, ...props }) => {
   const classes = useStyles();
   const { window } = props;
   const container =
     window !== undefined ? () => window().document.body : undefined;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const  navigate = useNavigate()
   const ref = React.useRef();
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -45,15 +44,12 @@ const Navbar = ({ user, pages, settings, ...props }) => {
 
   const logoutUser = async() => {
     await Auth.signOut();
-    navigate("/login")
+    checkUser("logout")
+    
   };
   const openSettingsMenu = () => {
     setAnchorEl(ref.current);
   };
-
-  // React.useEffect(() => {
-  //   setAnchorEl(ref.current);
-  // }, [ref]);
 
   return (
     <AppBar position="static" className={classes.appBar}>

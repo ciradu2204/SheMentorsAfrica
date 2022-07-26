@@ -157,6 +157,7 @@ const useStyles = makeStyles((theme) => {
    }, 
    backdrop:{
      color: '#fff',
+     position: "absolute",
      zIndex: `${theme.zIndex.drawer}   !important`
    }
 }});

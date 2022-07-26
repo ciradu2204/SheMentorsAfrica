@@ -5,8 +5,10 @@ const useStyles = makeStyles((theme) => {
     parent: {
       width: "100%",
       display: "flex",
+      position: "relative",
+      zIndex: "0 !important",
       flexDirection: "column",
-      height: "100vh !important",
+      height: "100vh !important"
     },
     container: {
       display: "flex",
@@ -18,6 +20,12 @@ const useStyles = makeStyles((theme) => {
       [theme.breakpoints.down("sm")]: {
         flexDirection: "column",
       },
+    },
+
+    backdrop:{
+      color: '#fff',
+      position: "absolute",
+      zIndex: `${theme.zIndex.drawer}   !important`
     },
 
     childrenBox: {

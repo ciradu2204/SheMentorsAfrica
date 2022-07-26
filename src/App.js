@@ -6,12 +6,12 @@ import Home from "./Pages/Home";
 import { createTheme, ThemeProvider } from "@material-ui/core";
 import AboutUs from "./Pages/AboutUs";
 import FAQs from "./Pages/Faqs";
-import { Auth, Hub } from "aws-amplify";
+import { Auth } from "aws-amplify";
 import Testimony from "./Pages/Testimony";
 import AuthUser from "./Pages/AuthUser";
 import AuthLayout from "./Layout/AuthLayout/authLayout";
 import { useEffect, useState } from "react";
-import { Dashboard } from "@material-ui/icons";
+import Dashboard  from "./Pages/Dashboard";
 
 const theme = createTheme({
   palette: {
@@ -30,14 +30,21 @@ const theme = createTheme({
 function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [backdropOpen, setBackdropOpen] = useState(false); 
+
   const navigate = useNavigate(); 
 
-  const checkUser = async() => {
+  const checkUser = async(auth) => {
     try { 
         setLoading(prev => !prev);
         const currentUser = await Auth.currentAuthenticatedUser();
         setUser(currentUser);
-        navigate("/dashboard"); 
+
+        if(auth === "logout"){
+          navigate("/login"); 
+        }else {
+          navigate("/dashboard"); 
+        }
     } catch (error) {
       setUser(null);
     }
@@ -45,21 +52,24 @@ function App() {
   }
 
   useEffect(() => {
-    checkUser()
+    checkUser("dashboard")
+    // eslint-disable-next-line
    }, []);
 
   return (
     <ThemeProvider theme={theme}>
       <Routes >
-        <Route element={<UnauthLayout user={user} loading={loading}  />}>
+        <Route element={<UnauthLayout user={user} loading={loading} checkUser={checkUser} backdropOpen={backdropOpen} />}>
           <Route exact path="/" element={<Home />} />
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/faqs" element={<FAQs />} />
           <Route path="/testimony" element={<Testimony />} />
-          <Route path="/login" element={<AuthUser  />} />
+          <Route path="/login" element={<AuthUser checkUser={checkUser} setBackdropOpen={setBackdropOpen} />} />
         </Route>
-        <Route  element={<AuthLayout user={user} loading={loading} />}>
+        <Route element={<AuthLayout user={user} loading={loading} checkUser={checkUser} />}>
           <Route exact path="/dashboard" element={<Dashboard/>} />
+          <Route path="/profile" element={<Dashboard/>} />
+
         </Route>
       </Routes>
     </ThemeProvider>
