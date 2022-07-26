@@ -6,7 +6,6 @@ import LogoutIcon from '@material-ui/icons/ExitToApp';
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Box from '@material-ui/core/Box'
-import { useEffect } from "react";
 const pages = [
     {
       text: "DASHBOARD",
