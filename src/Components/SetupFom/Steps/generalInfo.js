@@ -1,8 +1,8 @@
-import { CardContent, Container, TextareaAutosize, TextField } from "@material-ui/core";
+import { CardContent, Container, TextField } from "@material-ui/core";
 import ActionButtons from "../Components/actionButtons";
+import { useEffect } from "react";
 import Country from "../Components/countries";
 import Language from "../Components/languages";
-import Role from "../Components/role";
 import UploadImage from "../Components/uploadImage";
 import useStyles from "../styles";
 import { personalInfoValidateSchema } from "../../../Validations/personalInfo";
@@ -10,12 +10,11 @@ import { useState } from "react";
 import { Alert } from "@mui/material";
 
 
-const PersonalInformation = ({ user, formik, ...props }) => {
+const PersonalInformation = ({ user, formik, ...props}) => {
   const classes = useStyles();
-   const [error, setError] = useState(""); 
-   const initial = {
+  const [error, setError] = useState(""); 
+  const initial = {
      profileImage: false, 
-     role: false, 
      bio: false, 
      country: false, 
      languages: false
@@ -24,26 +23,25 @@ const PersonalInformation = ({ user, formik, ...props }) => {
 
    const formData = {
       profileImage: formik.values.profileImage, 
-      role: formik.values.role, 
       bio: formik.values.bio,
       country: formik.values.country, 
       languages: formik.values.languages
    }
 
+    
+
    const validate = async () => {
-     setHasError(initial); 
-     setError("");
       try{
         await personalInfoValidateSchema.validate(formData)
-        console.log(props); 
-        await props.nextStep()
-      
+       props.goToNamedStep("Interest")
       }catch(error){
+        setError("");     
         setError(error.message)
         let value = error.path
-        console.log(hasError); 
-        setHasError({...hasError, [`${value}`]: true})
+        setHasError({...initial, [`${value}`]: true})
       }
+
+
       
    }
   
@@ -55,7 +53,6 @@ const PersonalInformation = ({ user, formik, ...props }) => {
 </Alert>)}
       <CardContent className={classes.cardContent}>
         <UploadImage user={user} formik={formik} />
-        <Role formik={formik} hasError={hasError}/>
         <Country formik={formik} hasError={hasError} />
         <Language formik={formik} hasError={hasError} />
         <TextField
@@ -65,10 +62,8 @@ const PersonalInformation = ({ user, formik, ...props }) => {
           name="bio"
           value={formik.values.bio}
           onChange={formik.handleChange}
-          InputProps={{
-            inputComponent: TextareaAutosize,
-            rows: 3
-          }}
+          minRows={6}
+          maxRows={6}
           error={hasError.bio}
           className={classes.item}
           variant="outlined"

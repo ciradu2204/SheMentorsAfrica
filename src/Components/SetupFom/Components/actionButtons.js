@@ -6,7 +6,7 @@ import useStyles from "../styles";
 
 
 
-const ActionButtons = (props) => {
+const ActionButtons = ({...props}) => {
     const classes = useStyles();
     const handleBack = () => {
       props.previousStep()

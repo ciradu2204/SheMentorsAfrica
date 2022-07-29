@@ -7,6 +7,7 @@ import StepWizard from "react-step-wizard";
 import PersonalInformation from "./Steps/generalInfo";
 import Experience from "./Steps/experience";
 import Availability from "./Steps/availability";
+import Interest from "./Steps/interest";
 
 const SetUpForm = ({ user }) => {
   const classes = useStyles();
@@ -18,14 +19,16 @@ const SetUpForm = ({ user }) => {
   };
 
   const handleStepChange = (e) => {
+    console.log("called");
     setActiveStep(e.activeStep - 1);
   };
 
-
-
   const formik = useFormik({
     initialValues: {
-      profileImage: {},
+      profileImage: {
+        name: "", 
+        file: {}, 
+      },
       profileImageUrl: null,
       role: "",
       bio: "",
@@ -35,8 +38,8 @@ const SetUpForm = ({ user }) => {
       mentorshipTopics: [],
       level: "",
       education: {
-         school: "", 
-         degree: ""
+        school: "",
+        degree: "",
       },
       experience: {
         company: "",
@@ -61,13 +64,24 @@ const SetUpForm = ({ user }) => {
 
   return (
     <Card className={classes.card}>
-      <Typography variant="h5" className={classes.title}>Tell us a little bit about yourself!</Typography> 
-      <Typography variant="subtitle1" >To better suit your needs, let us know your expectation! </Typography> 
-      <Stepper activeStep={activeStep}  connectorStyleConfig={{  activeColor:"E49433" }}
-        styleConfig={{ activeBgColor:"#E49433", completedBgColor: "#E49433" }} className={classes.stepper}>
-        <Step label="Personal Detail"  />
-        <Step label="Experience" activeBgColor="#E49433" />
-        <Step label="Availability" activeBgColor="#E49433" />
+      <Typography variant="h5" className={classes.title}>
+        Tell us a little bit about yourself!
+      </Typography>
+      <Typography variant="subtitle1">
+        To better suit your needs, let us know your expectation!{" "}
+      </Typography>
+      <Stepper
+        activeStep={activeStep}
+        connectorStyleConfig={{ activeColor: "E49433" }}
+        styleConfig={{ activeBgColor: "#E49433", completedBgColor: "#E49433" }}
+        className={classes.stepper}
+      >
+        <Step label="Personal Detail" />
+        <Step label="Interests"   />
+        {(formik.values.role === "" || formik.values.role === "Mentee") && (<Step label="Education"   />)}
+        {formik.values.role === "Mentor" && (<Step label="Experience"   /> )}
+        {formik.values.role === "Mentor" && ( <Step label="Availability" /> )}
+       
       </Stepper>
       <StepWizard
         instance={assignStepWizard}
@@ -75,9 +89,14 @@ const SetUpForm = ({ user }) => {
         isLazyMount={true}
         className={classes.stepWizard}
       >
-        <PersonalInformation user={user} formik={formik} />
-        <Experience formik={formik} />
-        <Availability formik={formik} />
+        <PersonalInformation
+          user={user}
+          formik={formik}
+          stepName={"personalInfo"}
+        />
+        <Interest formik={formik} stepName={"Interest"}/>
+        <Experience formik={formik} stepName={"experience"} />
+        <Availability formik={formik} stepName={"availability"} />
       </StepWizard>
     </Card>
   );

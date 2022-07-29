@@ -1,11 +1,32 @@
 import { Container, TextField } from "@material-ui/core";
 import useStyles from "../styles";
-const Education = ({ formik }) => {
-    const classes = useStyles(); 
+const Education = ({ formik, hasError }) => {
+  const classes = useStyles();
   return (
-      <Container className={classes.item} >
-      <TextField name="university" label="University" variant="outlined" onChange={formik.handleChange} value={formik.values.school}/>
-      </Container>
+    <Container className={classes.item} disableGutters>
+      <TextField
+        required
+        fullWidth
+        name="education.school"
+        label="School"
+        variant="outlined"
+        className= {classes.textField}
+        error={hasError.school}
+        onChange={formik.handleChange}
+        value={formik.values.education.school}
+      />
+       <TextField
+        required
+        fullWidth
+        className= {classes.textField}
+        name="education.degree"
+        label="Degree"
+        variant="outlined"
+        error={hasError.degree}
+        onChange={formik.handleChange}
+        value={formik.values.education.degree}
+      />
+    </Container>
   );
 };
 

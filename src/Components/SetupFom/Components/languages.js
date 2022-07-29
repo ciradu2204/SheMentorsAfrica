@@ -72,16 +72,17 @@ const Language = ({formik, hasError}) => {
     "Abron",
   ];
   return (
-    <FormControl variant="outlined" fullWidth className={classes.item}>
+    <FormControl variant="outlined" fullWidth className={classes.formControl} required>
       <InputLabel required id="languages-label">Languages</InputLabel>
       <Select
+        size="large"
         labelId="languages-label"
         id="select-languages"
         name="languages"
         multiple
         error={hasError.languages}
         value={formik.values.languages}
-        label="Languages "
+        label="Languages"
         onChange={formik.handleChange}
         input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
           renderValue={(selected) => (

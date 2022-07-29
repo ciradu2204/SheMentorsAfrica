@@ -21,9 +21,18 @@ const useStyles = makeStyles((theme) => {
         backgroundColor: "unset !important",
       },
     },
+    uploadButtonBox:{
+      display: "flex",
+      flexDirection: "row",
+      width: "100% !important",
+      fontFamily: "Poppins !important",
+      justifyContent: "center",
+      gap: "2%",
+      margin: "5px !important",
+    },
     container: {
       width: "100%",
-      //height: "100%",
+      overflow: "scroll",
     },
     stepWizard: {
       width: "80%",
@@ -39,7 +48,6 @@ const useStyles = makeStyles((theme) => {
       background: "red",
       width: "50%",
       height: "750px",
-      overflowY: "scroll",
       display: "flex",
       flexDirection: "column",
       justifyContent: "center",
@@ -47,21 +55,33 @@ const useStyles = makeStyles((theme) => {
       backgroundColor: "#FFFEFC",
     },
     stepper: {
-      width: "90%",
+      width: "80%",
     },
     cardContent: {
       display: "flex",
-      height: "100%",
       flexDirection: "column",
       justifyContent: "center",
       alignItems: "center",
     },
     item: {
       display: "flex",
+      flexDirection: "column",
       width: "100% !important",
+      fontFamily: "Poppins !important",
       justifyContent: "center",
       gap: "2%",
+      margin: "10px !important",
+    },
+    textField: {
+      width: "100% !important",
+      margin: "10px !important",
+
+    },
+    formControl: {
+      width: "100% !important",
+      fontFamily: "Poppins !important",
       margin: "5px !important",
+      //height: "100px", 
     },
     actionButtons: {
       display: "flex",
@@ -92,7 +112,7 @@ const useStyles = makeStyles((theme) => {
     },
     title: {
       color: theme.palette.secondary.main,
-      fontFamily: "Poppins",
+      fontFamily: "Poppins !important",
       fontWeight: "600",
       lineHeight: "45px",
       letterSpacing: "0.05em",

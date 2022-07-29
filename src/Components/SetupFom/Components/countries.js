@@ -62,7 +62,7 @@ const Country = ({formik, hasError}) => {
     ]
     return (
 
-        <FormControl variant="outlined" fullWidth  className={classes.item}>
+        <FormControl variant="outlined" fullWidth  className={classes.formControl} required>
         <InputLabel required id="country-label">Country</InputLabel>
         <Select
           labelId="country-label"

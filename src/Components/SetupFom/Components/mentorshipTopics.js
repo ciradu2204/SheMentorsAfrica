@@ -9,7 +9,7 @@ import {
   } from "@material-ui/core";
   import useStyles from "../styles";
 
-const MentorshipTopics = ({formik}) => {
+const MentorshipTopics = ({formik, hasError}) => {
      const classes = useStyles(); 
 
      const MentorshipTopics = [
@@ -25,13 +25,14 @@ const MentorshipTopics = ({formik}) => {
 
     return (
 
-        <FormControl variant="outlined" fullWidth className={classes.item}>
+        <FormControl variant="outlined" fullWidth className={classes.formControl} required>
         <InputLabel id="mentorshipTopics-label">Mentorship Topics</InputLabel>
         <Select
           labelId="mentorshipTopics-label"
           id="select-mentorshipTopics"
           name="mentorshipTopics"
           multiple
+          error={hasError.mentorshipTopics}
           value={formik.values.mentorshipTopics}
           label="Mentorship Topics"
           onChange={formik.handleChange}

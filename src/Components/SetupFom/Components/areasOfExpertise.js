@@ -8,7 +8,7 @@ import {
   Select,
 } from "@material-ui/core";
 import useStyles from "../styles";
-const AreasOfExpertise = ({ formik }) => {
+const AreasOfExpertise = ({ formik, hasError }) => {
   const classes = useStyles();
 
   const AreasOfExpertise = [
@@ -35,16 +35,21 @@ const AreasOfExpertise = ({ formik }) => {
   ];
 
   return (
-    <FormControl variant="outlined" fullWidth className={classes.item}>
+    <FormControl variant="outlined" fullWidth className={classes.item} required>
       <InputLabel id="areaOfExpertise-label">Areas of Expertise</InputLabel>
       <Select
         labelId="areaOfExpertise-label"
         id="select-areaOfExpertise"
-        name="areaOfExpertise"
+        name="areasOfExpertise"
         multiple
         value={formik.values.areasOfExpertise}
-        label="areaOfExpertise"
+        //label="Areas of Expertise"
         onChange={formik.handleChange}
+        error= {hasError.areasOfExpertise}
+        inputProps={{
+          classes: {
+              icon: classes.icon,
+          },}}
         input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
         renderValue={(selected) => (
           <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
