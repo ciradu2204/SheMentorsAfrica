@@ -1,0 +1,13 @@
+{
+  "resourceName": "s370e483f0",
+  "policyUUID": "70e483f0",
+  "bucketName": "shementorsafrica7786305f06004b2aac51a0da0f08135",
+  "storageAccess": "auth",
+  "guestAccess": [],
+  "authAccess": [
+    "CREATE_AND_UPDATE",
+    "READ",
+    "DELETE"
+  ],
+  "groupAccess": {}
+}

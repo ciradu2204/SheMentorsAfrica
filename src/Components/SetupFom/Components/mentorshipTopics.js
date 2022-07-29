@@ -1,0 +1,64 @@
+import {
+    Box,
+    Chip,
+    FormControl,
+    InputLabel,
+    MenuItem,
+    OutlinedInput,
+    Select,
+  } from "@material-ui/core";
+  import useStyles from "../styles";
+
+const MentorshipTopics = ({formik}) => {
+     const classes = useStyles(); 
+
+     const MentorshipTopics = [
+        "Code Review", 
+         "Mock Interview",
+         "Technical Writing", 
+         "Public Speaking", 
+         "Secure first Job", 
+         "Resume & CV review", 
+         "Salary Negotiation"
+     ]
+
+
+    return (
+
+        <FormControl variant="outlined" fullWidth className={classes.item}>
+        <InputLabel id="mentorshipTopics-label">Mentorship Topics</InputLabel>
+        <Select
+          labelId="mentorshipTopics-label"
+          id="select-mentorshipTopics"
+          name="mentorshipTopics"
+          multiple
+          value={formik.values.mentorshipTopics}
+          label="Mentorship Topics"
+          onChange={formik.handleChange}
+          input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
+          renderValue={(selected) => (
+            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+              {selected.map((value) => (
+                <Chip key={value} label={value} />
+              ))}
+            </Box>
+          )}
+          inputProps={{
+            classes: {
+                icon: classes.icon,
+            },
+        }}
+        >
+          {MentorshipTopics.sort().map((topic) => (
+            <MenuItem key={topic} value={topic}>
+              {topic}
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
+
+    )
+
+}
+
+export default MentorshipTopics; 

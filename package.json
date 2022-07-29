@@ -15,15 +15,20 @@
     "@testing-library/user-event": "^13.5.0",
     "aws-amplify": "^4.3.27",
     "eslint-config-react-app": "^7.0.1",
+    "formik": "^2.2.9",
     "framer-motion": "^6.5.1",
     "react": "^18.2.0",
+    "react-available-times": "^1.4.0",
     "react-dom": "^18.2.0",
+    "react-form-stepper": "^2.0.3",
     "react-password-checklist": "^1.3.3",
     "react-router-dom": "^6.3.0",
     "react-scripts": "5.0.1",
     "react-spring": "^9.5.0",
+    "react-step-wizard": "^5.3.11",
     "uuidv4": "^6.2.13",
-    "web-vitals": "^2.1.4"
+    "web-vitals": "^2.1.4",
+    "yup": "^0.32.11"
   },
   "scripts": {
     "start": "react-scripts start",

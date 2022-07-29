@@ -29,5 +29,12 @@
         ]
       }
     }
+  },
+  "storage": {
+    "s370e483f0": {
+      "service": "S3",
+      "providerPlugin": "awscloudformation",
+      "dependsOn": []
+    }
   }
 }

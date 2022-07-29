@@ -12,6 +12,7 @@ import AuthUser from "./Pages/AuthUser";
 import AuthLayout from "./Layout/AuthLayout/authLayout";
 import { useEffect, useState } from "react";
 import Dashboard  from "./Pages/Dashboard";
+import Profile from "./Pages/Profile";
 
 const theme = createTheme({
   palette: {
@@ -25,6 +26,23 @@ const theme = createTheme({
       main: "#FE0000",
     },
   },
+  overrides: {
+    MuiOutlinedInput: {
+      root: {
+        // Focused state
+        "&$focused $notchedOutline": {
+          borderColor: "#408FAA", 
+        }
+    }
+  }, 
+  MuiInputLabel: {
+    root: {
+      "&$focused":{
+        color: "#408FAA",
+
+      }
+    },
+  }}
 });
 
 function App() {
@@ -67,8 +85,8 @@ function App() {
           <Route path="/login" element={<AuthUser checkUser={checkUser} setBackdropOpen={setBackdropOpen} />} />
         </Route>
         <Route element={<AuthLayout user={user} loading={loading} checkUser={checkUser} />}>
-          <Route exact path="/dashboard" element={<Dashboard/>} />
-          <Route path="/profile" element={<Dashboard/>} />
+          <Route exact path="/dashboard" element={<Dashboard user={user}/>} />
+          <Route path="/profile" element={<Profile/>} />
 
         </Route>
       </Routes>

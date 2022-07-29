@@ -1,5 +1,5 @@
 import { Navigate, Outlet } from "react-router-dom";
-import { Container } from "@material-ui/core";
+import { Backdrop, Container } from "@material-ui/core";
 import Navbar from "../../Components/Navbar";
 import useStyles from "./authLayoutStyles";
 import LogoutIcon from "@material-ui/icons/ExitToApp";
@@ -7,6 +7,7 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Box from "@material-ui/core/Box";
 import { useEffect } from "react";
+import SetUpForm from "../../Components/SetupFom";
 const pages = [
   {
     text: "DASHBOARD",
@@ -50,6 +51,8 @@ export default function AuthLayout({ user, loading, checkUser }) {
     // eslint-disable-next-line
   }, []);
 
+ 
+
   return loading ? (
     <Box className={classes.loading}>
       <CircularProgress />
@@ -61,6 +64,11 @@ export default function AuthLayout({ user, loading, checkUser }) {
       <Container className={classes.childrenBox}>
         <Outlet />
       </Container>
+      <Backdrop
+      className={classes.backdrop}
+      open={true}>
+        <SetUpForm user={user}/>
+    </Backdrop>
     </Container>
   ) : (
     <Navigate to="/login" />
