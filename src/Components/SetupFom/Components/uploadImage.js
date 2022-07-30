@@ -87,6 +87,7 @@ const UploadImage = ({user, formik}) => {
               color="primary"
               aria-label="upload picture"
               component="label"
+              disableRipple={true}
               disabled= {buttonDisabled}
               className={classes.uploadButton}
               startIcon={<AddAPhoto />}
@@ -101,6 +102,7 @@ const UploadImage = ({user, formik}) => {
             <Button
             color="primary"
             aria-label="Delete picture "
+            disableRipple={true}
             component="label"
             className={classes.uploadButton}
             startIcon={<Delete />}

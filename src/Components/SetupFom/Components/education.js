@@ -11,7 +11,7 @@ const Education = ({ formik, hasError }) => {
         label="School"
         variant="outlined"
         className= {classes.textField}
-        error={hasError.school}
+        error={hasError.education.school}
         onChange={formik.handleChange}
         value={formik.values.education.school}
       />
@@ -22,7 +22,7 @@ const Education = ({ formik, hasError }) => {
         name="education.degree"
         label="Degree"
         variant="outlined"
-        error={hasError.degree}
+        error={hasError.education.degree}
         onChange={formik.handleChange}
         value={formik.values.education.degree}
       />

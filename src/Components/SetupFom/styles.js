@@ -21,33 +21,37 @@ const useStyles = makeStyles((theme) => {
         backgroundColor: "unset !important",
       },
     },
-    uploadButtonBox:{
+    uploadButtonBox: {
       display: "flex",
       flexDirection: "row",
       width: "100% !important",
       fontFamily: "Poppins !important",
       justifyContent: "center",
       gap: "2%",
-      margin: "5px !important",
+      marginTop: "5px !important",
     },
     container: {
       width: "100%",
-      overflow: "scroll",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      justifyContent: "center",
     },
     stepWizard: {
       width: "80%",
     },
     error: {
-      width: "90%",
-      margin: "auto",
+      width: "95%",
+      //margin: "10px !important",
+      boxSizing: "border-box !important",
     },
     icon: {
       fill: theme.palette.primary.main,
     },
     card: {
-      background: "red",
       width: "50%",
       height: "750px",
+      overflow: "scroll",
       display: "flex",
       flexDirection: "column",
       justifyContent: "center",
@@ -55,10 +59,12 @@ const useStyles = makeStyles((theme) => {
       backgroundColor: "#FFFEFC",
     },
     stepper: {
-      width: "80%",
+      width: "85%",
     },
     cardContent: {
+      width: "100%",
       display: "flex",
+      boxSizing: "border-box !important",
       flexDirection: "column",
       justifyContent: "center",
       alignItems: "center",
@@ -70,27 +76,25 @@ const useStyles = makeStyles((theme) => {
       fontFamily: "Poppins !important",
       justifyContent: "center",
       gap: "2%",
-      margin: "10px !important",
+      marginTop: "15px !important",
     },
     textField: {
       width: "100% !important",
-      margin: "10px !important",
-
+      marginTop: "15px !important",
     },
     formControl: {
       width: "100% !important",
       fontFamily: "Poppins !important",
-      margin: "5px !important",
-      //height: "100px", 
+      marginTop: "15px !important",
     },
     actionButtons: {
       display: "flex",
       width: "100%",
       alignItems: "center",
-      marginBottom: "20px",
+      marginBottom: "20px !important",
     },
     prevActionButton: {
-      marginRigh: "auto",
+      marginRight: "auto",
       color: "white",
       "&:hover": {
         backgroundColor: `${theme.palette.primary.main} !important`,
@@ -114,15 +118,18 @@ const useStyles = makeStyles((theme) => {
       color: theme.palette.secondary.main,
       fontFamily: "Poppins !important",
       fontWeight: "600",
+      marginTop: "30px",
       lineHeight: "45px",
       letterSpacing: "0.05em",
     },
-    subtitle:{
-        fontFamily: "Poppins",
-        fontWeight: "400",
-
+    subtitle: {
+      fontFamily: "Poppins",
+      fontWeight: "400",
+    },
+    calendar:{
+      width: "100% !important",
+      height: "400px",
     }
-    
   };
 });
 

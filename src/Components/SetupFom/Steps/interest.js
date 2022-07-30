@@ -48,7 +48,7 @@ const Interest = ({ formik, ...props }) => {
 
   return (
     <Container disableGutters className={classes.container}>
-        {error.length > 0 && (<Alert variant="outlined" severity="error" className={classes.error}>
+        {error.length > 0 && (<Alert severity="error" className={classes.error}>
           {error}</Alert>)}
       <CardContent className={classes.cardContent}>
         <Role formik={formik} hasError={hasError} />

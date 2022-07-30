@@ -8,28 +8,28 @@ const Connect = ({ formik, hasError }) => {
     <Container className={classes.item} disableGutters>
       <TextField
         required
-        name="linkedIn"
-        label="LinkedIn"
+        name="connect.linkedIn"
+        label="LinkedIn Url"
         variant="outlined"
-        onChange={formik.onChange}
+        onChange={formik.handleChange}
         className= {classes.textField}
-        error={hasError.linkedIn}
+        error={hasError.connect.linkedIn}
         value={formik.values.connect.linkedIn}
       />
       <TextField
-        name="twitter"
-        label="Twitter"
+        name="connect.twitter"
+        label="Twitter Url"
         variant="outlined"
         className= {classes.textField}
-        onChange={formik.onChange}
+        onChange={formik.handleChange}
         value={formik.values.connect.twitter}
       />
       <TextField
-        name="personalWebsite"
-        label="Personal Website"
+        name="connect.personalWebsite"
+        label="Personal Website Url"
         variant="outlined"
         className= {classes.textField}
-        onChange={formik.onChange}
+        onChange={formik.handleChange}
         value={formik.values.connect.personalWebsite}
       />
     </Container>

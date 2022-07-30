@@ -139,6 +139,7 @@ const useStyles = makeStyles((theme) => {
     }
    },
    alert: {
+     
        marginLeft: "15px",
        marginRight: "15px"
    }, 

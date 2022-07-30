@@ -80,7 +80,7 @@ const SetUpForm = ({ user }) => {
         <Step label="Interests"   />
         {(formik.values.role === "" || formik.values.role === "Mentee") && (<Step label="Education"   />)}
         {formik.values.role === "Mentor" && (<Step label="Experience"   /> )}
-        {formik.values.role === "Mentor" && ( <Step label="Availability" /> )}
+        {formik.values.role === "Mentor" && (  <Step label="Availability"/> )}
        
       </Stepper>
       <StepWizard

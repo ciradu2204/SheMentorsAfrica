@@ -1,6 +1,5 @@
 import { CardContent, Container, TextField } from "@material-ui/core";
 import ActionButtons from "../Components/actionButtons";
-import { useEffect } from "react";
 import Country from "../Components/countries";
 import Language from "../Components/languages";
 import UploadImage from "../Components/uploadImage";
@@ -48,7 +47,7 @@ const PersonalInformation = ({ user, formik, ...props}) => {
 
   return (
     <Container disableGutters className={classes.container}>
-       {error.length > 0 && (<Alert variant="outlined" severity="error" className={classes.error}>
+       {error.length > 0 && (<Alert severity="error" className={classes.error}>
   {error}
 </Alert>)}
       <CardContent className={classes.cardContent}>

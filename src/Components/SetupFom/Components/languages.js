@@ -1,6 +1,14 @@
-import { Box, Chip, FormControl, InputLabel, MenuItem, OutlinedInput, Select } from "@material-ui/core";
+import {
+  Box,
+  Chip,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  OutlinedInput,
+  Select,
+} from "@material-ui/core";
 import useStyles from "../styles";
-const Language = ({formik, hasError}) => {
+const Language = ({ formik, hasError }) => {
   const classes = useStyles();
 
   const Languages = [
@@ -72,8 +80,15 @@ const Language = ({formik, hasError}) => {
     "Abron",
   ];
   return (
-    <FormControl variant="outlined" fullWidth className={classes.formControl} required>
-      <InputLabel required id="languages-label">Languages</InputLabel>
+    <FormControl
+      variant="outlined"
+      fullWidth
+      className={classes.formControl}
+      required
+    >
+      <InputLabel required id="languages-label">
+        Languages
+      </InputLabel>
       <Select
         size="large"
         labelId="languages-label"
@@ -85,21 +100,23 @@ const Language = ({formik, hasError}) => {
         label="Languages"
         onChange={formik.handleChange}
         input={<OutlinedInput id="select-multiple-chip" label="Chip" />}
-          renderValue={(selected) => (
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
-              {selected.map((value) => (
-                <Chip key={value} label={value} />
-              ))}
-            </Box>
-          )}
+        renderValue={(selected) => (
+          <Box sx={{ display: "flex", flexWrap: "wrap", gap: 0.5 }}>
+            {selected.map((value) => (
+              <Chip key={value} label={value} />
+            ))}
+          </Box>
+        )}
         inputProps={{
           classes: {
-              icon: classes.icon,
+            icon: classes.icon,
           },
-      }}
+        }}
       >
         {Languages.sort().map((language) => (
-          <MenuItem key={language} value={language}>{language}</MenuItem>
+          <MenuItem key={language} value={language}>
+            {language}
+          </MenuItem>
         ))}
       </Select>
     </FormControl>
