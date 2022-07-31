@@ -34,7 +34,7 @@ const SetUpForm = ({ user, setLoading, setFormOpen }) => {
     }
     try {
       setLoading(true);
-      const result = await API.post("profileApi", "/profiles", requestInfo);
+       await API.post("profileApi", "/profiles", requestInfo);
       setLoading(false);
       setFormOpen(false)
       navigate('/dashboard'); 
