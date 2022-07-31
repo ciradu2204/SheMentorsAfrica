@@ -17,8 +17,10 @@ import SignUp from "./signup";
 import ConfirmSignUp from "./confirmsignup";
 import ResetPassword from "./resetpassword";
 import ConfirmResetPassword from "./confirmresetpassword";
+import { useOutletContext, useNavigate } from "react-router-dom";
 
-const AuthUser = ({checkUser, setBackdropOpen}) => {
+const AuthUser = () => {
+  const [setBackdropOpen] = useOutletContext();
   const initialFormState = {
     name: "",
     password: "",
@@ -37,6 +39,7 @@ const AuthUser = ({checkUser, setBackdropOpen}) => {
   const [validPasswordChecklist, SetValidPasswordChecklist] = useState(false)
   const [error, setError] = useState("");
   const [success, setSuccess] = useState("");
+  const navigate  = useNavigate()
 
   const authenticate = async() => {
     const { name, email, password, code } = formState;
@@ -46,7 +49,7 @@ const AuthUser = ({checkUser, setBackdropOpen}) => {
       try {
         if (formType === "Sign In") {
           await Auth.signIn({ username, password });
-          checkUser()
+          navigate("/dashboard")
         } else if (formType === "Sign Up") {
            await Auth.signUp({username, password, attributes: { email, name } });
            setFormType( "Confirm Sign Up" );

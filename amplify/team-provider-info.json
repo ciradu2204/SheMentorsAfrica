@@ -9,11 +9,18 @@
       "UnauthRoleName": "amplify-shementorsafrica-dev-124643-unauthRole",
       "StackName": "amplify-shementorsafrica-dev-124643",
       "StackId": "arn:aws:cloudformation:us-east-1:456838801062:stack/amplify-shementorsafrica-dev-124643/c5ac1d90-fc4f-11ec-8d1f-12098a2b5487",
-      "AmplifyAppId": "d355u8qyf4162x"
+      "AmplifyAppId": "d355u8qyf4162x",
+      "APIGatewayAuthURL": "https://s3.amazonaws.com/amplify-shementorsafrica-dev-124643-deployment/amplify-cfn-templates/api/APIGatewayAuthStack.json"
     },
     "categories": {
       "auth": {
         "shementorsafrica9d562494": {}
+      },
+      "function": {
+        "profilesHandler": {
+          "deploymentBucketName": "amplify-shementorsafrica-dev-124643-deployment",
+          "s3Key": "amplify-builds/profilesHandler-576f3434756b76566754-build.zip"
+        }
       }
     }
   }

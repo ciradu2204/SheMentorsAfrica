@@ -8,26 +8,49 @@ import PersonalInformation from "./Steps/generalInfo";
 import Experience from "./Steps/experience";
 import Availability from "./Steps/availability";
 import Interest from "./Steps/interest";
+import {API} from "aws-amplify";
+import { useNavigate } from "react-router-dom";
+import { Alert } from "@mui/material";
 
-const SetUpForm = ({ user }) => {
+const SetUpForm = ({ user, setLoading, setFormOpen }) => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
   const [stepWizard, setStepWizard] = useState();
-
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
   const assignStepWizard = (instance) => {
     setStepWizard(instance);
   };
 
   const handleStepChange = (e) => {
-    console.log("called");
     setActiveStep(e.activeStep - 1);
+  };
+
+  const onComplete = async (e) => {
+    const token = user.signInUserSession.idToken.jwtToken;
+    const requestInfo = {
+      headers: {Authorization: token}, 
+      body: {profile : formik.values}
+    }
+    try {
+      setLoading(true);
+      const result = await API.post("profileApi", "/profiles", requestInfo);
+      setLoading(false);
+      setFormOpen(false)
+      navigate('/dashboard'); 
+    } catch (error) {
+      setLoading(false);
+      setError(error.message)
+    }
+  
+
   };
 
   const formik = useFormik({
     initialValues: {
       profileImage: {
-        name: "", 
-        file: {}, 
+        name: "",
+        file: {},
       },
       profileImageUrl: null,
       role: "",
@@ -57,9 +80,6 @@ const SetUpForm = ({ user }) => {
         },
       ],
     },
-    onSubmit: (values) => {
-      alert(JSON.stringify(values, null, 2));
-    },
   });
 
   return (
@@ -77,11 +97,12 @@ const SetUpForm = ({ user }) => {
         className={classes.stepper}
       >
         <Step label="Personal Detail" />
-        <Step label="Interests"   />
-        {(formik.values.role === "" || formik.values.role === "Mentee") && (<Step label="Education"   />)}
-        {formik.values.role === "Mentor" && (<Step label="Experience"   /> )}
-        {formik.values.role === "Mentor" && (  <Step label="Availability"/> )}
-       
+        <Step label="Interests" />
+        {(formik.values.role === "" || formik.values.role === "Mentee") && (
+          <Step label="Education" />
+        )}
+        {formik.values.role === "Mentor" && <Step label="Experience" />}
+        {formik.values.role === "Mentor" && <Step label="Availability" />}
       </Stepper>
       <StepWizard
         instance={assignStepWizard}
@@ -89,14 +110,25 @@ const SetUpForm = ({ user }) => {
         isLazyMount={true}
         className={classes.stepWizard}
       >
+        {error.length > 0 &&  (
+          <Alert severity="error" className={classes.error}>{error}</Alert>
+        )}
         <PersonalInformation
           user={user}
           formik={formik}
           stepName={"personalInfo"}
         />
-        <Interest formik={formik} stepName={"Interest"}/>
-        <Experience formik={formik} stepName={"experience"} />
-        <Availability formik={formik} stepName={"availability"} />
+        <Interest formik={formik} stepName={"Interest"} />
+        <Experience
+          formik={formik}
+          stepName={"experience"}
+          onComplete={onComplete}
+        />
+        <Availability
+          formik={formik}
+          stepName={"availability"}
+          onComplete={onComplete}
+        />
       </StepWizard>
     </Card>
   );

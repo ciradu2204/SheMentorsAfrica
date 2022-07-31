@@ -6,8 +6,9 @@ import LogoutIcon from "@material-ui/icons/ExitToApp";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Box from "@material-ui/core/Box";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import SetUpForm from "../../Components/SetupFom";
+import { API } from 'aws-amplify';
 const pages = [
   {
     text: "DASHBOARD",
@@ -43,15 +44,33 @@ const settings = [
     icon: <LogoutIcon />,
   },
 ];
-export default function AuthLayout({ user, loading, checkUser }) {
-
+export default function AuthLayout({ user, loading, setLoading }) {
   const classes = useStyles();
-  useEffect(() => {
-    checkUser("dashboard");
-    // eslint-disable-next-line
-  }, []);
+  const [isFormOpen, setFormOpen] = useState(false)
+  const [profile, setProfile] = useState({})
 
- 
+   const checkUserProfile = () => {
+    const token = user.signInUserSession.idToken.jwtToken;
+    const requestInfo = {
+      headers: {Authorization: token}, 
+    }
+    API.get('profileApi', `/profiles/${user.attributes.sub}`, requestInfo).then((result) => {
+      let profile = JSON.parse(result.body)
+      if(Object.keys(profile).length === 0){
+        setFormOpen(true)
+      }
+      setProfile(profile);
+    }).catch(err => {
+      console.log(err);
+    })
+    setLoading(false)
+   }
+
+  useEffect(() => {
+    if(user != null){
+      checkUserProfile()
+    }
+  }, [user])
 
   return loading ? (
     <Box className={classes.loading}>
@@ -59,15 +78,15 @@ export default function AuthLayout({ user, loading, checkUser }) {
     </Box>
   ) : user !== null ? (
     <Container className={classes.parent}>
-      <Navbar user={user} pages={pages} settings={settings} className={classes.navbar} />
+      <Navbar user={user} pages={pages} settings={settings} className={classes.navbar} profile={profile} />
 
       <Container className={classes.childrenBox}>
         <Outlet />
       </Container>
       <Backdrop
       className={classes.backdrop}
-      open={true}>
-        <SetUpForm user={user}/>
+      open={isFormOpen}>
+        <SetUpForm user={user} setLoading={setLoading} setFormOpen={setFormOpen}/>
     </Backdrop>
     </Container>
   ) : (

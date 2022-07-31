@@ -11,7 +11,7 @@ import { useState } from "react";
 import { Alert } from "@mui/material";
 import Experience from "../Components/experience";
 
-const ExperienceStep = ({ formik, ...props }) => {
+const ExperienceStep = ({ formik, onComplete, ...props }) => {
   const classes = useStyles();
   const [error, setError] = useState("");
   const initial = {
@@ -30,8 +30,7 @@ const ExperienceStep = ({ formik, ...props }) => {
   const [hasError, setHasError] = useState(initial);
 
   const formData = {
-    experience: formik.values.experience,
-    Education: formik.values.Education,
+    education: formik.values.education,
     connect: formik.values.connect,
   };
 
@@ -39,7 +38,7 @@ const ExperienceStep = ({ formik, ...props }) => {
     try {
       if (formik.values.role === "Mentee") {
         await menteeExperienceShema.validate(formData);
-        //submit
+        onComplete()
       } else {
         await mentorExperienceShema.validate(formData);
         props.goToNamedStep("availability");

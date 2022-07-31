@@ -7,7 +7,6 @@ import useStyles from "../styles";
 
 
 const ActionButtons = ({...props}) => {
-    console.log({props})
     const classes = useStyles();
     const handleBack = () => {
       props.previousStep()
@@ -32,7 +31,7 @@ const ActionButtons = ({...props}) => {
 
            )}
            {props.currentStep ===  props.totalSteps && (
-               <Button variant="contained" color="primary" className={classes.submitActionButton} onClick={handleFinish} endIcon={<Send />}>Submit</Button>
+               <Button variant="contained" color="primary" type="submit" className={classes.submitActionButton} onClick={handleFinish} endIcon={<Send />}>Submit</Button>
 
            )}
         </Container>

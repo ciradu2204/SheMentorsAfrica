@@ -1,133 +1,158 @@
-import { useEffect, useState, useCallback } from 'react';
-import { CardContent, Container } from '@material-ui/core';
-import ActionButtons from '../Components/actionButtons';
-import moment from 'moment'
-import 'react-big-calendar/lib/css/react-big-calendar.css';
-import withDragAndDrop from 'react-big-calendar/lib/addons/dragAndDrop'
-import 'react-big-calendar/lib/addons/dragAndDrop/styles.css'
+import React, { useEffect, useState, useCallback } from "react";
+import { CardContent, Container } from "@material-ui/core";
+import ActionButtons from "../Components/actionButtons";
+import FullCalendar from "@fullcalendar/react";
+import dayGridPlugin from "@fullcalendar/daygrid";
+import timeGridPlugin from "@fullcalendar/timegrid";
+import interactionPlugin from "@fullcalendar/interaction";
+import momentTimezonePlugin from "@fullcalendar/moment-timezone";
+import styled from "@emotion/styled";
+import useStyles from "../styles";
+import { Alert } from "@mui/material";
 
+const Availability = ({ formik, onComplete, ...props }) => {
+  const initial =formik.values.availability.length === 0 ? [] : formik.values.availability;
+  const [availability] = useState(initial);
+  const [error, setError] = useState("");
+  let calendarRef = React.useRef();
+  const classes = useStyles();
+  const handleDateSelect = (selectInfo) => {
+    let title = "";
+    let calendarApi = selectInfo.view.calendar;
+    calendarApi.unselect();
 
-import { Calendar, momentLocalizer } from 'react-big-calendar'
-import useStyles from '../styles';
+    calendarApi.addEvent({
+      id: calendarRef.current.length,
+      title,
+      start: selectInfo.startStr,
+      end: selectInfo.endStr,
+      allDay: selectInfo.allDay,
+    });
+  };
 
-const Availability = ({formik, ...props}) =>{
-    const initial  = formik.values.availability.length === 0? [] : formik.values.availability
-    const [availability, setAvailability] = useState(initial); 
-    const localizer = momentLocalizer(moment) // or globalizeLocalizer
-    const classes = useStyles(); 
-    const DnDCalendar = withDragAndDrop(Calendar)
-
-   const slotPropGetter = useCallback((event, start, end, isSelected) => ({
-     className: 'slotDefault',
-     ...(moment(start).hour() < 8 && {
-      style: {
-        backgroundColor: 'green !important',
-        color: 'white',
-      },
-     }),
-      ...(event.allDay === false && {
-        style: {
-          backgroundColor: '#E49433 !important',
-          color: 'white',
-        },
-      }),
-      ...(isSelected && {
-         style: {
-          backgroundColor: '#E49433 !important',
-          color: 'white',
-        },
-      }),
-    })
-       ,[])
-
-    useEffect(() => {
-      formik.setFieldValue('availability', availability)
-      // eslint-disable-next-line
-    }, [availability])
-    const today = new Date();
-    const moveEvent = useCallback(  ({ event, start, end, isAllDay: droppedOnAllDaySlot = false }) =>{
-      
-      setAvailability((prev) => {
-        let id = prev.indexOf(event)
-        const slot = {title: "", start, end, allDay: false}
-        let newEvents = [...prev]; 
-        newEvents[id] = slot; 
-        return [...newEvents]
-      })
-    },[setAvailability])
-
-    const resizeEvent = useCallback(
-    
-      ({ event, start, end }) => {
-        console.log("called resize event")
-        setAvailability((prev) => {
-          let id = prev.indexOf(event)
-          const slot = {title: "", start, end, allDay: false}
-          let newEvents = [...prev]; 
-          newEvents[id] = slot; 
-          return [...newEvents]
-        })
-      },
-      [setAvailability]
-    )
-
-    const onSelectSlot = useCallback((slotInfo) => {
-      const slot = {title: "", ...slotInfo, allDay: false}
-      setAvailability((prevState) =>[...prevState, slot])
-    }, [])
-
-    const handleOnSelect = (e) =>{
-
+  const StyleWrapper = styled.div`
+    .fc-button.fc-prev-button,
+    .fc-button.fc-next-button,
+    .fc-button.fc-button-primary {
+      background: rgb(224, 224, 224);
+      border-color: rgb(224, 224, 224);
+      font-weight: 600;
     }
-    useEffect(() =>{
-        formik.setFieldValue("availability", availability); 
-      // eslint-disable-next-line
-    }, [availability])
+    ,
+    .fc-timegrid-slots {
+      cursor: pointer;
+    }
+    ,
+    .fc-button.fc-button-primary:hover {
+      background: #e49433 !important;
+      border-color: #e49433;
+    }
+    .fc-button.fc-next-button {
+      background: #e49433 !important;
+    }
+    ,
+    .fc-prev-button.fc-button.fc-button-primary.fc-button-active {
+      background: #f5f5f5 !important;
+    }
+    ,
+    .fc-timeGridWeek-button.fc-button.fc-button-primary.fc-button-active {
+      background: #e49433 !important;
+      border-color: #e49433;
+    }
+    ,
+    .fc .fc-toolbar-title {
+      font-size: 1em !important;
+    }
+    .fc-view-harness.fc-view-harness-active {
+      height: 350px !important;
+    }
+  `;
+  const validate = () => {
+    if(calendarRef.current.length > 0){
+      formik.setFieldValue("availability", calendarRef.current);
+      setError("")
+      onComplete()
+    }else{
+      setError("One slot range needs to be selected");
+    }
+  };
+  const validatePrev = () =>{
+      formik.setFieldValue("availability", calendarRef.current);
+      props.previousStep()
+   
+  }
+  const handleEvents = useCallback((events) => {
+    const eventsArray = [];
+    events.forEach((event) => {
+      eventsArray.push({
+        id: event.id,
+        start: event.start,
+        end: event.end,
+        title: event.title,
+        allDay: event.allDay,
+      });
+    });
+    calendarRef.current = eventsArray;
+  }, []);
 
-return (
-<Container disableGutters className={classes.container} >
-  
-<CardContent className={classes.calendar}>
-<DnDCalendar
-      localizer={localizer}
-      events={availability}
-      defaultView='week'
-      selectable
-      min={
-        new Date(
-          today.getFullYear(), 
-          today.getMonth(), 
-          today.getDate(), 
-          9
-        )
-      }
-      max={
-        new Date(
-          today.getFullYear(), 
-          today.getMonth(), 
-          today.getDate(), 
-          22
-        )
-      }
-      onSelectSlot={onSelectSlot}
-      slotPropGetter={slotPropGetter}
-      defaultDate={new Date(Date.now())}
-      onSelectEvent={handleOnSelect}
-      step={30}
-      views={['week']}
-      start={new Date()}
-      onEventDrop={moveEvent}
-      onEventResize={resizeEvent}
-      startAccessor="start"
-      endAccessor="end"
-    />
-</CardContent>
-<ActionButtons {...props}   />
-</Container>
-)
+  const handleEventClick = (clickInfo) => {
+    clickInfo.event.remove();
+  };
 
+  useEffect(() => {
+    formik.setFieldValue("availability", availability);
+    // eslint-disable-next-line
+  }, [availability]);
 
+  return (
+    <Container disableGutters className={classes.container}>
+      {error.length > 0 && (
+        <Alert severity="error" className={classes.error}>
+          {error}
+        </Alert>
+      )}
+       {error.length <= 0 && (
+        <Alert severity="info" className={classes.info}>
+           Please select a time range when you are available to mentor!
+        </Alert>
+      )}
+      <CardContent className={classes.calendar}>
+        <StyleWrapper>
+          <FullCalendar
+            headerToolbar={{
+              left: "prev,next",
+              center: "title",
+              right: "timeGridWeek",
+            }}
+            validRange={{
+              start: Date.now(),
+            }}
+            ref={calendarRef}
+            allDaySlot={false}
+            events={availability}
+            nowIndicator
+            editable={true}
+            selectable={true}
+            slotMinTime="09:00:00"
+            slotMaxTime="22:00:00"
+            eventColor="#408FAA"
+            timeZone="local"
+            select={handleDateSelect}
+            eventClick={handleEventClick}
+            eventsSet={handleEvents}
+            plugins={[
+              dayGridPlugin,
+              timeGridPlugin,
+              interactionPlugin,
+              momentTimezonePlugin,
+            ]}
+            initialView="timeGridWeek"
+          />
+        </StyleWrapper>
+      </CardContent>
+      <ActionButtons {...props} previousStep={validatePrev}  lastStep={validate} />
+    </Container>
+  );
+};
 
-}
-
-export default Availability; 
+export default Availability;

@@ -6,7 +6,7 @@ import Home from "./Pages/Home";
 import { createTheme, ThemeProvider } from "@material-ui/core";
 import AboutUs from "./Pages/AboutUs";
 import FAQs from "./Pages/Faqs";
-import { Auth } from "aws-amplify";
+import { Auth, Hub } from "aws-amplify";
 import Testimony from "./Pages/Testimony";
 import AuthUser from "./Pages/AuthUser";
 import AuthLayout from "./Layout/AuthLayout/authLayout";
@@ -25,6 +25,9 @@ const theme = createTheme({
     error: {
       main: "#FE0000",
     },
+    info:{
+      main: "#408FAA",
+    }
   },
   overrides: {
     MuiOutlinedInput: {
@@ -50,43 +53,50 @@ const theme = createTheme({
 function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
-  const [backdropOpen, setBackdropOpen] = useState(false); 
-
   const navigate = useNavigate(); 
 
-  const checkUser = async(auth) => {
-    try { 
-        setLoading(prev => !prev);
-        const currentUser = await Auth.currentAuthenticatedUser();
-        setUser(currentUser);
-
-        if(auth === "logout"){
-          navigate("/login"); 
-        }else {
-          navigate("/dashboard"); 
-        }
-    } catch (error) {
-      setUser(null);
+  const getCurrentUser = async () => {
+    try {
+      return await Auth.currentAuthenticatedUser()
+    } catch {
+      // currentAuthenticatedUser throws an Error if not signed in
+      return null
     }
-    setLoading(prev => !prev); 
   }
 
   useEffect(() => {
-    checkUser("dashboard")
+    const updateUser = async (data) => {
+      setLoading(true)
+      setUser(await getCurrentUser())
+      setLoading(false)
+    }
+    Hub.listen('auth', async(data) => {
+      setLoading(true)
+      setUser(await getCurrentUser())
+      if(data.payload.event === "signIn"){
+        navigate("/dashboard")
+      }else if(data.payload.event === "signOut"){
+        navigate("/login")
+        setLoading(false)
+      }
+    }) 
+    updateUser() 
+    navigate('/dashboard')
+    return () => Hub.remove('auth', updateUser)
     // eslint-disable-next-line
-   }, []);
+  }, [])
 
   return (
     <ThemeProvider theme={theme}>
       <Routes >
-        <Route element={<UnauthLayout user={user} loading={loading} checkUser={checkUser} backdropOpen={backdropOpen} />}>
+        <Route element={<UnauthLayout user={user} loading={loading}  />}>
           <Route exact path="/" element={<Home />} />
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/faqs" element={<FAQs />} />
           <Route path="/testimony" element={<Testimony />} />
-          <Route path="/login" element={<AuthUser checkUser={checkUser} setBackdropOpen={setBackdropOpen} />} />
+          <Route path="/login" element={<AuthUser />} />
         </Route>
-        <Route element={<AuthLayout user={user} loading={loading} checkUser={checkUser} />}>
+        <Route element={<AuthLayout user={user} loading={loading} setLoading={setLoading} />}>
           <Route exact path="/dashboard" element={<Dashboard user={user}/>} />
           <Route path="/profile" element={<Profile/>} />
 

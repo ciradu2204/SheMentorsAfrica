@@ -129,9 +129,10 @@ const pageTransition = {
 };
 
 
-export default function UnauthLayout({user, loading, checkUser, backdropOpen}) {
+export default function UnauthLayout({user, loading}) {
   const location = useLocation();
   const [countStart, SetCounterStart] = useState(0);
+  const [backdropOpen, setBackdropOpen] = useState(false); 
   const [countEnd, SetCounterEnd] = useState(pages.length - 1);
   const handlePrev = () => {
     if (countStart > 0) {
@@ -163,7 +164,7 @@ export default function UnauthLayout({user, loading, checkUser, backdropOpen}) {
           <CircularProgress/>
       </Box>)
     : (<div className={classes.parent}>
-      <Navbar  user={user} pages={pages.slice(0, 4)} settings={settings} checkUser={checkUser} />
+      <Navbar  user={user} pages={pages.slice(0, 4)} settings={settings} />
 
       <Container className={classes.container} disableGutters>
         <Box className={classes.childrenBox}>
@@ -175,7 +176,7 @@ export default function UnauthLayout({user, loading, checkUser, backdropOpen}) {
             variants={pageVariants}
             transition={pageTransition}
           >
-            <Outlet />
+            <Outlet context={[user, setBackdropOpen]} />
           </motion.div>
         </Box>
         <VerticalSlider pages={pages} className={classes.verticalSlider}  />

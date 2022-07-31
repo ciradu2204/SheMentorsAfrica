@@ -5,7 +5,7 @@ import ActionButtons from "../Components/actionButtons";
 import Level from "../Components/level";
 import useStyles from "../styles";
 import Role from "../Components/role";
-import {menteeInterest, mentorInterest} from "../../../Validations/interests";
+import {interestSchema} from "../../../Validations/interests";
 import { useState } from "react";
 import { Alert } from "@mui/material";
 const Interest = ({ formik, ...props }) => {
@@ -28,16 +28,8 @@ const Interest = ({ formik, ...props }) => {
 
   const validate = async () => {
     try {
-      if (formik.values.role === "Mentee") {
-        await menteeInterest.validate(formData);
-        props.goToNamedStep("experience");
-
-      } else {
-        await mentorInterest.validate(formData);
-        props.goToNamedStep("experience");
-
-
-      }
+         await interestSchema.validate(formData);
+        props.goToNamedStep("experience"); 
     } catch (error) {
       console.log(error);
       setError(error.message);
@@ -53,13 +45,8 @@ const Interest = ({ formik, ...props }) => {
       <CardContent className={classes.cardContent}>
         <Role formik={formik} hasError={hasError} />
         <AreasOfExpertise formik={formik}  hasError={hasError}/>
-        {formik.values.role === "Mentor" && (
-          <>
-            {" "}
-            <Level formik={formik} hasError={hasError} />
-            <MentorshipTopics formik={formik} hasError={hasError} />{" "}
-          </>
-        )}
+        <Level formik={formik} hasError={hasError} />
+        <MentorshipTopics formik={formik} hasError={hasError} />{" "}
       </CardContent>
       <ActionButtons {...props} nextStep={validate} />
     </Container>

@@ -5,10 +5,13 @@ import {Storage} from "aws-amplify"
 import awsExports from "../../../aws-exports"
 import { Avatar, Box, Button } from "@material-ui/core";
 import { useEffect, useState } from "react";
+import CircularProgress, {
+} from '@material-ui/core/CircularProgress';
 
 const UploadImage = ({user, formik}) => {
     const classes = useStyles(); 
-    const [buttonDisabled, setButtonDisabed] = useState(false); 
+    const [progress, setProgress] = useState(false); 
+
     const onChange  = async(e) => {
       const file = e.target.files[0];
       let fileName = file.name; 
@@ -18,11 +21,13 @@ const UploadImage = ({user, formik}) => {
         writable: true,
         value: updatedFileName
       })
+      //uploading image
       try{
-        setButtonDisabed(true);
+        setProgress(true);
          const result = await Storage.put(file.name, file, {
             level: "protected",
             contentType: file.type
+          
           });
          const image  = {
             name: file.name, 
@@ -37,9 +42,10 @@ const UploadImage = ({user, formik}) => {
       }catch(error){
         console.log(error); 
       }
-      setButtonDisabed(false);
 
   }
+  
+  
 
   useEffect(() =>{
      downloadImage()
@@ -48,14 +54,12 @@ const UploadImage = ({user, formik}) => {
 
 
   const downloadImage = async() => {
-    setButtonDisabed(true);
       if(formik.values.profileImage.name.length !== 0){
         const result = await Storage.get(formik.values.profileImage.file.key, { download: true, level: "protected"});
         formik.setFieldValue("profileImageUrl", URL.createObjectURL(result.Body)); 
         //setProgress(0);
       }
-      setButtonDisabed(false);
-
+      setProgress(false);
   }
 
 
@@ -70,7 +74,7 @@ const UploadImage = ({user, formik}) => {
      
   }
 
-    return (
+  return (
         <>
         <Box className={classes.uploadButtonBox}>
           {formik.values.profileImage.name.length <= 0 ? (
@@ -82,37 +86,44 @@ const UploadImage = ({user, formik}) => {
               src={formik.values.profileImageUrl}
             />
           )}
-          {formik.values.profileImage.name.length <= 0? (
-              <Button
-              color="primary"
-              aria-label="upload picture"
-              component="label"
-              disableRipple={true}
-              disabled= {buttonDisabled}
-              className={classes.uploadButton}
-              startIcon={<AddAPhoto />}
-              >
-              Upload profile
-              <input name="profileImage"  hidden accept="image/*" type="file" onChange={(e) => onChange(e)} />
-              
-            </Button>
+           {progress && (
+            <CircularProgress className={classes.circularProgress} />
+           )}
 
-          ):(
-
+           {formik.values.profileImage.name.length <= 0 && !progress && (
             <Button
             color="primary"
-            aria-label="Delete picture "
-            disableRipple={true}
+            aria-label="upload picture"
             component="label"
+            disableRipple={true}
             className={classes.uploadButton}
-            startIcon={<Delete />}
-            onClick={deleteImage}
-          >
-              Delete Profile
-
+            startIcon={<AddAPhoto />}
+            >
+            Upload profile
+            <input name="profileImage"  hidden accept="image/*" type="file" onChange={(e) => onChange(e)} />
+            
           </Button>
 
-          )}
+        )}
+        
+        {formik.values.profileImage.name.length > 0 && !progress && (
+
+          <Button
+          color="primary"
+          aria-label="Delete picture "
+          disableRipple={true}
+          component="label"
+          className={classes.uploadButton}
+          startIcon={<Delete />}
+          onClick={deleteImage}
+        >
+            Delete Profile
+
+        </Button>
+
+        )} 
+         
+          
         </Box>
         </>
        

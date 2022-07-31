@@ -8,8 +8,8 @@ const useStyles = makeStyles((theme) => {
       border: `2px solid ${theme.palette.grey[200]}`,
     },
     circleIcon: {
-      height: 90,
-      width: 90,
+      height: 110,
+      width: 110,
       color: "#D9D9D9",
     },
     uploadButton: {
@@ -20,12 +20,19 @@ const useStyles = makeStyles((theme) => {
         borderRadius: "unset !important",
         backgroundColor: "unset !important",
       },
+      
+    },
+    circularProgress: {
+      color: `${theme.palette.secondary.main} !important`,
+      width: "50px", 
+      height: "50px"
     },
     uploadButtonBox: {
       display: "flex",
       flexDirection: "row",
       width: "100% !important",
       fontFamily: "Poppins !important",
+      alignItems: "center",
       justifyContent: "center",
       gap: "2%",
       marginTop: "5px !important",
@@ -43,6 +50,10 @@ const useStyles = makeStyles((theme) => {
     error: {
       width: "95%",
       //margin: "10px !important",
+      boxSizing: "border-box !important",
+    },
+    info:{
+      width: "95%",
       boxSizing: "border-box !important",
     },
     icon: {
@@ -127,8 +138,7 @@ const useStyles = makeStyles((theme) => {
       fontWeight: "400",
     },
     calendar:{
-      width: "100% !important",
-      height: "400px",
+      width: "95% !important",
     }
   };
 });
