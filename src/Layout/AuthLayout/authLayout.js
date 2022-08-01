@@ -8,7 +8,6 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Box from "@material-ui/core/Box";
 import { useEffect, useState } from "react";
 import SetUpForm from "../../Components/SetupFom";
-import { API } from 'aws-amplify';
 const pages = [
   {
     text: "DASHBOARD",
@@ -35,7 +34,7 @@ const pages = [
 const settings = [
   {
     text: "Profile",
-    path: "/profile",
+    path: "/profile/me",
     icon: <AccountCircleIcon />,
   },
   {
@@ -44,33 +43,18 @@ const settings = [
     icon: <LogoutIcon />,
   },
 ];
-export default function AuthLayout({ user, loading, setLoading }) {
+export default function AuthLayout({ user, loading, setLoading, url, profile, setProfile }) {
   const classes = useStyles();
+  console.log(profile)
   const [isFormOpen, setFormOpen] = useState(false)
-  const [profile, setProfile] = useState({})
-
-   const checkUserProfile = () => {
-    const token = user.signInUserSession.idToken.jwtToken;
-    const requestInfo = {
-      headers: {Authorization: token}, 
-    }
-    API.get('profileApi', `/profiles/${user.attributes.sub}`, requestInfo).then((result) => {
-      let profile = JSON.parse(result.body)
-      if(Object.keys(profile).length === 0){
-        setFormOpen(true)
-      }
-      setProfile(profile);
-    }).catch(err => {
-      console.log(err);
-    })
-    setLoading(false)
-   }
-
+  
   useEffect(() => {
-    if(user != null){
-      checkUserProfile()
+    if(user != null && profile == null){
+      setFormOpen(true)
     }
-  }, [user])
+    // eslint-disable-next-line
+  },[profile]) 
+
 
   return loading ? (
     <Box className={classes.loading}>
@@ -78,15 +62,15 @@ export default function AuthLayout({ user, loading, setLoading }) {
     </Box>
   ) : user !== null ? (
     <Container className={classes.parent}>
-      <Navbar user={user} pages={pages} settings={settings} className={classes.navbar} profile={profile} />
+      <Navbar user={user} pages={pages} settings={settings} className={classes.navbar} userImage={url} />
 
       <Container className={classes.childrenBox}>
-        <Outlet />
+        <Outlet context={[profile, url, user, setFormOpen]}/>
       </Container>
       <Backdrop
       className={classes.backdrop}
-      open={isFormOpen}>
-        <SetUpForm user={user} setLoading={setLoading} setFormOpen={setFormOpen}/>
+      open={isFormOpen} >
+        <SetUpForm user={user}  profile={profile} setProfile={setProfile}/>
     </Backdrop>
     </Container>
   ) : (

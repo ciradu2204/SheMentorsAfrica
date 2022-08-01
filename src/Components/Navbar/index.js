@@ -22,9 +22,9 @@ import MenuIcon from "@material-ui/icons/Menu";
 import Menu from "@material-ui/core/Menu";
 import Cancel from "@material-ui/icons/Cancel";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
-import { Auth, Storage } from "aws-amplify";
+import { Auth } from "aws-amplify";
 
-const Navbar = ({ user, pages, settings, profile, ...props }) => {
+const Navbar = ({ user, pages, settings, userImage, ...props }) => {
   const classes = useStyles();
   const { window } = props;
   const container =
@@ -49,17 +49,8 @@ const Navbar = ({ user, pages, settings, profile, ...props }) => {
     setAnchorEl(ref.current);
   };
 
-  const getImage = async() => {
-      const result = await Storage.get(profile.profile?.profileImage.file.key, { download: true, level: "protected"});
-      profile.profile.profileImageUrl = URL.createObjectURL(result.Body)
-  }
-  
-  React.useEffect(() =>{
-    if(profile.profile?.profileImage?.file?.key){
-      getImage()
-    }
-    // eslint-disable-next-line
-  }, [profile])
+
+ 
 
   return (
     <AppBar position="static" className={classes.appBar}>
@@ -103,9 +94,9 @@ const Navbar = ({ user, pages, settings, profile, ...props }) => {
                 <Avatar
                   className={classes.avatar}
                   alt={user.attributes.name}
-                  src={profile?.profile?.profileImageUrl? profile.profile.profileImageUrl : ""}
+                  src={userImage}
                 >
-                  {!profile?.profile?.profileImageUrl? user.attributes.name.charAt(0): null}
+                  {userImage === "" ? user.attributes.name.charAt(0): null}
                 </Avatar>
 
                 <IconButton

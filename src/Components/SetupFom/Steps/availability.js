@@ -10,7 +10,7 @@ import styled from "@emotion/styled";
 import useStyles from "../styles";
 import { Alert } from "@mui/material";
 
-const Availability = ({ formik, onComplete, ...props }) => {
+const Availability = ({ formik, onComplete, user, profile, setProfile, ...props }) => {
   const initial =formik.values.availability.length === 0 ? [] : formik.values.availability;
   const [availability] = useState(initial);
   const [error, setError] = useState("");
@@ -150,7 +150,7 @@ const Availability = ({ formik, onComplete, ...props }) => {
           />
         </StyleWrapper>
       </CardContent>
-      <ActionButtons {...props} previousStep={validatePrev}  lastStep={validate} />
+      <ActionButtons {...props} previousStep={validatePrev}  lastStep={validate} user={user} setProfile={setProfile} profile={profile} formik={formik} setError={setError}/>
     </Container>
   );
 };

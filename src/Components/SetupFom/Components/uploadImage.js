@@ -11,7 +11,7 @@ import CircularProgress, {
 const UploadImage = ({user, formik}) => {
     const classes = useStyles(); 
     const [progress, setProgress] = useState(false); 
-
+    const [imageUrl, setImageUrl] = useState("")
     const onChange  = async(e) => {
       const file = e.target.files[0];
       let fileName = file.name; 
@@ -55,9 +55,8 @@ const UploadImage = ({user, formik}) => {
 
   const downloadImage = async() => {
       if(formik.values.profileImage.name.length !== 0){
-        const result = await Storage.get(formik.values.profileImage.file.key, { download: true, level: "protected"});
-        formik.setFieldValue("profileImageUrl", URL.createObjectURL(result.Body)); 
-        //setProgress(0);
+        const result = await Storage.get(formik.values.profileImage.file.key,{level: "protected", expires: "604800" });
+        setImageUrl(result)
       }
       setProgress(false);
   }
@@ -83,7 +82,7 @@ const UploadImage = ({user, formik}) => {
             <Avatar
               className={classes.avatar}
               alt={`${user.attributes.name}'s profile`}
-              src={formik.values.profileImageUrl}
+              src={imageUrl}
             />
           )}
            {progress && (

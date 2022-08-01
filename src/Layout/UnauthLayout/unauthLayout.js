@@ -80,7 +80,7 @@ const settings = [
   },
   {
       text: "Profile",
-      path: "/profile",
+      path: "/profile/me",
       icon: <AccountCircleIcon/>
     },
     {
@@ -129,7 +129,7 @@ const pageTransition = {
 };
 
 
-export default function UnauthLayout({user, loading}) {
+export default function UnauthLayout({user, loading, url}) {
   const location = useLocation();
   const [countStart, SetCounterStart] = useState(0);
   const [backdropOpen, setBackdropOpen] = useState(false); 
@@ -164,7 +164,7 @@ export default function UnauthLayout({user, loading}) {
           <CircularProgress/>
       </Box>)
     : (<div className={classes.parent}>
-      <Navbar  user={user} pages={pages.slice(0, 4)} settings={settings} />
+      <Navbar  user={user} pages={pages.slice(0, 4)} settings={settings} userImage={url} />
 
       <Container className={classes.container} disableGutters>
         <Box className={classes.childrenBox}>
@@ -176,7 +176,7 @@ export default function UnauthLayout({user, loading}) {
             variants={pageVariants}
             transition={pageTransition}
           >
-            <Outlet context={[user, setBackdropOpen]} />
+            <Outlet context={[setBackdropOpen]} />
           </motion.div>
         </Box>
         <VerticalSlider pages={pages} className={classes.verticalSlider}  />

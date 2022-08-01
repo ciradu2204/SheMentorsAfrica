@@ -13,6 +13,8 @@ import AuthLayout from "./Layout/AuthLayout/authLayout";
 import { useEffect, useState } from "react";
 import Dashboard  from "./Pages/Dashboard";
 import Profile from "./Pages/Profile";
+import { API, Storage } from 'aws-amplify';
+
 
 const theme = createTheme({
   palette: {
@@ -47,13 +49,15 @@ const theme = createTheme({
 
       }
     },
-  }}
-});
+  },
+}});
 
 function App() {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate(); 
+  const [profile, setProfile] = useState(null)
+  const [url, setUrl] = useState("")
 
   const getCurrentUser = async () => {
     try {
@@ -64,41 +68,70 @@ function App() {
     }
   }
 
-  useEffect(() => {
-    const updateUser = async (data) => {
-      setLoading(true)
-      setUser(await getCurrentUser())
-      setLoading(false)
+  const checkUserProfile = () => {
+    const token = user.signInUserSession.idToken.jwtToken;
+    const requestInfo = {
+      headers: {Authorization: token}, 
     }
-    Hub.listen('auth', async(data) => {
-      setLoading(true)
-      setUser(await getCurrentUser())
-      if(data.payload.event === "signIn"){
-        navigate("/dashboard")
-      }else if(data.payload.event === "signOut"){
-        navigate("/login")
+    API.get('profileApi', `/profiles/${user.attributes.sub}`, requestInfo).then((result) => {
+      let profile = JSON.parse(result.body)
+      setProfile(profile);
+    }).catch(err => {
+      console.log(err);
+    })
+   }
+
+
+  const getImage = async() => {
+    console.log(profile.profile?.profileImage.file.key);
+    const result = await Storage.get(profile.profile?.profileImage.file.key, {level: "protected", expires: "604800"});
+    setUrl(result)
+  }
+
+  useEffect(() => {
+    if(user == null ){
+      const updateUser = async () => {
+        setLoading(true)
+        setUser(await getCurrentUser())
         setLoading(false)
       }
-    }) 
-    updateUser() 
-    navigate('/dashboard')
-    return () => Hub.remove('auth', updateUser)
-    // eslint-disable-next-line
-  }, [])
+      Hub.listen('auth', async(data) => {
+        setLoading(true)
+        setUser(await getCurrentUser())
+        if(data.payload.event === "signIn"){
+          navigate("/dashboard")
+          setLoading(false)
+        }else if(data.payload.event === "signOut"){
+          navigate("/login")
+          setLoading(false)
+        }
+      }) 
+      updateUser() 
+      navigate(1)
+      return () => Hub.remove('auth', updateUser)
 
+    }
+    if(user != null && profile == null){
+      checkUserProfile()
+    }
+    if(profile != null && user != null ){
+      getImage()
+    }
+    // eslint-disable-next-line
+  }, [user, profile])
   return (
     <ThemeProvider theme={theme}>
       <Routes >
-        <Route element={<UnauthLayout user={user} loading={loading}  />}>
+        <Route element={<UnauthLayout user={user} loading={loading} url={url} />}>
           <Route exact path="/" element={<Home />} />
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/faqs" element={<FAQs />} />
           <Route path="/testimony" element={<Testimony />} />
           <Route path="/login" element={<AuthUser />} />
         </Route>
-        <Route element={<AuthLayout user={user} loading={loading} setLoading={setLoading} />}>
+        <Route element={<AuthLayout user={user} loading={loading} setLoading={setLoading} profile={profile} setProfile={setProfile} url={url}/>}>
           <Route exact path="/dashboard" element={<Dashboard user={user}/>} />
-          <Route path="/profile" element={<Profile/>} />
+          <Route path="/profile/me" element={<Profile/>} />
 
         </Route>
       </Routes>

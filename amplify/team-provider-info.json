@@ -19,7 +19,7 @@
       "function": {
         "profilesHandler": {
           "deploymentBucketName": "amplify-shementorsafrica-dev-124643-deployment",
-          "s3Key": "amplify-builds/profilesHandler-576f3434756b76566754-build.zip"
+          "s3Key": "amplify-builds/profilesHandler-654d2b4772626c623053-build.zip"
         }
       }
     }

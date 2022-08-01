@@ -1,13 +1,50 @@
 import { Button, Container } from "@material-ui/core";
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import { Send } from "@material-ui/icons";
+import SaveIcon from '@material-ui/icons/Save';
+import LoadingButton from '@mui/lab/LoadingButton';
+import {API} from "aws-amplify";
 import useStyles from "../styles";
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-
-
-const ActionButtons = ({...props}) => {
+const ActionButtons = ({user, profile, formik, setError, setProfile, ...props}) => {
+    const [loading, setLoading] = useState(false); 
     const classes = useStyles();
+    const navigate = useNavigate();
+
+    const createProfile = async() => {
+        const token = user.signInUserSession.idToken.jwtToken;
+        let profile  = {...formik.values, userId: user.attributes.sub, email:user.attributes.email}
+        const requestInfo = {
+          headers: {Authorization: token}, 
+          body: {profile : profile}
+        }
+        try {
+          return await API.post("profileApi", "/profiles", requestInfo);
+        } catch (error) {
+          setError(error.message)
+          setLoading(false);
+          return ""
+        }
+    }
+    const updateProfile = async() => {
+        const token = user.signInUserSession.idToken.jwtToken;
+        let profile  = {...formik.values}
+        const requestInfo = {
+          headers: {Authorization: token}, 
+          body: {profile : profile}
+        }
+
+        try {
+            return await API.put("profileApi", "/profiles", requestInfo);
+          } catch (error) {
+            setError(error.message)
+            setLoading(false);
+            return ""
+          }
+    }
+    
     const handleBack = () => {
       props.previousStep()
     }
@@ -17,7 +54,21 @@ const ActionButtons = ({...props}) => {
     };
 
     const handleFinish = () => {
-        props.lastStep();
+        setLoading(true);
+        let item = ""
+        if(profile == null){
+           item = createProfile(); 
+        }else{
+           item = updateProfile();
+        }
+
+        if(item !== ""){
+          setProfile(item)
+          setLoading(false);
+          navigate('/dashboard'); 
+        }
+        
+     
     };
 
     return (
@@ -31,7 +82,7 @@ const ActionButtons = ({...props}) => {
 
            )}
            {props.currentStep ===  props.totalSteps && (
-               <Button variant="contained" color="primary" type="submit" className={classes.submitActionButton} onClick={handleFinish} endIcon={<Send />}>Submit</Button>
+               <LoadingButton variant="contained"  loading={loading} loadingPosition="start" color="primary" type="submit" className={classes.submitActionButton} onClick={handleFinish} startIcon={<SaveIcon />}>Save</LoadingButton>
 
            )}
         </Container>

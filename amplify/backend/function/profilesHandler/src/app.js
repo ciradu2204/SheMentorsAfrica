@@ -69,6 +69,7 @@ const getUserId = (request) => {
 app.get("/profiles/:id", function (request, response) {
   let params = {
     TableName: tableName,
+    AttributesToGet: ['profile'],
     Key: {
       PK: request.params.id,
       SK: `profile-${request.params.id}`
@@ -89,6 +90,29 @@ app.listen(3000, function() {
 
 //post profile
 app.post(path, function (request, response) {
+  const timestamp = new Date().toISOString();
+  let params = {
+    TableName: tableName,
+    Item: {
+      profile: request.body.profile,
+      PK: getUserId(request) , 
+      SK:  `profile-${getUserId(request)}` ,             
+      role: request.body.profile.role,           
+      createdAt: timestamp,
+    }
+  }
+
+  dynamodb.put(params, (error, result) => {
+    if (error) {
+      response.json({ statusCode: 500, error: error.message, url: request.url });
+    } else {
+      response.json({ statusCode: 200, url: request.url, body: JSON.stringify(params.Item) })
+    }
+  });
+});
+
+//put profile
+app.put(path, function (request, response) {
   const timestamp = new Date().toISOString();
   let params = {
     TableName: tableName,

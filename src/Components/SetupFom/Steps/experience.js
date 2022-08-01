@@ -11,7 +11,7 @@ import { useState } from "react";
 import { Alert } from "@mui/material";
 import Experience from "../Components/experience";
 
-const ExperienceStep = ({ formik, onComplete, ...props }) => {
+const ExperienceStep = ({ formik, user, profile, setProfile, ...props }) => {
   const classes = useStyles();
   const [error, setError] = useState("");
   const initial = {
@@ -32,13 +32,13 @@ const ExperienceStep = ({ formik, onComplete, ...props }) => {
   const formData = {
     education: formik.values.education,
     connect: formik.values.connect,
+    experience: formik.values.experience
   };
 
   const validate = async () => {
     try {
       if (formik.values.role === "Mentee") {
         await menteeExperienceShema.validate(formData);
-        onComplete()
       } else {
         await mentorExperienceShema.validate(formData);
         props.goToNamedStep("availability");
@@ -66,7 +66,7 @@ const ExperienceStep = ({ formik, onComplete, ...props }) => {
         )}
         <Connect formik={formik} hasError={hasError} />
       </CardContent>
-      <ActionButtons {...props} nextStep={validate} />
+      <ActionButtons {...props} nextStep={validate} user={user} profile={profile} formik={formik} setProfile={setProfile} setError={setError}/>
     </Container>
   );
 };

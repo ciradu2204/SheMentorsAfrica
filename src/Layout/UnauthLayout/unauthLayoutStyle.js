@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) => {
       position: "relative",
       zIndex: "0 !important",
       flexDirection: "column",
-      height: "100vh !important"
+      height: '100vh',
     },
     container: {
       display: "flex",

@@ -7,4 +7,5 @@ import * as yup from "yup";
     bio: yup.string().required("Bio field is required").min(150, "Bio should be 150 characters at least"),
     country: yup.string().required("Country field is required"),
     languages: yup.array().required("Language field is Required"),
+    userName: yup.string().required("The Full Name is needed"), 
   });

@@ -8,16 +8,45 @@ import PersonalInformation from "./Steps/generalInfo";
 import Experience from "./Steps/experience";
 import Availability from "./Steps/availability";
 import Interest from "./Steps/interest";
-import {API} from "aws-amplify";
-import { useNavigate } from "react-router-dom";
-import { Alert } from "@mui/material";
 
-const SetUpForm = ({ user, setLoading, setFormOpen }) => {
+
+const SetUpForm = ({ user, profile, setProfile }) => {
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
   const [stepWizard, setStepWizard] = useState();
-  const [error, setError] = useState("");
-  const navigate = useNavigate();
+  const initialValue = {
+    profileImage: {
+      name: "",
+      file: {},
+    },
+    userName: user.attributes.name,
+    role: "",
+    bio: "",
+    country: "",
+    languages: [],
+    areasOfExpertise: [],
+    mentorshipTopics: [],
+    level: "",
+    education: {
+      school: "",
+      degree: "",
+    },
+    experience: {
+      company: "",
+      role: "",
+    },
+    connect: {
+      linkedIn: "",
+      twitter: "",
+      personalWebsite: "",
+    },
+    availability: [
+      {
+        startDate: null,
+        endDate: null,
+      },
+    ],
+  }
   const assignStepWizard = (instance) => {
     setStepWizard(instance);
   };
@@ -26,60 +55,8 @@ const SetUpForm = ({ user, setLoading, setFormOpen }) => {
     setActiveStep(e.activeStep - 1);
   };
 
-  const onComplete = async (e) => {
-    const token = user.signInUserSession.idToken.jwtToken;
-    const requestInfo = {
-      headers: {Authorization: token}, 
-      body: {profile : formik.values}
-    }
-    try {
-      setLoading(true);
-       await API.post("profileApi", "/profiles", requestInfo);
-      setLoading(false);
-      setFormOpen(false)
-      navigate('/dashboard'); 
-    } catch (error) {
-      setLoading(false);
-      setError(error.message)
-    }
-  
-
-  };
-
   const formik = useFormik({
-    initialValues: {
-      profileImage: {
-        name: "",
-        file: {},
-      },
-      profileImageUrl: null,
-      role: "",
-      bio: "",
-      country: "",
-      languages: [],
-      areasOfExpertise: [],
-      mentorshipTopics: [],
-      level: "",
-      education: {
-        school: "",
-        degree: "",
-      },
-      experience: {
-        company: "",
-        role: "",
-      },
-      connect: {
-        linkedIn: "",
-        twitter: "",
-        personalWebsite: "",
-      },
-      availability: [
-        {
-          startDate: null,
-          endDate: null,
-        },
-      ],
-    },
+    initialValues: profile?.profile? profile.profile: initialValue
   });
 
   return (
@@ -110,9 +87,6 @@ const SetUpForm = ({ user, setLoading, setFormOpen }) => {
         isLazyMount={true}
         className={classes.stepWizard}
       >
-        {error.length > 0 &&  (
-          <Alert severity="error" className={classes.error}>{error}</Alert>
-        )}
         <PersonalInformation
           user={user}
           formik={formik}
@@ -122,12 +96,16 @@ const SetUpForm = ({ user, setLoading, setFormOpen }) => {
         <Experience
           formik={formik}
           stepName={"experience"}
-          onComplete={onComplete}
+          user={user}
+          setProfile={setProfile}
+          profile={profile}
         />
         <Availability
           formik={formik}
           stepName={"availability"}
-          onComplete={onComplete}
+          user={user}
+          setProfile={setProfile}
+          profile={profile}
         />
       </StepWizard>
     </Card>

@@ -16,7 +16,8 @@ const PersonalInformation = ({ user, formik, ...props}) => {
      profileImage: false, 
      bio: false, 
      country: false, 
-     languages: false
+     languages: false,
+     userName: false,
    }
    const [hasError, setHasError] = useState(initial); 
 
@@ -24,7 +25,8 @@ const PersonalInformation = ({ user, formik, ...props}) => {
       profileImage: formik.values.profileImage, 
       bio: formik.values.bio,
       country: formik.values.country, 
-      languages: formik.values.languages
+      languages: formik.values.languages,
+      userName: formik.values.userName,
    }
 
     
@@ -51,6 +53,7 @@ const PersonalInformation = ({ user, formik, ...props}) => {
   {error}
 </Alert>)}
       <CardContent className={classes.cardContent}>
+        <TextField required label="Full Name" name="userName" error={hasError.userName} variant="outlined" className={classes.item}/>
         <UploadImage user={user} formik={formik} />
         <Country formik={formik} hasError={hasError} />
         <Language formik={formik} hasError={hasError} />

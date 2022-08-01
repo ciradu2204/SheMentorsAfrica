@@ -8,8 +8,8 @@ const useStyles = makeStyles((theme) => {
       paddingRight: "unset !important",
       boxSizing: "borderBox",
       display: "flex",
+      height: "100% !important",
       flexDirection: "column",
-      height: "98vh !important",
     },
 
     backdrop: {
@@ -25,9 +25,10 @@ const useStyles = makeStyles((theme) => {
       padding: "unset !important",
       position: "relative",
       bottom: "10px",
+      height: "100%",
       background: "rgba(245, 245, 245, 0.3)",
       boxShadow: "0px 2px 4px rgba(16, 24, 40, 0.15)",
-      borderRadius: "30px 0px 0px 30px",
+      borderRadius: "30px 0px 0px",
       flexGrow: 2,
     },
     loading: {
