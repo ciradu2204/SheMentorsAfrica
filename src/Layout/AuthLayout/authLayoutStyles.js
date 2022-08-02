@@ -15,6 +15,7 @@ const useStyles = makeStyles((theme) => {
     backdrop: {
       color: "#fff",
       position: "absolute",
+      height: "100% !important",
       zIndex: `${theme.zIndex.drawer}   !important`,
     },
     navbar: {

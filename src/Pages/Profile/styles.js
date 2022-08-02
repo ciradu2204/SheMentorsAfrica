@@ -135,7 +135,10 @@ const useStyles = makeStyles((theme) =>{
             fontFamily: "Poppins,sans-serif !important",
 
         }, 
-        cardContainer: {
+        cardContent: {
+            display:"flex", 
+            gap: "5%",
+            flexWrap: "wrap !important",
         },
         carcardContainerLeft: {
             width: "30%", 
@@ -149,10 +152,14 @@ const useStyles = makeStyles((theme) =>{
             marginBottom: "10px",
             color: "rgba(124,123,122, 1)",
             borderRadius: "10px 10px 10px 10px",
+            flexWrap: "wrap",
+            flexBasis: 0, 
+            flexGrow: 1, 
         }, 
         aboutMeTitle: {
             color: `${theme.palette.secondary.main}`, 
-            marginBottom: "10px",
+            marginTop: "20px",
+            marginLeft: "20px",
             fontWeight: "600", 
             fontFamily: "Poppins,sans-serif !important",
 
@@ -161,17 +168,20 @@ const useStyles = makeStyles((theme) =>{
             marginBottom: "10px",
             color: "rgba(124,123,122, 1)",
             borderRadius: "10px 10px 10px 10px",
-            minHeight: "450px",
         },
         chip:{
             fontFamily: "Poppins,sans-serif !important",
             color: "rgba(124,123,122, 1) !important",
-            margin: "5px"
+            marginBottom: "5%",
         }, 
         connectIcon:{
             borderRadius: "50%", 
             color: "black !important",
             backgroundColor: "rgba(124,123,122, 0.2)",
+        }, 
+        flex: {
+            display: "flex",
+            gap: "2%",
         }
 
     }

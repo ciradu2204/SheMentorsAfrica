@@ -1,4 +1,4 @@
-import { Card, Typography } from "@material-ui/core";
+import { Box, Card, CardContent, IconButton, Typography } from "@material-ui/core";
 import { useFormik } from "formik";
 import useStyles from "./styles";
 import { Stepper, Step } from "react-form-stepper";
@@ -8,9 +8,10 @@ import PersonalInformation from "./Steps/generalInfo";
 import Experience from "./Steps/experience";
 import Availability from "./Steps/availability";
 import Interest from "./Steps/interest";
+import CloseIcon from "@material-ui/icons/Close";
 
-
-const SetUpForm = ({ user, profile, setProfile }) => {
+const SetUpForm = ({ user, profile, setProfile, updateForm }) => {
+  console.log(profile === null);
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
   const [stepWizard, setStepWizard] = useState();
@@ -46,7 +47,7 @@ const SetUpForm = ({ user, profile, setProfile }) => {
         endDate: null,
       },
     ],
-  }
+  };
   const assignStepWizard = (instance) => {
     setStepWizard(instance);
   };
@@ -56,14 +57,27 @@ const SetUpForm = ({ user, profile, setProfile }) => {
   };
 
   const formik = useFormik({
-    initialValues: profile?.profile? profile.profile: initialValue
+    initialValues: profile === null ? initialValue: profile.profile,
   });
+
+  const handleClose = () => {
+    updateForm(false);
+  };
 
   return (
     <Card className={classes.card}>
+      {profile !== null &&  <Box className={classes.closeIconBox}><IconButton
+        aria-label="close"
+        onClick={handleClose}
+        className={classes.closeIcon}
+      >
+        <CloseIcon  />
+      </IconButton></Box>}
+      
       <Typography variant="h5" className={classes.title}>
         Tell us a little bit about yourself!
       </Typography>
+
       <Typography variant="subtitle1">
         To better suit your needs, let us know your expectation!{" "}
       </Typography>
@@ -97,16 +111,20 @@ const SetUpForm = ({ user, profile, setProfile }) => {
           formik={formik}
           stepName={"experience"}
           user={user}
+          updateForm={updateForm}
           setProfile={setProfile}
           profile={profile}
         />
-        <Availability
-          formik={formik}
-          stepName={"availability"}
-          user={user}
-          setProfile={setProfile}
-          profile={profile}
-        />
+        {formik.values.role === "Mentor" && (
+          <Availability
+            formik={formik}
+            stepName={"availability"}
+            updateForm={updateForm}
+            user={user}
+            setProfile={setProfile}
+            profile={profile}
+          />
+        )}
       </StepWizard>
     </Card>
   );

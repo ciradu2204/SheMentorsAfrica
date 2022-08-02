@@ -36,7 +36,7 @@ const AreasOfExpertise = ({ formik, hasError }) => {
 
   return (
     <FormControl variant="outlined" fullWidth className={classes.item} required>
-      <InputLabel id="areaOfExpertise-label">Areas of Expertise</InputLabel>
+      <InputLabel id="areaOfExpertise-label">Skills</InputLabel>
       <Select
         labelId="areaOfExpertise-label"
         id="select-areaOfExpertise"

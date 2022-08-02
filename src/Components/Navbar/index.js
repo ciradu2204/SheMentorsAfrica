@@ -91,10 +91,11 @@ const Navbar = ({ user, pages, settings, userImage, ...props }) => {
             </Box>
             {user !== null ? (
               <Box className={classes.user}>
+                
                 <Avatar
                   className={classes.avatar}
                   alt={user.attributes.name}
-                  src={userImage}
+                  src={userImage !== ""? userImage: null}
                 >
                   {userImage === "" ? user.attributes.name.charAt(0): null}
                 </Avatar>

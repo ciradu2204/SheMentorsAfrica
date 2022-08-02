@@ -20,7 +20,7 @@ const Education = ({ formik, hasError }) => {
         fullWidth
         className= {classes.textField}
         name="education.degree"
-        label="Degree"
+        label="Specialization"
         variant="outlined"
         error={hasError.education.degree}
         onChange={formik.handleChange}

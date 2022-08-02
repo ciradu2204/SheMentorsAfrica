@@ -11,7 +11,7 @@ import { useState } from "react";
 import { Alert } from "@mui/material";
 import Experience from "../Components/experience";
 
-const ExperienceStep = ({ formik, user, profile, setProfile, ...props }) => {
+const ExperienceStep = ({ formik, user, profile, setProfile, updateForm, ...props }) => {
   const classes = useStyles();
   const [error, setError] = useState("");
   const initial = {
@@ -39,6 +39,7 @@ const ExperienceStep = ({ formik, user, profile, setProfile, ...props }) => {
     try {
       if (formik.values.role === "Mentee") {
         await menteeExperienceShema.validate(formData);
+        props.lastStep()
       } else {
         await mentorExperienceShema.validate(formData);
         props.goToNamedStep("availability");
@@ -66,7 +67,7 @@ const ExperienceStep = ({ formik, user, profile, setProfile, ...props }) => {
         )}
         <Connect formik={formik} hasError={hasError} />
       </CardContent>
-      <ActionButtons {...props} nextStep={validate} user={user} profile={profile} formik={formik} setProfile={setProfile} setError={setError}/>
+      <ActionButtons {...props} nextStep={validate} user={user} profile={profile} formik={formik} setProfile={setProfile} setError={setError} updateForm={updateForm}/>
     </Container>
   );
 };

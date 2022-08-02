@@ -22,9 +22,9 @@ const Level = ({formik, hasError}) => {
             },
         }}
         >
-          <MenuItem value="Junior">Junior(0-3 yrs of experience)</MenuItem>
-          <MenuItem value="Mid">Mid level (3-5 yrs of experience)</MenuItem>
-          <MenuItem value="Senior">Senior (&gt;5 yrs of experience)</MenuItem>
+          <MenuItem value="0-3 yrs">Junior(0-3 yrs of experience)</MenuItem>
+          <MenuItem value="3-5 yrs">Mid level (3-5 yrs of experience)</MenuItem>
+          <MenuItem value="5-10 yrs">Senior (&gt;5 yrs of experience)</MenuItem>
 
         </Select>
       </FormControl>

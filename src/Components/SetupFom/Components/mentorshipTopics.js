@@ -26,7 +26,7 @@ const MentorshipTopics = ({formik, hasError}) => {
     return (
 
         <FormControl variant="outlined" fullWidth className={classes.formControl} required>
-        <InputLabel id="mentorshipTopics-label">Mentorship Topics</InputLabel>
+        <InputLabel id="mentorshipTopics-label">{formik.values.role === "Mentor"? "Mentoring Topics":"I’d love some help with"}</InputLabel>
         <Select
           labelId="mentorshipTopics-label"
           id="select-mentorshipTopics"

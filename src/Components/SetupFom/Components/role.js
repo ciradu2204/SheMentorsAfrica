@@ -22,8 +22,8 @@ const Role = ({formik, hasError}) => {
             },
         }}
         >
-          <MenuItem value="Mentor">Mentor</MenuItem>
-          <MenuItem value="Mentee">Be Mentored</MenuItem>
+          <MenuItem value="Mentor">Mentor (Employed)</MenuItem>
+          <MenuItem value="Mentee">Be Mentored (Unemployed)</MenuItem>
         </Select>
       </FormControl>
     )

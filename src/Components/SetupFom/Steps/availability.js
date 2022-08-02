@@ -10,7 +10,7 @@ import styled from "@emotion/styled";
 import useStyles from "../styles";
 import { Alert } from "@mui/material";
 
-const Availability = ({ formik, onComplete, user, profile, setProfile, ...props }) => {
+const Availability = ({ formik, user, profile, setProfile, updateForm, ...props }) => {
   const initial =formik.values.availability.length === 0 ? [] : formik.values.availability;
   const [availability] = useState(initial);
   const [error, setError] = useState("");
@@ -71,7 +71,7 @@ const Availability = ({ formik, onComplete, user, profile, setProfile, ...props 
     if(calendarRef.current.length > 0){
       formik.setFieldValue("availability", calendarRef.current);
       setError("")
-      onComplete()
+      props.lastStep()
     }else{
       setError("One slot range needs to be selected");
     }
@@ -150,7 +150,7 @@ const Availability = ({ formik, onComplete, user, profile, setProfile, ...props 
           />
         </StyleWrapper>
       </CardContent>
-      <ActionButtons {...props} previousStep={validatePrev}  lastStep={validate} user={user} setProfile={setProfile} profile={profile} formik={formik} setError={setError}/>
+      <ActionButtons {...props} previousStep={validatePrev}  lastStep={validate} user={user} setProfile={setProfile} profile={profile} formik={formik} setError={setError} updateForm={updateForm}/>
     </Container>
   );
 };

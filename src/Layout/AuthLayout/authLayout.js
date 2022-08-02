@@ -6,7 +6,7 @@ import LogoutIcon from "@material-ui/icons/ExitToApp";
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import CircularProgress from "@material-ui/core/CircularProgress";
 import Box from "@material-ui/core/Box";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import SetUpForm from "../../Components/SetupFom";
 const pages = [
   {
@@ -43,18 +43,8 @@ const settings = [
     icon: <LogoutIcon />,
   },
 ];
-export default function AuthLayout({ user, loading, setLoading, url, profile, setProfile }) {
+export default function AuthLayout({ user, loading, url, profile, setProfile, isFormOpen, setFormOpen }) {
   const classes = useStyles();
-  console.log(profile)
-  const [isFormOpen, setFormOpen] = useState(false)
-  
-  useEffect(() => {
-    if(user != null && profile == null){
-      setFormOpen(true)
-    }
-    // eslint-disable-next-line
-  },[profile]) 
-
 
   return loading ? (
     <Box className={classes.loading}>
@@ -70,7 +60,7 @@ export default function AuthLayout({ user, loading, setLoading, url, profile, se
       <Backdrop
       className={classes.backdrop}
       open={isFormOpen} >
-        <SetUpForm user={user}  profile={profile} setProfile={setProfile}/>
+        <SetUpForm user={user}  profile={profile} setProfile={setProfile} updateForm={setFormOpen}/>
     </Backdrop>
     </Container>
   ) : (

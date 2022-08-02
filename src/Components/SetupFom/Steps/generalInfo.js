@@ -53,8 +53,8 @@ const PersonalInformation = ({ user, formik, ...props}) => {
   {error}
 </Alert>)}
       <CardContent className={classes.cardContent}>
-        <TextField required label="Full Name" name="userName" error={hasError.userName} variant="outlined" className={classes.item}/>
         <UploadImage user={user} formik={formik} />
+        <TextField required label="Full Name" name="userName" value={formik.values.userName} error={hasError.userName} variant="outlined" className={classes.item}/>
         <Country formik={formik} hasError={hasError} />
         <Language formik={formik} hasError={hasError} />
         <TextField

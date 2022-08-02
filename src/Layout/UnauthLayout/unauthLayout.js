@@ -78,11 +78,11 @@ const settings = [
     path: "/dashboard",
     icon: <HomeIcon/>,
   },
-  {
-      text: "Profile",
-      path: "/profile/me",
-      icon: <AccountCircleIcon/>
-    },
+  // {
+  //     text: "Profile",
+  //     path: "/profile/me",
+  //     icon: <AccountCircleIcon/>
+  //   },
     {
       text: "Logout",
       path: "/login",

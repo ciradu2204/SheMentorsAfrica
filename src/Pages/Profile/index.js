@@ -17,17 +17,22 @@ import Tab from "@mui/material/Tab";
 import PropTypes from 'prop-types';
 import Tabs from "@mui/material/Tabs"
 import React from "react";
-import WorkIcon from '@material-ui/icons/Work';
+import BusinessIcon from '@material-ui/icons/Business';
+import Label from '@material-ui/icons/LabelImportant';
 import AboutMe from './aboutMe'
 
 const Profile = () => {
   const [profile, url, user, setFormOpen] = useOutletContext();
-  console.log(user); 
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+ 
+
+  const handleEdit = () => {
+    setFormOpen(true)
+  }
  
   function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -70,7 +75,7 @@ const Profile = () => {
           <IconButton aria-label="back" className={classes.back}>
             <ArrowBackIosIcon />
           </IconButton>
-          <Button endIcon={<EditIcon />} className={classes.edit}>
+          <Button endIcon={<EditIcon />} className={classes.edit} disableRipple onClick={handleEdit}>
             Edit Profile
           </Button>
         </Box>
@@ -88,6 +93,13 @@ const Profile = () => {
                   {profile.profile.experience.role}{" "}
                 </Typography>
                 <Box className={classes.experience}>
+                <Box className={classes.experienceBox}>
+                    <Label />
+                    <Typography variant="subtitle1">
+                      {" "}
+                      {profile.profile.role}
+                    </Typography>
+                  </Box>
                   <Box className={classes.experienceBox}>
                     <EmojiEventsIcon />
                     <Typography variant="subtitle1">
@@ -96,7 +108,7 @@ const Profile = () => {
                     </Typography>
                   </Box>
                   <Box className={classes.experienceBox}>
-                    <WorkIcon />
+                    <BusinessIcon />
                     <Typography variant="subtitle1">
                       {" "}
                       {profile.profile.experience.company}
@@ -118,14 +130,14 @@ const Profile = () => {
             {profile.profile.role === "Mentee" && (
               <>
                 <Typography variant="h6" className={classes.title}>
-                  {profile.profile.education.degree}{" "}
+                  {profile.profile.education.degree}{" "} Student
                 </Typography>
                 <Box className={classes.experience}>
                   <Box className={classes.experienceBox}>
-                    <EmojiEventsIcon />
+                    <Label />
                     <Typography variant="subtitle1">
                       {" "}
-                      {profile.profile.level}
+                      {profile.profile.role}
                     </Typography>
                   </Box>
                   <Box className={classes.experienceBox}>

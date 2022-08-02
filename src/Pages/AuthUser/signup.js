@@ -8,7 +8,7 @@ const SignUp = ({formState, onChange, handleClickShowPassword, handleClickShowCo
     <Box className={classes.inputContainer}>
     <TextField
       id="User Name"
-      label="Name"
+      label="Full Name"
       className={classes.input}
       name="name"
       variant="outlined"

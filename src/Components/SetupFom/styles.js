@@ -3,13 +3,13 @@ import { makeStyles } from "@material-ui/core";
 const useStyles = makeStyles((theme) => {
   return {
     avatar: {
-      height: 110,
-      width: 110,
+      height: 90,
+      width: 90,
       border: `2px solid ${theme.palette.grey[200]}`,
     },
     circleIcon: {
-      height: 110,
-      width: 110,
+      height: 90,
+      width: 90,
       color: "#D9D9D9",
     },
     uploadButton: {
@@ -121,6 +121,7 @@ const useStyles = makeStyles((theme) => {
     submitActionButton: {
       marginLeft: "auto",
       color: "white",
+      backgroundColor: `${theme.palette.primary.main} !important`,
       "&:hover": {
         backgroundColor: `${theme.palette.primary.main} !important`,
       },
@@ -129,16 +130,28 @@ const useStyles = makeStyles((theme) => {
       color: theme.palette.secondary.main,
       fontFamily: "Poppins !important",
       fontWeight: "600",
-      marginTop: "30px",
-      lineHeight: "45px",
+      padding: "10px",
       letterSpacing: "0.05em",
     },
     subtitle: {
       fontFamily: "Poppins",
       fontWeight: "400",
+      padding: "10px",
     },
     calendar:{
       width: "95% !important",
+    }, 
+    closeIconBox:{
+      width: "100%", 
+      display: "flex", 
+      justifyContent: "flex-end",
+    }, 
+    closeIcon:{
+      color: `${theme.palette.primary.main} !important`,
+      '&:hover':{
+        backgroundColor: "unset !important", 
+        borderRadius: "unset !important", 
+      }
     }
   };
 });
