@@ -9,6 +9,18 @@
     "fieldName": "SK",
     "fieldType": "string"
   },
-  "gsi": [],
+  "gsi": [
+    {
+      "name": "profilesByRole",
+      "partitionKey": {
+        "fieldName": "role",
+        "fieldType": "string"
+      },
+      "sortKey": {
+        "fieldName": "SK",
+        "fieldType": "string"
+      }
+    }
+  ],
   "triggerFunctions": []
 }

@@ -7,8 +7,8 @@ import {
   OutlinedInput,
   Select,
 } from "@material-ui/core";
-import useStyles from "../styles";
-const Language = ({ formik, hasError }) => {
+import useStyles from "./styles";
+const Language = ({ formik, hasError,  required=true }) => {
   const classes = useStyles();
 
   const Languages = [
@@ -84,9 +84,9 @@ const Language = ({ formik, hasError }) => {
       variant="outlined"
       fullWidth
       className={classes.formControl}
-      required
+      required={required}
     >
-      <InputLabel required id="languages-label">
+      <InputLabel  id="languages-label">
         Languages
       </InputLabel>
       <Select

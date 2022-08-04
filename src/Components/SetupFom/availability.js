@@ -1,20 +1,20 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, {  useState, useCallback } from "react";
 import { CardContent, Container } from "@material-ui/core";
-import ActionButtons from "../Components/actionButtons";
+import ActionButtons from "./actionButtons";
 import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
 import momentTimezonePlugin from "@fullcalendar/moment-timezone";
 import styled from "@emotion/styled";
-import useStyles from "../styles";
+import useStyles from "./styles";
 import { Alert } from "@mui/material";
 
-const Availability = ({ formik, user, profile, setProfile, updateForm, ...props }) => {
-  const initial =formik.values.availability.length === 0 ? [] : formik.values.availability;
+const Availability = ({ formik, onComplete, loading, setAvailability, ...props }) => {
+  const initial = formik.values.availability.length === 0 ? [] :formik.values.availability;
   const [availability] = useState(initial);
   const [error, setError] = useState("");
-  let calendarRef = React.useRef();
+  let calendarRef = React.useRef(initial.availability);
   const classes = useStyles();
   const handleDateSelect = (selectInfo) => {
     let title = "";
@@ -67,11 +67,12 @@ const Availability = ({ formik, user, profile, setProfile, updateForm, ...props 
       height: 350px !important;
     }
   `;
-  const validate = () => {
-    if(calendarRef.current.length > 0){
-      formik.setFieldValue("availability", calendarRef.current);
+  const validate = async () => {
+    if(calendarRef.current != null){
+      setAvailability(calendarRef.current)
       setError("")
       props.lastStep()
+      onComplete()
     }else{
       setError("One slot range needs to be selected");
     }
@@ -99,10 +100,6 @@ const Availability = ({ formik, user, profile, setProfile, updateForm, ...props 
     clickInfo.event.remove();
   };
 
-  useEffect(() => {
-    formik.setFieldValue("availability", availability);
-    // eslint-disable-next-line
-  }, [availability]);
 
   return (
     <Container disableGutters className={classes.container}>
@@ -150,7 +147,7 @@ const Availability = ({ formik, user, profile, setProfile, updateForm, ...props 
           />
         </StyleWrapper>
       </CardContent>
-      <ActionButtons {...props} previousStep={validatePrev}  lastStep={validate} user={user} setProfile={setProfile} profile={profile} formik={formik} setError={setError} updateForm={updateForm}/>
+      <ActionButtons {...props} previousStep={validatePrev} lastStep={validate} loading={loading}/>
     </Container>
   );
 };

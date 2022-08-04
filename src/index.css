@@ -5,10 +5,12 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+   min-height: 100vh !important;
 }
 
 body, html{
   font-family: 'Poppins', sans-serif !important;
+  height: 100% !important;
 }
 
 code {

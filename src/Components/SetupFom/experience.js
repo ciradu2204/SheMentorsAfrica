@@ -1,17 +1,17 @@
 import { CardContent, Container } from "@material-ui/core";
-import ActionButtons from "../Components/actionButtons";
-import Connect from "../Components/connect";
-import Education from "../Components/education";
-import useStyles from "../styles";
+import ActionButtons from "./actionButtons";
+import Connect from "../Inputs/connect";
+import Education from "../Inputs/education";
+import useStyles from "./styles";
 import {
   menteeExperienceShema,
   mentorExperienceShema,
-} from "../../../Validations/experience";
+} from "../../Validations/experience";
 import { useState } from "react";
 import { Alert } from "@mui/material";
-import Experience from "../Components/experience";
+import Experience from "../Inputs/experience";
 
-const ExperienceStep = ({ formik, user, profile, setProfile, updateForm, ...props }) => {
+const ExperienceStep = ({ formik, onComplete, loading, ...props }) => {
   const classes = useStyles();
   const [error, setError] = useState("");
   const initial = {
@@ -40,9 +40,10 @@ const ExperienceStep = ({ formik, user, profile, setProfile, updateForm, ...prop
       if (formik.values.role === "Mentee") {
         await menteeExperienceShema.validate(formData);
         props.lastStep()
+        onComplete()
       } else {
         await mentorExperienceShema.validate(formData);
-        props.goToNamedStep("availability");
+        props.nextStep()
       }
     } catch (error) {
       setError(error.message);
@@ -67,7 +68,7 @@ const ExperienceStep = ({ formik, user, profile, setProfile, updateForm, ...prop
         )}
         <Connect formik={formik} hasError={hasError} />
       </CardContent>
-      <ActionButtons {...props} nextStep={validate} user={user} profile={profile} formik={formik} setProfile={setProfile} setError={setError} updateForm={updateForm}/>
+      <ActionButtons {...props} nextStep={validate} loading={loading}/>
     </Container>
   );
 };

@@ -1,8 +1,8 @@
-import useStyles from "../styles"; 
+import useStyles from "./styles"; 
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import { Delete, AddAPhoto } from "@material-ui/icons";
 import {Storage} from "aws-amplify"
-import awsExports from "../../../aws-exports"
+import awsExports from "../../aws-exports"
 import { Avatar, Box, Button } from "@material-ui/core";
 import { useEffect, useState } from "react";
 import CircularProgress, {

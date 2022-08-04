@@ -1,13 +1,13 @@
 import { Container, TextField } from "@material-ui/core";
-import useStyles from "../styles";
+import useStyles from "./styles";
 
-const Connect = ({ formik, hasError }) => {
+const Connect = ({ formik, hasError,  required= true }) => {
   const classes = useStyles();
 
   return (
     <Container className={classes.item} disableGutters>
       <TextField
-        required
+        required={required}
         name="connect.linkedIn"
         label="LinkedIn Url"
         variant="outlined"

@@ -16,7 +16,6 @@ import { Outlet } from "react-router-dom";
 import { motion } from "framer-motion";
 import HomeIcon from '@material-ui/icons/Home';
 import LogoutIcon from '@material-ui/icons/ExitToApp';
-import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 import NavigateBefore from "@material-ui/icons/NavigateBefore";
 
@@ -129,7 +128,7 @@ const pageTransition = {
 };
 
 
-export default function UnauthLayout({user, loading, url}) {
+export default function UnauthLayout({user, loading, profile}) {
   const location = useLocation();
   const [countStart, SetCounterStart] = useState(0);
   const [backdropOpen, setBackdropOpen] = useState(false); 
@@ -164,7 +163,7 @@ export default function UnauthLayout({user, loading, url}) {
           <CircularProgress/>
       </Box>)
     : (<div className={classes.parent}>
-      <Navbar  user={user} pages={pages.slice(0, 4)} settings={settings} userImage={url} />
+      <Navbar  user={user} pages={pages.slice(0, 4)} settings={settings} profile={profile} />
 
       <Container className={classes.container} disableGutters>
         <Box className={classes.childrenBox}>

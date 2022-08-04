@@ -7,8 +7,8 @@ import {
   OutlinedInput,
   Select,
 } from "@material-ui/core";
-import useStyles from "../styles";
-const AreasOfExpertise = ({ formik, hasError }) => {
+import useStyles from "./styles";
+const AreasOfExpertise = ({ formik, hasError, required=true, label="label", focused=false, multiple=true}) => {
   const classes = useStyles();
 
   const AreasOfExpertise = [
@@ -16,6 +16,7 @@ const AreasOfExpertise = ({ formik, hasError }) => {
     "Backend development",
     "Cloud Computing",
     "DevOps",
+    "UI/UX",
     "CyberSecurity",
     "Data Analytics",
     "AI/ML", 
@@ -35,13 +36,15 @@ const AreasOfExpertise = ({ formik, hasError }) => {
   ];
 
   return (
-    <FormControl variant="outlined" fullWidth className={classes.item} required>
-      <InputLabel id="areaOfExpertise-label">Skills</InputLabel>
+    <FormControl variant="outlined" fullWidth className={classes.item} required={required} focused={focused}>
+      <InputLabel id="areaOfExpertise-label" classes={{
+                 root: label === "label" ? classes.label: classes.labelDashboard
+        }}>Skills</InputLabel>
       <Select
         labelId="areaOfExpertise-label"
         id="select-areaOfExpertise"
         name="areasOfExpertise"
-        multiple
+        multiple={multiple}
         value={formik.values.areasOfExpertise}
         //label="Areas of Expertise"
         onChange={formik.handleChange}

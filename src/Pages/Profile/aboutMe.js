@@ -16,7 +16,6 @@ import { Link } from "react-router-dom";
 
 const AboutMe = ({ profile }) => {
   const classes = useStyles();
-
   const ButtonMailto = ({ mailto, ...props }) => {
     return (
       <IconButton
@@ -80,7 +79,7 @@ const AboutMe = ({ profile }) => {
           <Typography variant="h6" className={classes.aboutMeTitle}>
             Bio
           </Typography>
-          <CardContent>{profile.bio}</CardContent>
+           <CardContent>{profile.bio}</CardContent>
         </Card>
         <Box className={classes.flex}> 
         <Card className={classes.card}>

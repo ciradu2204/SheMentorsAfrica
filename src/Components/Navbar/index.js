@@ -24,7 +24,7 @@ import Cancel from "@material-ui/icons/Cancel";
 import ArrowDropDown from "@material-ui/icons/ArrowDropDown";
 import { Auth } from "aws-amplify";
 
-const Navbar = ({ user, pages, settings, userImage, ...props }) => {
+const Navbar = ({ user, pages, settings, profile, ...props }) => {
   const classes = useStyles();
   const { window } = props;
   const container =
@@ -95,9 +95,9 @@ const Navbar = ({ user, pages, settings, userImage, ...props }) => {
                 <Avatar
                   className={classes.avatar}
                   alt={user.attributes.name}
-                  src={userImage !== ""? userImage: null}
+                  src={profile !== null && profile.profile.hasOwnProperty("url") ? profile.profile.url: null}
                 >
-                  {userImage === "" ? user.attributes.name.charAt(0): null}
+                  {profile === null || !profile.profile.hasOwnProperty("url") ? user.attributes.name.charAt(0): null}
                 </Avatar>
 
                 <IconButton

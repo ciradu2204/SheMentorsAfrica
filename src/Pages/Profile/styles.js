@@ -7,7 +7,6 @@ const useStyles = makeStyles((theme) =>{
          padding: 0, 
          maxWidth: "unset",
          fontFamily: "Poppins !important",
-         marginTop: "4px", 
          height: "100% !important",
         },
         header: {
@@ -48,24 +47,25 @@ const useStyles = makeStyles((theme) =>{
         }, 
         contentParent:{
             display: "flex",
+            width: "80%", 
             gap: "10%",
+            alignSelf: "center",
             justifyContent: "center"
         },
         name: {
-            fontFamily: 'Poppins',
+            fontFamily: 'Poppins,sans-serif',
             fontStyle: 'normal',
             fontWeight: "500",
-            lineHeight: "30px",
-            letterSpacing: "0.15em",
+            letterSpacing: "0.1em",
 
         },
         title: {
-            fontFamily: 'Poppins',
+            fontFamily: 'Poppins,sans-serif',
             fontStyle: 'normal',
             fontWeight: "500",
             lineHeight: "30px",
             paddingTop: "20px",
-            letterSpacing: "0.15em",
+            letterSpacing: "0.1em",
         }, 
         avatar: { 
             width : 250, 
@@ -74,18 +74,31 @@ const useStyles = makeStyles((theme) =>{
         content:{
             display: "flex",
             flexDirection: "column",
+            width: '100%', 
         },
         experience:{
         width: "100% !important",
         display: "flex",
         paddingTop: "20px", 
-
         },
         experienceBox: {
             display: "flex", 
-            width: "100% !important",
             alignItems: "center",
             gap: "3%", 
+            width: "15%", 
+        },
+        countryBox: {
+            display: "flex", 
+            alignItems: "center",
+            gap: "3%", 
+            flexGrow: 2,  
+
+        },
+        companyBox: {
+            display: "flex", 
+            alignItems: "center",
+            gap: "3%", 
+            flexGrow: 2, 
         },
         body: {
             width: "100%",

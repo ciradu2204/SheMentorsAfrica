@@ -1,11 +1,11 @@
 import { Container, TextField } from "@material-ui/core";
-import useStyles from "../styles";
-const Experience = ({ formik, hasError }) => {
+import useStyles from "./styles";
+const Experience = ({ formik, hasError, required=true }) => {
   const classes = useStyles();
   return (
     <Container disableGutters className={classes.item} >
         <TextField
-        required
+        required={required}
         name="experience.role"
         label="Job Title"
         className= {classes.textField}
@@ -15,7 +15,7 @@ const Experience = ({ formik, hasError }) => {
         value={formik.values.experience.role}
       />
       <TextField
-        required
+        required={required}
         name="experience.company"
         error={hasError.experience.company}
         label="Employer"

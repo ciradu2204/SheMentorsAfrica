@@ -1,12 +1,13 @@
 import { CardContent, Container, TextField } from "@material-ui/core";
-import ActionButtons from "../Components/actionButtons";
-import Country from "../Components/countries";
-import Language from "../Components/languages";
-import UploadImage from "../Components/uploadImage";
-import useStyles from "../styles";
-import { personalInfoValidateSchema } from "../../../Validations/personalInfo";
+import ActionButtons from "./actionButtons";
+import Country from "../Inputs/countries";
+import Language from "../Inputs/languages";
+import UploadImage from "../Inputs/uploadImage";
+import useStyles from "./styles";
+import { personalInfoValidateSchema } from "../../Validations/personalInfo";
 import { useState } from "react";
 import { Alert } from "@mui/material";
+import TextArea from "../Inputs/textArea";
 
 
 const PersonalInformation = ({ user, formik, ...props}) => {
@@ -17,7 +18,7 @@ const PersonalInformation = ({ user, formik, ...props}) => {
      bio: false, 
      country: false, 
      languages: false,
-     userName: false,
+     fullName: false,
    }
    const [hasError, setHasError] = useState(initial); 
 
@@ -26,7 +27,7 @@ const PersonalInformation = ({ user, formik, ...props}) => {
       bio: formik.values.bio,
       country: formik.values.country, 
       languages: formik.values.languages,
-      userName: formik.values.userName,
+      fullName: formik.values.fullName,
    }
 
     
@@ -54,22 +55,10 @@ const PersonalInformation = ({ user, formik, ...props}) => {
 </Alert>)}
       <CardContent className={classes.cardContent}>
         <UploadImage user={user} formik={formik} />
-        <TextField required label="Full Name" name="userName" value={formik.values.userName} error={hasError.userName} variant="outlined" className={classes.item}/>
+        <TextField required label="Full Name" name="fullName" value={formik.values.fullName} error={hasError.fullName} onChange={formik.handleChange} variant="outlined" className={classes.item}/>
         <Country formik={formik} hasError={hasError} />
         <Language formik={formik} hasError={hasError} />
-        <TextField
-          required
-          label="What inspired you to join tech?"
-          multiline
-          name="bio"
-          value={formik.values.bio}
-          onChange={formik.handleChange}
-          minRows={6}
-          maxRows={6}
-          error={hasError.bio}
-          className={classes.item}
-          variant="outlined"
-        />
+        <TextArea formik={formik} hasError={hasError} />
      </CardContent>
       <ActionButtons {...props}  nextStep={validate}/>
     </Container>

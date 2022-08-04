@@ -7,9 +7,9 @@ import {
     OutlinedInput,
     Select,
   } from "@material-ui/core";
-  import useStyles from "../styles";
+  import useStyles from "./styles";
 
-const MentorshipTopics = ({formik, hasError}) => {
+const MentorshipTopics = ({formik, hasError,  required=true, label="label", focused=false, multiple=true}) => {
      const classes = useStyles(); 
 
      const MentorshipTopics = [
@@ -25,13 +25,15 @@ const MentorshipTopics = ({formik, hasError}) => {
 
     return (
 
-        <FormControl variant="outlined" fullWidth className={classes.formControl} required>
-        <InputLabel id="mentorshipTopics-label">{formik.values.role === "Mentor"? "Mentoring Topics":"I’d love some help with"}</InputLabel>
+        <FormControl variant="outlined" fullWidth className={classes.formControl} required={required} focused={focused}>
+        <InputLabel id="mentorshipTopics-label" classes={{
+                 root: label === "label" ? classes.label: classes.labelDashboard
+        }}>{formik.values.role === "Mentor"? "Mentoring Topics":"I’d love some help with"}</InputLabel>
         <Select
           labelId="mentorshipTopics-label"
           id="select-mentorshipTopics"
           name="mentorshipTopics"
-          multiple
+          multiple={multiple}
           error={hasError.mentorshipTopics}
           value={formik.values.mentorshipTopics}
           label="Mentorship Topics"

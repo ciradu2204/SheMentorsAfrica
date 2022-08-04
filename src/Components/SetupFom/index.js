@@ -1,26 +1,34 @@
-import { Box, Card, CardContent, IconButton, Typography } from "@material-ui/core";
+import { Box, Card, IconButton, Typography } from "@material-ui/core";
 import { useFormik } from "formik";
 import useStyles from "./styles";
 import { Stepper, Step } from "react-form-stepper";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import StepWizard from "react-step-wizard";
-import PersonalInformation from "./Steps/generalInfo";
-import Experience from "./Steps/experience";
-import Availability from "./Steps/availability";
-import Interest from "./Steps/interest";
+import PersonalInformation from "./generalInfo";
+import Experience from "./experience";
+import Availability from "./availability";
+import Interest from "./interest";
 import CloseIcon from "@material-ui/icons/Close";
+import { useNavigate } from "react-router-dom";
+import { API , Auth} from "aws-amplify";
+import { Alert } from "@mui/material";
+
 
 const SetUpForm = ({ user, profile, setProfile, updateForm }) => {
-  console.log(profile === null);
   const classes = useStyles();
   const [activeStep, setActiveStep] = useState(0);
   const [stepWizard, setStepWizard] = useState();
+  const navigate = useNavigate();
+  const [availability, setAvailability] = useState([]); 
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("")
+
   const initialValue = {
     profileImage: {
       name: "",
       file: {},
     },
-    userName: user.attributes.name,
+    fullName: user.attributes.name,
     role: "",
     bio: "",
     country: "",
@@ -48,6 +56,50 @@ const SetUpForm = ({ user, profile, setProfile, updateForm }) => {
       },
     ],
   };
+
+
+  const createProfile = async () => {
+    const credentials = await Auth.currentUserCredentials(); 
+    const token = user.signInUserSession.idToken.jwtToken;
+    let profile = {
+      ...formik.values,
+      availability: availability, 
+      sub: user.attributes.sub,
+      email: user.attributes.email,
+      userName: user.username,
+      identityId: credentials.identityId
+    };
+    const requestInfo = {
+      headers: { Authorization: token },
+      body: { profile: profile },
+    };
+    try {
+      await API.post("profileApi", "/profiles", requestInfo);
+      setProfile(requestInfo.body);
+    } catch (error) {
+      setError(error.message);
+      setLoading(false);
+      return "";
+    }
+  };
+  const updateProfile = async () => {
+
+    const token = user.signInUserSession.idToken.jwtToken;
+    let profile = { ...formik.values, availability: availability };
+    const requestInfo = {
+      headers: { Authorization: token },
+      body: { profile: profile },
+    };
+
+    try {
+      await API.put("profileApi", "/profiles", requestInfo);
+      setProfile(requestInfo.body);
+    } catch (error) {
+      setError(error.message);
+      setLoading(false);
+      return "";
+    }
+  };
   const assignStepWizard = (instance) => {
     setStepWizard(instance);
   };
@@ -56,8 +108,35 @@ const SetUpForm = ({ user, profile, setProfile, updateForm }) => {
     setActiveStep(e.activeStep - 1);
   };
 
+
+
+  useEffect(()  => {
+    const storeValues = async() => {
+      if (profile == null) {
+       await createProfile();
+     } else {
+       await updateProfile();
+     }
+     setLoading(false)
+     updateForm(false);
+     navigate("/dashboard");
+    }
+    if(availability.length > 0){
+      console.log(availability)
+      storeValues()
+    }
+
+   
+  }, [availability])
+
+ 
+
+  const onComplete = async() =>{
+    setLoading(true);
+   
+  }
   const formik = useFormik({
-    initialValues: profile === null ? initialValue: profile.profile,
+    initialValues: profile === null ? initialValue: profile?.profile,
   });
 
   const handleClose = () => {
@@ -95,6 +174,11 @@ const SetUpForm = ({ user, profile, setProfile, updateForm }) => {
         {formik.values.role === "Mentor" && <Step label="Experience" />}
         {formik.values.role === "Mentor" && <Step label="Availability" />}
       </Stepper>
+      {error.length > 0 && (
+        <Alert severity="error" className={classes.error}>
+          {error}
+        </Alert>
+      )}
       <StepWizard
         instance={assignStepWizard}
         onStepChange={handleStepChange}
@@ -110,19 +194,16 @@ const SetUpForm = ({ user, profile, setProfile, updateForm }) => {
         <Experience
           formik={formik}
           stepName={"experience"}
-          user={user}
-          updateForm={updateForm}
-          setProfile={setProfile}
-          profile={profile}
+          onComplete={onComplete}
+          loading={loading}
         />
         {formik.values.role === "Mentor" && (
           <Availability
             formik={formik}
+            setAvailability = {setAvailability}
             stepName={"availability"}
-            updateForm={updateForm}
-            user={user}
-            setProfile={setProfile}
-            profile={profile}
+            onComplete={onComplete}
+            loading={loading}
           />
         )}
       </StepWizard>

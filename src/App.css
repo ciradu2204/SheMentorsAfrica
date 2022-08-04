@@ -1,11 +1,13 @@
 .App {
   text-align: center;
-
 }
 
 .App-logo {
   height: 40vmin;
   pointer-events: none;
+}
+#root{
+  height: 100% !important;
 }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -27,9 +29,6 @@
 
 .App-link {
   color: #61dafb;
-}
-.slide-routes {
-  height: 100% !important;
 }
 @keyframes App-logo-spin {
   from {

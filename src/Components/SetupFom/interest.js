@@ -1,11 +1,11 @@
-import MentorshipTopics from "../Components/mentorshipTopics";
+import MentorshipTopics from "../Inputs/mentorshipTopics";
 import { CardContent, Container } from "@material-ui/core";
-import AreasOfExpertise from "../Components/areasOfExpertise";
-import ActionButtons from "../Components/actionButtons";
-import Level from "../Components/level";
-import useStyles from "../styles";
-import Role from "../Components/role";
-import {menteeInterestSchema, mentorInterestSchema } from "../../../Validations/interests";
+import AreasOfExpertise from "../Inputs/areasOfExpertise";
+import ActionButtons from "./actionButtons";
+import Level from "../Inputs/level";
+import useStyles from "./styles";
+import Role from "../Inputs/role";
+import {menteeInterestSchema, mentorInterestSchema } from "../../Validations/interests";
 import { useState } from "react";
 import { Alert } from "@mui/material";
 const Interest = ({ formik, ...props }) => {

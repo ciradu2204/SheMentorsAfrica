@@ -3,61 +3,14 @@ import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import SaveIcon from "@material-ui/icons/Save";
 import LoadingButton from "@mui/lab/LoadingButton";
-import { API } from "aws-amplify";
-import useStyles from "../styles";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import useStyles from "./styles";
+
 
 const ActionButtons = ({
-  user,
-  profile,
-  formik,
-  setError,
-  setProfile,
-  updateForm,
+  loading,
   ...props
 }) => {
-  const [loading, setLoading] = useState(false);
   const classes = useStyles();
-  const navigate = useNavigate();
-
-  const createProfile = async () => {
-    const token = user.signInUserSession.idToken.jwtToken;
-    let profile = {
-      ...formik.values,
-      userId: user.attributes.sub,
-      email: user.attributes.email,
-    };
-    const requestInfo = {
-      headers: { Authorization: token },
-      body: { profile: profile },
-    };
-    try {
-      await API.post("profileApi", "/profiles", requestInfo);
-      setProfile(requestInfo.body);
-    } catch (error) {
-      setError(error.message);
-      setLoading(false);
-      return "";
-    }
-  };
-  const updateProfile = async () => {
-    const token = user.signInUserSession.idToken.jwtToken;
-    let profile = { ...formik.values };
-    const requestInfo = {
-      headers: { Authorization: token },
-      body: { profile: profile },
-    };
-
-    try {
-      await API.put("profileApi", "/profiles", requestInfo);
-      setProfile(requestInfo.body);
-    } catch (error) {
-      setError(error.message);
-      setLoading(false);
-      return "";
-    }
-  };
 
   const handleBack = () => {
     props.previousStep();
@@ -67,18 +20,8 @@ const ActionButtons = ({
     props.nextStep();
   };
 
-  const handleFinish = async () => {
-    setLoading(true);
-
-    if (profile == null) {
-      await createProfile();
-    } else {
-      await updateProfile();
-    }
-
-    setLoading(false);
-    updateForm(false);
-    navigate("/dashboard");
+  const handleFinish =  () => {
+   props.lastStep()
   };
 
   return (
@@ -87,6 +30,7 @@ const ActionButtons = ({
         <Button
           variant="contained"
           color="primary"
+          disabled={loading? true: false}
           className={classes.prevActionButton}
           onClick={handleBack}
           startIcon={<ArrowBackIosIcon />}

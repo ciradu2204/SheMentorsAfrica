@@ -22,11 +22,10 @@ const useStyles = makeStyles((theme) => {
       flexGrow: 1,
     },
     childrenBox: {
+      marginTop:"-6px",
       maxWidth: "none !important",
       padding: "unset !important",
       position: "relative",
-      bottom: "10px",
-      height: "100%",
       background: "rgba(245, 245, 245, 0.3)",
       boxShadow: "0px 2px 4px rgba(16, 24, 40, 0.15)",
       borderRadius: "30px 0px 0px",
