@@ -195,7 +195,7 @@ export default function UnauthLayout({user, loading, profile}) {
               OUR PARTNERS{" "}
             </Typography>
             <Box className={classes.partnersBox}>
-              {partners
+              {/* {partners
                 .filter(
                   (partner, index) => index >= countStart && index <= countEnd
                 )
@@ -209,7 +209,8 @@ export default function UnauthLayout({user, loading, profile}) {
                       src={partner.link}
                     />
                   );
-                })}
+                })} */}
+                <Typography variant="subtitle2" sx={{fontFamily: "Poppins, sans-serif !important"}}>Upcoming...</Typography>
             </Box>
           </Box>
 

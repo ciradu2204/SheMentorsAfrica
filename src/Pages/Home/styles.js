@@ -92,6 +92,8 @@ const useStyles = makeStyles((theme) => {
             margin: 30,
             width: "150px",
             height: "50px",
+            backgroundColor: `${theme.palette.primary.main} !important`,
+            color: "white !important",
             fontFamily: "Poppins, sans-serif !important",
             fontWeight: "700",
             lineHeight:"36px",

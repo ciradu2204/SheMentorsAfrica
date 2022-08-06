@@ -48,6 +48,7 @@ const createBooking = async () => {
       reason: formik.values.bio, 
       bookedTime: formik.values.bookedTime.startTime, 
       mentorTitle: mentorProfile.profile.experience.role, 
+      mentorName: mentorProfile.profile.fullName,
       menteeTitle: profile.profile.role === "Mentee"? `${mentorProfile.profile.education.degree} student`:  mentorProfile.profile.experience.role
     };
     const requestInfo = {
@@ -70,7 +71,7 @@ const createBooking = async () => {
 const updateMentorProfile = async () => {
     let newAvailability = []
     console.log(formik.values.bookedTime.splitTimeslot[1])
-    if(formik.values.bookedTime.splitTimeslot[0] == null){
+    if(formik.values.bookedTime.splitTimeslot[0] === null && formik.values.bookedTime.splitTimeslot[1] !== null ){
         newAvailability = mentorProfile.profile.availability.map((obj) => {
             if(obj.id === formik.values.bookedTime.availableTimeslot.id){
                    return {id: obj.id, start: formik.values.bookedTime.splitTimeslot[1].startTime, end: formik.values.bookedTime.splitTimeslot[1].endTime, allDay: false, title: '' }

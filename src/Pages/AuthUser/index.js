@@ -49,7 +49,7 @@ const AuthUser = () => {
       try {
         if (formType === "Sign In") {
           await Auth.signIn({ username, password });
-          navigate("/dashboard")
+          navigate("/mentors")
         } else if (formType === "Sign Up") {
            await Auth.signUp({username, password, attributes: { email, name } });
            setFormType( "Confirm Sign Up" );

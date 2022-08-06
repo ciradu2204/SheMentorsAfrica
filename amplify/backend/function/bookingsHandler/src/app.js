@@ -65,7 +65,7 @@ app.post(path, function (request, response) {
   let params = {
     TableName: tableName,
     Item: {
-      profile: request.body.booking,
+      booking: request.body.booking,
       PK: getUserId(request),
       SK: `booking-${crypto.randomUUID()}`,
       createdAt: timestamp,
@@ -88,6 +88,27 @@ app.post(path, function (request, response) {
     }
   });
 })
+
+app.get("/bookings",  function (request, response) {
+  let params = {
+    TableName: tableName,
+    KeyConditionExpression: "#4db11 = :4db11 AND begins_with(#4db12, :4db12)",
+    ProjectionExpression: "#4db10",
+    ExpressionAttributeNames: {"#4db10":"booking","#4db11":"PK", "#4db12": "SK"},
+    ExpressionAttributeValues: {":4db11": getUserId(request), ":4db12": "booking"},
+  };
+  dynamodb.query(params, (error, result) => {
+    if (error) {
+      response.json({ statusCode: 500, error: error.message });
+    } else {
+      response.json({
+        statusCode: 200,
+        url: request.url,
+        body: JSON.stringify(result.Items),
+      });
+    }
+  });
+});
 
 
 app.listen(3000, function() {

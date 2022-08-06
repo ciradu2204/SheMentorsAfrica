@@ -221,7 +221,7 @@ function App() {
           />
            <Route
             path="/bookings"
-            element={<Bookings  />}
+            element={<Bookings user={user}  />}
           />
         </Route>
       </Routes>

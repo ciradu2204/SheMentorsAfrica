@@ -6,8 +6,9 @@ return {
     container:{
         display: "flex", 
         maxWidth: "unset !important", 
-        padding: "unset !important"
-
+        padding: "unset !important",
+        color: "rgba(124,123,122, 1) !important",
+        fontFamily: "Poppins, sans-serif !important",
     },
     tabListdivider:{
         borderColor: `${theme.palette.primary.main} `,
@@ -42,11 +43,38 @@ return {
         flexGrow: 0, 
     }, 
     tabPanel:{
-        marginTop: "40px",
+        margin: "40px",
         flexGrow: 2, 
 
+    }, 
+    header:{
+    display: "flex",
+    justifyContent: "space-between",
+    fontFamily: "Poppins, sans-serif !important"
+   }, 
+
+    skills: {
+        display: "flex", 
+        gap: "2%",
+        marginTop: "10px",
+        marginBottom: "10px",
+        alignItems: "baseline", 
+    }, 
+    topics: {
+        display: "flex", 
+        gap: "3%", 
+        alignItems: "baseline"
+    }, 
+    reason: {
+        fontFamily: "Poppins, sans-serif !important",
+    }, 
+    chip: {
+        fontFamily: "Poppins, sans-serif !important",
+        color: "rgba(124,123,122, 1) !important",
+    }, 
+    title:{
+        color: `${theme.palette.secondary.main} !important`
     }
-    
 }
 })
 
