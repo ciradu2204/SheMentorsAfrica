@@ -2,7 +2,7 @@ import { Box, Card, IconButton, Typography } from "@material-ui/core";
 import { useFormik } from "formik";
 import useStyles from "./styles";
 import { Stepper, Step } from "react-form-stepper";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import StepWizard from "react-step-wizard";
 import PersonalInformation from "./generalInfo";
 import Experience from "./experience";
@@ -19,7 +19,6 @@ const SetUpForm = ({ user, profile, setProfile, updateForm }) => {
   const [activeStep, setActiveStep] = useState(0);
   const [stepWizard, setStepWizard] = useState();
   const navigate = useNavigate();
-  const [availability, setAvailability] = useState([]); 
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("")
 
@@ -63,14 +62,13 @@ const SetUpForm = ({ user, profile, setProfile, updateForm }) => {
     const token = user.signInUserSession.idToken.jwtToken;
     let profile = {
       ...formik.values,
-      availability: availability, 
       sub: user.attributes.sub,
       email: user.attributes.email,
       userName: user.username,
       identityId: credentials.identityId
     };
     const requestInfo = {
-      headers: { Authorization: token },
+      headers: {Authorization: token },
       body: { profile: profile },
     };
     try {
@@ -85,7 +83,7 @@ const SetUpForm = ({ user, profile, setProfile, updateForm }) => {
   const updateProfile = async () => {
 
     const token = user.signInUserSession.idToken.jwtToken;
-    let profile = { ...formik.values, availability: availability };
+    let profile = { ...formik.values };
     const requestInfo = {
       headers: { Authorization: token },
       body: { profile: profile },
@@ -110,8 +108,9 @@ const SetUpForm = ({ user, profile, setProfile, updateForm }) => {
 
 
 
-  useEffect(()  => {
-    const storeValues = async() => {
+  const onComplete = async() =>{
+    setLoading(true);
+
       if (profile == null) {
        await createProfile();
      } else {
@@ -120,19 +119,7 @@ const SetUpForm = ({ user, profile, setProfile, updateForm }) => {
      setLoading(false)
      updateForm(false);
      navigate("/dashboard");
-    }
-    if(availability.length > 0){
-      console.log(availability)
-      storeValues()
-    }
-
-   
-  }, [availability])
-
- 
-
-  const onComplete = async() =>{
-    setLoading(true);
+    
    
   }
   const formik = useFormik({
@@ -198,13 +185,13 @@ const SetUpForm = ({ user, profile, setProfile, updateForm }) => {
           loading={loading}
         />
         {formik.values.role === "Mentor" && (
-          <Availability
-            formik={formik}
-            setAvailability = {setAvailability}
-            stepName={"availability"}
-            onComplete={onComplete}
-            loading={loading}
-          />
+          // <Availability
+          //   formik={formik}
+          //   stepName={"availability"}
+          //   onComplete={onComplete}
+          //   loading={loading}
+          // />
+          <Availability formik={formik} stepName={"availability"} onComplete={onComplete} loading={loading}/>
         )}
       </StepWizard>
     </Card>

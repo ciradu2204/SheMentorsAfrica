@@ -7,6 +7,8 @@ const useStyles = makeStyles((theme) =>{
             maxWidth: 'unset !important', 
             padding: 'unset !important',
             height: "100% !important",
+            alignCenter: "stretch",
+
         }, 
         filter:{
             height: "100% !important",
@@ -14,12 +16,15 @@ const useStyles = makeStyles((theme) =>{
         mentorsBox: {
             width: "80%",
             marginTop: "90px",
-            marginLeft: "20px",
-            marginRight: "20px",
+            marginLeft: "30px",
+            marginRight: "30px",
             height: "100% !important",
             color: "rgba(124,123,122, 1)",
             display: "grid", 
             gridTemplateColumns: "50% 50%",
+            gridTemplateRows: "30%",
+
+            gridAutorows: "1fr !important",
             columnGap:"2%", 
             [theme.breakpoints.down("md")]:{
                 gridTemplateColumns: "50%",

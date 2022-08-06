@@ -13,6 +13,19 @@
           "delete"
         ]
       }
+    },
+    "/bookings": {
+      "name": "/bookings",
+      "lambdaFunction": "bookingsHandler",
+      "permissions": {
+        "setting": "private",
+        "auth": [
+          "create",
+          "read",
+          "update",
+          "delete"
+        ]
+      }
     }
   }
 }

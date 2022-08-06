@@ -1,75 +1,36 @@
-import React, {  useState, useCallback } from "react";
-import { CardContent, Container } from "@material-ui/core";
-import ActionButtons from "./actionButtons";
-import FullCalendar from "@fullcalendar/react";
+import FullCalendar, { formatDate } from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
-import momentTimezonePlugin from "@fullcalendar/moment-timezone";
-import styled from "@emotion/styled";
 import useStyles from "./styles";
+import { StyleWrapper } from "./styleWrapper";
+import { CardContent, Container } from "@material-ui/core";
 import { Alert } from "@mui/material";
+import { useState } from "react";
+import ActionButtons from "./actionButtons";
 
-const Availability = ({ formik, onComplete, loading, setAvailability, ...props }) => {
-  const initial = formik.values.availability.length === 0 ? [] :formik.values.availability;
-  const [availability] = useState(initial);
-  const [error, setError] = useState("");
-  let calendarRef = React.useRef(initial.availability);
-  const classes = useStyles();
+const Availability = ({formik, loading, onComplete, ...props}) => {
+  const classes = useStyles()
+   const [error, setError] = useState("");
+
+
   const handleDateSelect = (selectInfo) => {
-    let title = "";
     let calendarApi = selectInfo.view.calendar;
-    calendarApi.unselect();
+    let title = ""
+    calendarApi.unselect(); // clear date selection
 
-    calendarApi.addEvent({
-      id: calendarRef.current.length,
-      title,
-      start: selectInfo.startStr,
-      end: selectInfo.endStr,
-      allDay: selectInfo.allDay,
-    });
+      calendarApi.addEvent({
+        id: formik.values.availability.length,
+        title,
+        start: selectInfo.startStr,
+        end: selectInfo.endStr,
+        allDay: selectInfo.allDay
+      });
+    
   };
 
-  const StyleWrapper = styled.div`
-    .fc-button.fc-prev-button,
-    .fc-button.fc-next-button,
-    .fc-button.fc-button-primary {
-      background: rgb(224, 224, 224);
-      border-color: rgb(224, 224, 224);
-      font-weight: 600;
-    }
-    ,
-    .fc-timegrid-slots {
-      cursor: pointer;
-    }
-    ,
-    .fc-button.fc-button-primary:hover {
-      background: #e49433 !important;
-      border-color: #e49433;
-    }
-    .fc-button.fc-next-button {
-      background: #e49433 !important;
-    }
-    ,
-    .fc-prev-button.fc-button.fc-button-primary.fc-button-active {
-      background: #f5f5f5 !important;
-    }
-    ,
-    .fc-timeGridWeek-button.fc-button.fc-button-primary.fc-button-active {
-      background: #e49433 !important;
-      border-color: #e49433;
-    }
-    ,
-    .fc .fc-toolbar-title {
-      font-size: 1em !important;
-    }
-    .fc-view-harness.fc-view-harness-active {
-      height: 350px !important;
-    }
-  `;
-  const validate = async () => {
-    if(calendarRef.current != null){
-      setAvailability(calendarRef.current)
+  const validate = () => {
+     if(formik.values.availability.length != null){
       setError("")
       props.lastStep()
       onComplete()
@@ -77,12 +38,16 @@ const Availability = ({ formik, onComplete, loading, setAvailability, ...props }
       setError("One slot range needs to be selected");
     }
   };
-  const validatePrev = () =>{
-      formik.setFieldValue("availability", calendarRef.current);
-      props.previousStep()
-   
-  }
-  const handleEvents = useCallback((events) => {
+ 
+
+  const handleEventClick = (clickInfo) => {
+    
+      clickInfo.event.remove();
+    
+  };
+
+  const handleEvents = (events) => {
+    console.log("called")
     const eventsArray = [];
     events.forEach((event) => {
       eventsArray.push({
@@ -93,28 +58,28 @@ const Availability = ({ formik, onComplete, loading, setAvailability, ...props }
         allDay: event.allDay,
       });
     });
-    calendarRef.current = eventsArray;
-  }, []);
-
-  const handleEventClick = (clickInfo) => {
-    clickInfo.event.remove();
+    formik.setFieldValue('availability', eventsArray)
+    console.log(formik.values.availability)
   };
 
 
+   
+  
+
   return (
     <Container disableGutters className={classes.container}>
-      {error.length > 0 && (
-        <Alert severity="error" className={classes.error}>
-          {error}
-        </Alert>
-      )}
-       {error.length <= 0 && (
-        <Alert severity="info" className={classes.info}>
-           Please select a time range when you are available to mentor!
-        </Alert>
-      )}
+    {error.length > 0 && (
+      <Alert severity="error" className={classes.error}>
+        {error}
+      </Alert>
+    )}
+     {error.length <= 0 && (
+      <Alert severity="info" className={classes.info}>
+         Please select a time range when you are available to mentor!
+      </Alert>
+    )}
       <CardContent className={classes.calendar}>
-        <StyleWrapper>
+         <StyleWrapper>
           <FullCalendar
             headerToolbar={{
               left: "prev,next",
@@ -124,9 +89,8 @@ const Availability = ({ formik, onComplete, loading, setAvailability, ...props }
             validRange={{
               start: Date.now(),
             }}
-            ref={calendarRef}
             allDaySlot={false}
-            events={availability}
+            initialEvents={formik.values.availability}
             nowIndicator
             editable={true}
             selectable={true}
@@ -141,15 +105,14 @@ const Availability = ({ formik, onComplete, loading, setAvailability, ...props }
               dayGridPlugin,
               timeGridPlugin,
               interactionPlugin,
-              momentTimezonePlugin,
             ]}
             initialView="timeGridWeek"
           />
-        </StyleWrapper>
-      </CardContent>
-      <ActionButtons {...props} previousStep={validatePrev} lastStep={validate} loading={loading}/>
+          </StyleWrapper>
+        </CardContent>
+        <ActionButtons {...props} lastStep={validate} loading={loading}/>
+
     </Container>
   );
 };
-
 export default Availability;

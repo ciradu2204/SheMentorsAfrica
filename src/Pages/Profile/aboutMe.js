@@ -38,7 +38,7 @@ const AboutMe = ({ profile }) => {
           <Typography variant="h6" className={classes.aboutMeTitle}>
             Skills & Interest
           </Typography>
-          <CardContent className={classes.cardContent}>
+          <div className={classes.cardContent}>
             {profile.areasOfExpertise.map((areaOfExpertise) => (
               <Chip
                 key={areaOfExpertise}
@@ -47,7 +47,7 @@ const AboutMe = ({ profile }) => {
                 variant="outlined"
               />
             ))}
-          </CardContent>
+          </div>
         </Card>
 
         <Card className={classes.card}>
@@ -61,7 +61,7 @@ const AboutMe = ({ profile }) => {
               I’d love some help with...
             </Typography>
           )}
-          <CardContent className={classes.cardContent}>
+          <div className={classes.cardContent}>
             {profile.mentorshipTopics.map((mentoringTopic) => (
               <Chip
                 key={mentoringTopic}
@@ -70,7 +70,7 @@ const AboutMe = ({ profile }) => {
                 label={mentoringTopic}
               />
             ))}
-          </CardContent>
+          </div>
         </Card>
         
       </Box>
@@ -127,7 +127,7 @@ const AboutMe = ({ profile }) => {
           <Typography variant="h6" className={classes.aboutMeTitle}>
             Languages
           </Typography>
-          <CardContent className={classes.cardContent}>
+          <div className={classes.cardContent}>
             {profile.languages.map((language) => (
               <Chip
                 key={language}
@@ -136,7 +136,7 @@ const AboutMe = ({ profile }) => {
                 variant="outlined"
               />
             ))}
-          </CardContent>
+          </div>
         </Card>
         </Box>
       </Box>

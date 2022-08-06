@@ -8,7 +8,7 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import Box from "@material-ui/core/Box";
 import SetUpForm from "../../Components/SetupFom";
 import BookingForm from "../../Components/BookingForm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 const pages = [
   {
     text: "DASHBOARD",
@@ -44,10 +44,41 @@ const settings = [
     icon: <LogoutIcon />,
   },
 ];
-export default function AuthLayout({ user, loading, profile, setProfile, isFormOpen, setFormOpen, mentorsProfiles }) {
+export default function AuthLayout({
+  user,
+  loading,
+  profile,
+  setProfile,
+  isFormOpen,
+  setFormOpen,
+  mentorsProfiles,
+  setMentorsProfiles,
+}) {
   const classes = useStyles();
-  const [bookingFormOpen, setBookingFormOpen] = useState(false); 
-  const [mentorsProfile, setMentorsProfile] = useState(null)
+  const [bookingFormOpen, setBookingFormOpen] = useState(false);
+  const [mentorProfile, setMentorProfile] = useState(null);
+
+
+  useEffect(() => {
+    console.log("auth mentor profile change"); 
+    console.log(mentorProfile)
+
+    const updateMentors = ()  => {
+      const updatedMentorsProfiles = mentorsProfiles?.map((obj) => {
+        if (obj.profile.sub === mentorProfile?.profile?.sub) {
+          return { ...mentorProfile };
+        } else {
+          return obj;
+        }
+      });
+      setMentorsProfiles(updatedMentorsProfiles);
+    }
+    if (mentorProfile != null) {
+      updateMentors();
+    }
+ 
+ 
+  }, [mentorProfile]);
 
   return loading ? (
     <Box className={classes.loading}>
@@ -55,21 +86,49 @@ export default function AuthLayout({ user, loading, profile, setProfile, isFormO
     </Box>
   ) : user !== null ? (
     <Container className={classes.parent}>
-      <Navbar user={user} pages={pages} settings={settings} className={classes.navbar} profile={profile} />
+      <Navbar
+        user={user}
+        pages={pages}
+        settings={settings}
+        className={classes.navbar}
+        profile={profile}
+      />
 
       <Container className={classes.childrenBox}>
-        <Outlet context={[profile, user, setFormOpen, mentorsProfiles]}/>
+        <Outlet
+          context={[
+            profile,
+            user,
+            setFormOpen,
+            mentorsProfiles,
+            setMentorProfile,
+            setBookingFormOpen,
+          ]}
+        />
       </Container>
-      <Backdrop
-      className={classes.backdrop}
-      open={isFormOpen} >
-        <SetUpForm user={user}  profile={profile} setProfile={setProfile} updateForm={setFormOpen}/>
-    </Backdrop>
-    <Backdrop
-      className={classes.backdrop}
-      open={bookingFormOpen} >
-       <BookingForm profile={profile} bookingForm={bookingFormOpen} setBookingFormOpen={setBookingFormOpen} mentorsProfile={mentorsProfile} />
-    </Backdrop>
+      <Backdrop className={classes.backdrop} open={isFormOpen}>
+        <SetUpForm
+          user={user}
+          profile={profile}
+          setProfile={setProfile}
+          updateForm={setFormOpen}
+        />
+      </Backdrop>
+      {mentorProfile != null && (
+        <Backdrop
+          sx={{ height: "100% !important" }}
+          className={classes.backdrop}
+          open={bookingFormOpen}
+        >
+          <BookingForm
+            profile={profile}
+            user={user}
+            mentorProfile={mentorProfile}
+            setMentorProfile={setMentorProfile}
+            setBookingFormOpen={setBookingFormOpen}
+          />
+        </Backdrop>
+      )}
     </Container>
   ) : (
     <Navigate to="/login" />

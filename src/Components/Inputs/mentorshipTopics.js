@@ -9,7 +9,7 @@ import {
   } from "@material-ui/core";
   import useStyles from "./styles";
 
-const MentorshipTopics = ({formik, hasError,  required=true, label="label", focused=false, multiple=true}) => {
+const MentorshipTopics = ({formik, hasError,  required=true, label="label", focused=false}) => {
      const classes = useStyles(); 
 
      const MentorshipTopics = [
@@ -33,7 +33,7 @@ const MentorshipTopics = ({formik, hasError,  required=true, label="label", focu
           labelId="mentorshipTopics-label"
           id="select-mentorshipTopics"
           name="mentorshipTopics"
-          multiple={multiple}
+          multiple
           error={hasError.mentorshipTopics}
           value={formik.values.mentorshipTopics}
           label="Mentorship Topics"

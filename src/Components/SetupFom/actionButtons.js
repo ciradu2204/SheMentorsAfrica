@@ -8,6 +8,7 @@ import useStyles from "./styles";
 
 const ActionButtons = ({
   loading,
+  label="Save",
   ...props
 }) => {
   const classes = useStyles();
@@ -21,7 +22,7 @@ const ActionButtons = ({
   };
 
   const handleFinish =  () => {
-   props.lastStep()
+    props.lastStep()
   };
 
   return (
@@ -60,7 +61,7 @@ const ActionButtons = ({
           onClick={handleFinish}
           startIcon={<SaveIcon />}
         >
-          Save
+          {label}
         </LoadingButton>
       )}
     </Container>

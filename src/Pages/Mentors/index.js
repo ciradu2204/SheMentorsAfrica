@@ -15,13 +15,11 @@ import useStyles from "./styles";
 import { useNavigate } from "react-router-dom";
 
 const Mentors = ({mentorsProfiles}) => {
-  console.log(mentorsProfiles)
-  const [loading, setLoading] = useState(false);
-  const [filteredProfiles, setFilteredProfiles] = useState(mentorsProfiles);
+   const [loading, setLoading] = useState(false);
+  const [filteredProfiles, setFilteredProfiles] = useState(mentorsProfiles !== null? mentorsProfiles: []);
   const classes = useStyles();
   let navigate = useNavigate(); 
-  console.log(mentorsProfiles)
-
+ 
   const  arrayFilter = (source,target) => 
    {
     var result = target.filter(function(item){ return source.indexOf(item) > -1});   
@@ -83,12 +81,13 @@ const Mentors = ({mentorsProfiles}) => {
                 <Avatar src={profile.profile.url} className={classes.avatar} />
               </Box>
               <Box className={classes.summary}>
-                <Typography variant="h6" className={classes.mentorName}>
+                <Typography noWrap variant="h6" className={classes.mentorName}>
                   {profile.profile.fullName}
                 </Typography>
                 <Box className={classes.roleBox}>
                   <BusinessIcon />
                   <Typography
+                    noWrap
                     variant="subtitle1"
                     className={classes.mentorRole}
                   >
@@ -99,6 +98,7 @@ const Mentors = ({mentorsProfiles}) => {
                 <Box className={classes.locationBox}>
                   <PlaceIcon />
                   <Typography
+                    noWrap
                     variant="subtitle1"
                     className={classes.mentorLocation}
                   >

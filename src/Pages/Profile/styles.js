@@ -8,7 +8,7 @@ const useStyles = makeStyles((theme) =>{
          maxWidth: "unset",
          fontFamily: "Poppins !important",
          height: "100% !important",
-        },
+         },
         header: {
             background: theme.palette.secondary.main, 
             width: "100%",
@@ -85,21 +85,9 @@ const useStyles = makeStyles((theme) =>{
             display: "flex", 
             alignItems: "center",
             gap: "3%", 
-            width: "15%", 
+            flex: "auto !important",
         },
-        countryBox: {
-            display: "flex", 
-            alignItems: "center",
-            gap: "3%", 
-            flexGrow: 2,  
-
-        },
-        companyBox: {
-            display: "flex", 
-            alignItems: "center",
-            gap: "3%", 
-            flexGrow: 2, 
-        },
+        
         body: {
             width: "100%",
            marginTop: "80px",
@@ -151,6 +139,7 @@ const useStyles = makeStyles((theme) =>{
         cardContent: {
             display:"flex", 
             gap: "5%",
+            padding: "10px",
             flexWrap: "wrap !important",
         },
         carcardContainerLeft: {
@@ -195,7 +184,8 @@ const useStyles = makeStyles((theme) =>{
         flex: {
             display: "flex",
             gap: "2%",
-        }
+        }, 
+       
 
     }
 

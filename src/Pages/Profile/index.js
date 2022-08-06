@@ -21,12 +21,16 @@ import React, { useEffect, useState } from "react";
 import BusinessIcon from "@material-ui/icons/Business";
 import Label from "@material-ui/icons/LabelImportant";
 import AboutMe from "./aboutMe";
+import BookingForm from "../../Components/BookingForm";
 
 
 const Profile = () => {
-  const [profile,  user, setFormOpen, mentorsProfiles] = useOutletContext();
+  const [profile,  user, setFormOpen, mentorsProfiles, setMentorProfile, setBookingFormOpen] = useOutletContext();
   const {id} = useParams()
-  const [currentProfile, setCurrentProfile] = useState(null);
+  const findCurrentProfile = () => {
+   return mentorsProfiles.find(mentorProfile => mentorProfile.profile.sub === id)
+  }
+  const [currentProfile, setCurrentProfile] = useState(id === "me"? profile: findCurrentProfile());
   const classes = useStyles();
   const [value, setValue] = React.useState(0);
   const navigate = useNavigate()
@@ -42,13 +46,11 @@ const Profile = () => {
     navigate(-1);
   }
 
-  useEffect(() => {
-    if(id === "me"){
-      setCurrentProfile(profile)
-    }else{
-      setCurrentProfile(mentorsProfiles.find((profile) => profile.profile.sub === id));
-    }
-  }, [id, mentorsProfiles, profile ])
+  const handleBooking = () =>{
+    setMentorProfile(currentProfile); 
+    setBookingFormOpen(true)
+  }
+
 
   function TabPanel(props) {
     const { children, value, index, ...other } = props;
@@ -133,14 +135,14 @@ const Profile = () => {
                       {currentProfile.profile.level}
                     </Typography>
                   </Box>
-                  <Box className={classes.companyBox}>
+                  <Box className={classes.experienceBox}>
                     <BusinessIcon />
                     <Typography variant="subtitle1">
                       {" "}
                       {currentProfile.profile.experience.company}
                     </Typography>
                   </Box>
-                  <Box className={classes.countryBox}>
+                  <Box className={classes.experienceBox}>
                     <PlaceIcon />
                     <Typography variant="subtitle1">
                       {" "}
@@ -149,7 +151,7 @@ const Profile = () => {
                   </Box>
                 </Box>
                 {currentProfile.profile.sub !== profile.profile.sub?(<Box className={classes.bookButtonBox}>
-                  <Button className={classes.bookButton}>Book Session</Button>
+                  <Button className={classes.bookButton} onClick={handleBooking}>Book Session</Button>
                 </Box>): (<Box className={classes.bookButtonBox}>
                   <Button className={classes.bookButton} onClick={handleEdit}>Edit Availability</Button>
                 </Box>)}
@@ -237,16 +239,16 @@ const Profile = () => {
             <AboutMe profile={currentProfile.profile} />
           </TabPanel>
           <TabPanel value={value} index={1}>
-            Item Two
-          </TabPanel>
+           </TabPanel>
           <TabPanel value={value} index={2}>
-            Item Three
-          </TabPanel>
+           </TabPanel>
         </Box>
       </Box>
-      </Container>
+   
+   </Container>
 
     )}
+    
     </>
   );
 };

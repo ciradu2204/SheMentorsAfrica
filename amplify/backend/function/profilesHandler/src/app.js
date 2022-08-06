@@ -64,14 +64,14 @@ const getUserId = (request) => {
 };
 
 app.get("/profiles",  function (request, response) {
-  console.log( request.body.profile.profile.sub)
   let params = {
     TableName: tableName,
     IndexName: "profilesByRole",
-    KeyConditionExpression: "#4db11 = :4db11 AND #4db12 <> :4db12",
+    KeyConditionExpression: "#4db11 = :4db11",
     ProjectionExpression: "#4db10",
     ExpressionAttributeNames: {"#4db10":"profile","#4db11":"role", "#4db12": "PK"},
-    ExpressionAttributeValues: {":4db11": "Mentor", ":4db12": request.body.profile.profile.sub}
+    ExpressionAttributeValues: {":4db11": "Mentor", ":4db12": getUserId(request)},
+    FilterExpression: "#4db12 <> :4db12"
   };
   dynamodb.query(params, (error, result) => {
     if (error) {
@@ -151,8 +151,8 @@ app.put(path, function (request, response) {
     TableName: tableName,
     Item: {
       profile: request.body.profile,
-      PK: getUserId(request),
-      SK: `profile-${getUserId(request)}`,
+      PK: request.body.profile.sub,
+      SK: `profile-${request.body.profile.sub}`,
       role: request.body.profile.role,
       createdAt: timestamp,
     },

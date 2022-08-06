@@ -15,6 +15,7 @@ import Dashboard from "./Pages/Dashboard";
 import Profile from "./Pages/Profile";
 import { API, Storage } from "aws-amplify";
 import Mentors from "./Pages/Mentors";
+import Bookings from "./Pages/Bookings";
 
 const theme = createTheme({
   palette: {
@@ -100,13 +101,14 @@ function App() {
   }, []);
 
   useEffect(() => {
+    setLoading(true);
     if (user != null) {
       const checkUserProfile = () => {
-        setLoading(true);
         const token = user.signInUserSession.idToken.jwtToken;
         const requestInfo = {
           headers: { Authorization: token },
         };
+        console.log(user)
         API.get("profileApi", `/profiles/${user.attributes.sub}`, requestInfo)
           .then((result) => {
             let profile = JSON.parse(result.body);
@@ -116,20 +118,26 @@ function App() {
             setRegisterForm(true);
             console.log(err);
           });
-        setLoading(false);
       };
       
       checkUserProfile();
+      setLoading(false);
+
     }
   }, [user]);
 
   useEffect(() => {
-    if (profile != null && !profile.profile.hasOwnProperty("url")) {
+    setLoading(true)
+    if (profile != null) {
+      console.log(profile)
+      if( !profile.profile.hasOwnProperty("url")){
       const getCurrentUserUrl = async () => {
         let url = await getImage( profile.profile.profileImage.file.key, "");
         let newProfile = { ...profile.profile, url };
         setProfile({ profile: newProfile });
       };
+      getCurrentUserUrl();
+      }
       const fetchMentors = () => {
         const token = user.signInUserSession.idToken.jwtToken;
         const requestInfo = {
@@ -144,10 +152,10 @@ function App() {
             console.log({err} );
           });
       };
-      getCurrentUserUrl();
       fetchMentors();
     }
-  
+    setLoading(false)
+
   }, [profile]);
 
   useEffect(() => {
@@ -201,6 +209,7 @@ function App() {
               setFormOpen={setRegisterForm}
               isFormOpen={registerForm}
               mentorsProfiles={mentorsProfiles}
+              setMentorsProfiles={setMentorsProfiles}
             />
           }
         >
@@ -209,6 +218,10 @@ function App() {
           <Route
             path="/mentors"
             element={<Mentors mentorsProfiles={mentorsProfiles} />}
+          />
+           <Route
+            path="/bookings"
+            element={<Bookings  />}
           />
         </Route>
       </Routes>
