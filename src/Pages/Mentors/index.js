@@ -15,10 +15,17 @@ import useStyles from "./styles";
 import { useNavigate } from "react-router-dom";
 
 const Mentors = ({mentorsProfiles}) => {
-   const [loading, setLoading] = useState(false);
-  const [filteredProfiles, setFilteredProfiles] = useState(mentorsProfiles !== null? mentorsProfiles: []);
+   const [loading, setLoading] = useState(true);
+  const [filteredProfiles, setFilteredProfiles] = useState([]);
   const classes = useStyles();
   let navigate = useNavigate(); 
+
+   useEffect(() => {
+     if(mentorsProfiles != null){
+       setFilteredProfiles(mentorsProfiles)
+       setLoading(false)
+     }
+   }, [mentorsProfiles])
  
   const  arrayFilter = (source,target) => 
    {
@@ -26,12 +33,9 @@ const Mentors = ({mentorsProfiles}) => {
     return result.length === target.length;  
    }    
   const filter =  (filterFields) => {
-    console.log(filterFields);
-    setLoading(true)
-    console.log(filterFields)
-    let filteredProfiles = mentorsProfiles.filter((profile) => {
-    console.log(profile)
-    return (
+     setLoading(true)
+     let filteredProfiles = mentorsProfiles.filter((profile) => {
+     return (
           (filterFields.mentorName === "" || profile.profile.fullName.toLowerCase().includes(filterFields.mentorName.toLowerCase())) &&
           (filterFields.country === "" || profile.profile.country === filterFields.country) && 
           (filterFields.areasOfExpertise.length === 0 || arrayFilter(profile.profile.areasOfExpertise, filterFields.areasOfExpertise)) &&
@@ -80,6 +84,7 @@ const Mentors = ({mentorsProfiles}) => {
               <Box className={classes.avatarBox}>
                 <Avatar src={profile.profile.url} className={classes.avatar} />
               </Box>
+              <Box className={classes.info}>
               <Box className={classes.summary}>
                 <Typography noWrap variant="h6" className={classes.mentorName}>
                   {profile.profile.fullName}
@@ -105,7 +110,8 @@ const Mentors = ({mentorsProfiles}) => {
                     {profile.profile.country}
                   </Typography>
                 </Box>
-                <Button
+              </Box>
+              <Button
                   disableElevation
                   disableRipple
                   variant="contained"

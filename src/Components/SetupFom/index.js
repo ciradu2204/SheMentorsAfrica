@@ -118,7 +118,7 @@ const SetUpForm = ({ user, profile, setProfile, updateForm }) => {
      }
      setLoading(false)
      updateForm(false);
-     navigate("/dashboard");
+     navigate("/mentors");
     
    
   }
@@ -185,12 +185,7 @@ const SetUpForm = ({ user, profile, setProfile, updateForm }) => {
           loading={loading}
         />
         {formik.values.role === "Mentor" && (
-          // <Availability
-          //   formik={formik}
-          //   stepName={"availability"}
-          //   onComplete={onComplete}
-          //   loading={loading}
-          // />
+  
           <Availability formik={formik} stepName={"availability"} onComplete={onComplete} loading={loading}/>
         )}
       </StepWizard>

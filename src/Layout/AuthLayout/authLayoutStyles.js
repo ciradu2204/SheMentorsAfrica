@@ -3,7 +3,6 @@ const useStyles = makeStyles((theme) => {
   return {
     parent: {
       maxWidth: "none !important",
-      //padding: "unset !important",
       paddingLeft: "50px",
       paddingRight: "unset !important",
       boxSizing: "borderBox",
@@ -27,7 +26,6 @@ const useStyles = makeStyles((theme) => {
       padding: "unset !important",
       position: "relative",
       background: "rgba(245, 245, 245, 0.3)",
-      boxShadow: "0px 2px 4px rgba(16, 24, 40, 0.15)",
       borderRadius: "30px 0px 0px",
       flexGrow: 2,
     },

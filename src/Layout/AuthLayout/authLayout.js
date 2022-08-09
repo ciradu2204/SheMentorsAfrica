@@ -60,9 +60,7 @@ export default function AuthLayout({
 
 
   useEffect(() => {
-    console.log("auth mentor profile change"); 
-    console.log(mentorProfile)
-
+ 
     const updateMentors = ()  => {
       const updatedMentorsProfiles = mentorsProfiles?.map((obj) => {
         if (obj.profile.sub === mentorProfile?.profile?.sub) {
@@ -76,7 +74,7 @@ export default function AuthLayout({
     if (mentorProfile != null) {
       updateMentors();
     }
- 
+ //eslint-disable-next-line
   }, [mentorProfile]);
 
   return loading ? (

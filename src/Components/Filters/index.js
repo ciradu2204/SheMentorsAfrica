@@ -34,11 +34,9 @@ const Filters = ({ page, loading, filter, clear }) => {
   
   });
   const handleSubmit = () => {
-    console.log("submit called");
      filter(formik.values)
   }
   const handleClear = () => {
-    console.log("clear called")
     formik.resetForm()
     clear()
   }

@@ -30,7 +30,6 @@ const BookTime = ({formik, mentorProfile, onComplete, loading,  ...props}) => {
   }
 
   const handleTimeslotClicked = (startTimeEventEmit) => {
-    console.log(startTimeEventEmit)
      setSelectedSlot(moment(startTimeEventEmit.startTime).tz(timeZone).format("LT z"))
      formik.setFieldValue('bookedTime', startTimeEventEmit)
 

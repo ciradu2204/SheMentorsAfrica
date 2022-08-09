@@ -16,7 +16,7 @@ import List from "@material-ui/core/List";
 import { ListItem } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import { Drawer } from "@material-ui/core";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { Link } from "react-router-dom";
 import MenuIcon from "@material-ui/icons/Menu";
 import Menu from "@material-ui/core/Menu";
@@ -31,6 +31,7 @@ const Navbar = ({ user, pages, settings, profile, ...props }) => {
     window !== undefined ? () => window().document.body : undefined;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const navigate = useNavigate()
   const ref = React.useRef();
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -43,7 +44,8 @@ const Navbar = ({ user, pages, settings, profile, ...props }) => {
   };
 
   const logoutUser = async() => {
-    await Auth.signOut();    
+    await Auth.signOut();   
+    navigate("/login") 
   };
   const openSettingsMenu = () => {
     setAnchorEl(ref.current);

@@ -17,15 +17,13 @@ const GeneralInfo = ({mentorProfile, formik, ...props}) =>{
     const classes = useStyles()
     const [error, setError] = useState("")
     const [hasError, setHasError] = useState(initial)
-    console.log(formik.values.availability)
-    const formData = {
+     const formData = {
         areasOfExpertise: formik.values.areasOfExpertise,
         mentorshipTopics: formik.values.mentorshipTopics, 
         bio: formik.values.bio
     }
 
     const validate = async () => {
-        console.log(formData)
 
         try{
           await bookingGeneralInfo.validate(formData)

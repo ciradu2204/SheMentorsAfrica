@@ -1,4 +1,4 @@
-import FullCalendar, { formatDate } from "@fullcalendar/react";
+import FullCalendar from "@fullcalendar/react";
 import dayGridPlugin from "@fullcalendar/daygrid";
 import timeGridPlugin from "@fullcalendar/timegrid";
 import interactionPlugin from "@fullcalendar/interaction";
@@ -47,7 +47,6 @@ const Availability = ({formik, loading, onComplete, ...props}) => {
   };
 
   const handleEvents = (events) => {
-    console.log("called")
     const eventsArray = [];
     events.forEach((event) => {
       eventsArray.push({
@@ -59,7 +58,6 @@ const Availability = ({formik, loading, onComplete, ...props}) => {
       });
     });
     formik.setFieldValue('availability', eventsArray)
-    console.log(formik.values.availability)
   };
 
 

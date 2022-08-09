@@ -1,4 +1,4 @@
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import "./index.css";
 import UnauthLayout from "./Layout/UnauthLayout/unauthLayout";
@@ -91,25 +91,24 @@ function App() {
 
   useEffect(() => {
     setLoading(true)
-    const updateUser = async () => {
+    const updateUser = async () => { 
       setUser(await getCurrentUser());
+      setLoading(false)
     };
     Hub.listen("auth", updateUser);
     updateUser();
-   setLoading(false)
     return () => Hub.remove("auth", updateUser);
   }, []);
 
   useEffect(() => {
-    setLoading(true);
     if (user != null) {
+      setLoading(true);
       const checkUserProfile = () => {
         const token = user.signInUserSession.idToken.jwtToken;
         const requestInfo = {
           headers: { Authorization: token },
         };
-        console.log(user)
-        API.get("profileApi", `/profiles/${user.attributes.sub}`, requestInfo)
+         API.get("profileApi", `/profiles/${user.attributes.sub}`, requestInfo)
           .then((result) => {
             let profile = JSON.parse(result.body);
             setProfile(profile);
@@ -122,14 +121,12 @@ function App() {
       
       checkUserProfile();
       setLoading(false);
-
     }
   }, [user]);
 
   useEffect(() => {
     setLoading(true)
     if (profile != null) {
-      console.log(profile)
       if( !profile.profile.hasOwnProperty("url")){
       const getCurrentUserUrl = async () => {
         let url = await getImage( profile.profile.profileImage.file.key, "");
@@ -155,7 +152,7 @@ function App() {
       fetchMentors();
     }
     setLoading(false)
-
+    //eslint-disable-next-line
   }, [profile]);
 
   useEffect(() => {

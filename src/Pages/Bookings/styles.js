@@ -40,11 +40,9 @@ return {
         }
     },
     tabs: {
-        flexGrow: 0, 
-    }, 
+     }, 
     tabPanel:{
         margin: "40px",
-        flexGrow: 2, 
 
     }, 
     header:{

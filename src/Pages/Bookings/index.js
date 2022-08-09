@@ -61,9 +61,7 @@ const Bookings = ({ user }) => {
     }
     
   }, [bookings])
-  console.log("pending");
-  console.log(pendingBookings);
-
+ 
   function TabPanel(props) {
     const { children, value, index, ...other } = props;
 

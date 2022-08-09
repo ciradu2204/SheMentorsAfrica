@@ -25,6 +25,12 @@
           "deploymentBucketName": "amplify-shementorsafrica-dev-124643-deployment",
           "s3Key": "amplify-builds/bookingsHandler-4a71617a64594f6d6559-build.zip"
         }
+      },
+      "hosting": {
+        "amplifyhosting": {
+          "appId": "d355u8qyf4162x",
+          "type": "manual"
+        }
       }
     }
   }

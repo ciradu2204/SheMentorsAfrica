@@ -9,7 +9,9 @@ const useStyles = makeStyles((theme) => {
             height: "100% !important",
             borderRadius: "30px 0px 0px 0px",
             backgroundColor: "#F5F5F5",
-            padding: "50px",
+            paddingLeft: "30px",
+            paddingRight: "30px",
+            paddingTop: "73px",
             fontFamily: "Poppins, sans-serif !important"
         }, 
         title: {

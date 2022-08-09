@@ -55,10 +55,8 @@ const createBooking = async () => {
       headers: { Authorization: token },
       body: { booking: booking },
     };
-    console.log(requestInfo)
-    try {
-      const result =  await API.post("profileApi", "/bookings", requestInfo);
-      console.log(result)
+     try {
+       await API.post("profileApi", "/bookings", requestInfo);
     } catch (error) {
       setError(error.message);
       setLoading(false);
@@ -70,7 +68,6 @@ const createBooking = async () => {
 
 const updateMentorProfile = async () => {
     let newAvailability = []
-    console.log(formik.values.bookedTime.splitTimeslot[1])
     if(formik.values.bookedTime.splitTimeslot[0] === null && formik.values.bookedTime.splitTimeslot[1] !== null ){
         newAvailability = mentorProfile.profile.availability.map((obj) => {
             if(obj.id === formik.values.bookedTime.availableTimeslot.id){
@@ -85,7 +82,6 @@ const updateMentorProfile = async () => {
              return obj.id !== formik.values.bookedTime.availableTimeslot.id
        })
     }
-    console.log(newAvailability)
     const token = user.signInUserSession.idToken.jwtToken;
     let profile = { ...mentorProfile.profile, availability: [...newAvailability]};
     const requestInfo = {

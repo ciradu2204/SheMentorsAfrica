@@ -35,22 +35,28 @@ const ExperienceStep = ({ formik, onComplete, loading, ...props }) => {
     experience: formik.values.experience
   };
 
-  const validate = async () => {
+  const validateMentor = async () => {
     try {
-      if (formik.values.role === "Mentee") {
-        await menteeExperienceShema.validate(formData);
-        props.lastStep()
-        onComplete()
-      } else {
         await mentorExperienceShema.validate(formData);
         props.nextStep()
-      }
     } catch (error) {
-      setError(error.message);
+      setError({error});
       let value = error.path.split(".");
       setHasError(prevState => ({ ...initial, [`${value[0]}`]:{...prevState, [`${value[1]}`]: true}  }));
     }
   };
+
+  const validateMentee = async () => {
+    try {
+      await menteeExperienceShema.validate(formData);
+      props.lastStep()
+      onComplete()
+    } catch (error) {
+      setError({error});
+      let value = error.path.split(".");
+      setHasError(prevState => ({ ...initial, [`${value[0]}`]:{...prevState, [`${value[1]}`]: true}  }));
+    }
+  }
 
   return (
     <Container disableGutters className={classes.container}>
@@ -68,7 +74,7 @@ const ExperienceStep = ({ formik, onComplete, loading, ...props }) => {
         )}
         <Connect formik={formik} hasError={hasError} />
       </CardContent>
-      <ActionButtons {...props} nextStep={validate} loading={loading}/>
+      <ActionButtons {...props} lastStep={validateMentee} nextStep={validateMentor} loading={loading}/>
     </Container>
   );
 };

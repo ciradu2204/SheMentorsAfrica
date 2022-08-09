@@ -53,7 +53,7 @@ const AuthUser = () => {
         } else if (formType === "Sign Up") {
            await Auth.signUp({username, password, attributes: { email, name } });
            setFormType( "Confirm Sign Up" );
-           setSuccess("Auth code successfully sent to your email")
+           setSuccess("Auth code successfully sent to your email, check your spam if you don't see it")
         } else if (formType === "Confirm Sign Up") {
           await Auth.confirmSignUp(username, code);
           setFormType( "Sign In" );
@@ -61,7 +61,7 @@ const AuthUser = () => {
         } else if (formType === "Reset Password") {
           await Auth.forgotPassword(username)
           setFormType("Confirm Reset Password");
-          setSuccess("Auth code successfully sent to your email")
+          setSuccess("Auth code successfully sent to your email, check your spam if you don't see it")
         }else if (formType === "Confirm Reset Password"){
           await Auth.forgotPasswordSubmit(username, code, password);
           setFormType( "Sign In" ); 
