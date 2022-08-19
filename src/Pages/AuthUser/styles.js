@@ -20,6 +20,7 @@ const useStyles = makeStyles((theme) => {
       display: "flex",
       flexDirection: "column",
       textAlign: "center",
+      margin: "20px", 
       border: `1px solid ${theme.palette.secondary.main}`,
       [theme.breakpoints.down("md")]:{
         width: "50%",
@@ -148,7 +149,7 @@ const useStyles = makeStyles((theme) => {
      display: "grid", 
      gridTemplateColumns: "50%  50%",
      columnGap: "20px",
-     fontSize: "13px",
+     fontSize: "12px",
      fontFamily: "Poppins, sans-serif",
 
      [theme.breakpoints.down("xs")]:{

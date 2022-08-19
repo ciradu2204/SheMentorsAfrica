@@ -37,7 +37,7 @@ const Home = () => {
           give back to the community as you benefit from the platform.
         </Typography>
         <Link to="/signup" className={classes.buttonLink}>
-        <Button variant="contained" className={classes.homeButton} component={Link} to="/login">
+        <Button variant="contained" className={classes.homeButton} component={Link} to="/login/">
           Join us
         </Button>
         </Link>

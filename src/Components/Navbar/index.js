@@ -16,7 +16,7 @@ import List from "@material-ui/core/List";
 import { ListItem } from "@material-ui/core";
 import IconButton from "@material-ui/core/IconButton";
 import { Drawer } from "@material-ui/core";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { Link } from "react-router-dom";
 import MenuIcon from "@material-ui/icons/Menu";
 import Menu from "@material-ui/core/Menu";
@@ -31,7 +31,6 @@ const Navbar = ({ user, pages, settings, profile, ...props }) => {
     window !== undefined ? () => window().document.body : undefined;
   const [mobileOpen, setMobileOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState(null);
-  const navigate = useNavigate()
   const ref = React.useRef();
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -44,8 +43,7 @@ const Navbar = ({ user, pages, settings, profile, ...props }) => {
   };
 
   const logoutUser = async() => {
-    await Auth.signOut();   
-    navigate("/login") 
+    await Auth.signOut();
   };
   const openSettingsMenu = () => {
     setAnchorEl(ref.current);
@@ -116,7 +114,7 @@ const Navbar = ({ user, pages, settings, profile, ...props }) => {
                   variant="contained"
                   size="large"
                   component={Link}
-                  to="/login"
+                  to="/login/"
                   className={classes.authButton}
                 >
                   LOGIN
@@ -131,7 +129,7 @@ const Navbar = ({ user, pages, settings, profile, ...props }) => {
               keepmounted="true"
             >
               {settings.map((setting, index) =>
-                setting.path === "/login" ? (
+                setting.path === "/login/" ? (
                   <MenuItem
                     component={NavLink}
                     to={setting.path}
@@ -214,7 +212,7 @@ const Navbar = ({ user, pages, settings, profile, ...props }) => {
                   variant="contained"
                   size="large"
                   component={Link}
-                  to="/login"
+                  to="/login/"
                   className={classes.authButton}
                 >
                   LOGIN

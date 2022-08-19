@@ -91,9 +91,11 @@ function App() {
 
   useEffect(() => {
     setLoading(true)
+    console.log("called")
     const updateUser = async () => { 
       setUser(await getCurrentUser());
       setLoading(false)
+      console.log(user); 
     };
     Hub.listen("auth", updateUser);
     updateUser();
@@ -193,7 +195,7 @@ function App() {
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/faqs" element={<FAQs />} />
           <Route path="/testimony" element={<Testimony />} />
-          <Route path="/login" element={<AuthUser />} />
+          <Route path="/login/" element={<AuthUser />} />
         </Route>
         <Route
           element={

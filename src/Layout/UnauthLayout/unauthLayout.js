@@ -43,7 +43,7 @@ const pages = [
   {
     id: 4,
     text: "LOGIN",
-    path: "/login",
+    path: "/login/",
   },
 ];
 
@@ -84,7 +84,7 @@ const settings = [
   //   },
     {
       text: "Logout",
-      path: "/login",
+      path: "/login/",
       icon: <LogoutIcon/>
 
     },

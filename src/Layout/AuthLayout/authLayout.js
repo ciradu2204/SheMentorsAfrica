@@ -40,7 +40,7 @@ const settings = [
   },
   {
     text: "Logout",
-    path: "/login",
+    path: "/login/",
     icon: <LogoutIcon />,
   },
 ];
@@ -128,6 +128,6 @@ export default function AuthLayout({
       )}
     </Container>
   ) : (
-    <Navigate to="/login" />
+    <Navigate to="/login/" />
   );
 }
