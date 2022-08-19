@@ -1,6 +1,4 @@
 
-![Logo](https://shementorsafrica-img.s3.amazonaws.com/logo-large.png)
-
 # She Mentors Africa
 
 A mentoring app for young African women in ICT to connect to more experienced women in the field. 
