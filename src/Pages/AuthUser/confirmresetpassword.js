@@ -22,6 +22,7 @@ const ConfirmResetPassword = ({
     <Box>
       <TextField
         id="Email"
+        autoComplete="off"
         className={classes.input}
         label="Email"
         value={formState.email}
@@ -32,6 +33,7 @@ const ConfirmResetPassword = ({
         id="code"
         name="code"
         type="number"
+        autoComplete="off"
         className={classes.input}
         label="Confirmation Code"
         variant="outlined"
@@ -43,6 +45,7 @@ const ConfirmResetPassword = ({
         <InputLabel htmlFor="New Password">New Password</InputLabel>
         <OutlinedInput
           id="password"
+          autoComplete="off"
           type={formState.showPassword ? "text" : "password"}
           name="password"
           onChange={onChange}
@@ -62,11 +65,12 @@ const ConfirmResetPassword = ({
         />
       </FormControl>
       <FormControl variant="outlined" required className={classes.input}>
-        <InputLabel htmlFor="Confirm New password">
+        <InputLabel htmlFor="Confirm New password" >
           Confirm New Password
         </InputLabel>
         <OutlinedInput
           id="Confirm New password"
+          autoComplete="off"
           type={formState.showConfirmPassword ? "text" : "password"}
           name="confirmPassword"
           onChange={onChange}

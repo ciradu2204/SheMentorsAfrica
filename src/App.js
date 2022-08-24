@@ -91,7 +91,6 @@ function App() {
 
   useEffect(() => {
     setLoading(true)
-    console.log("called")
     const updateUser = async () => { 
       setUser(await getCurrentUser());
       setLoading(false)

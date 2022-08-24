@@ -8,6 +8,7 @@ const classes = useStyles()
         <Box className={classes.inputContainer}>
         <TextField
           id="Email"
+          autoComplete="off"
           className={classes.input}
           label="Email"
           variant="outlined"
@@ -18,6 +19,7 @@ const classes = useStyles()
         <TextField
           id="code"
           name="code"
+          autoComplete="off"
           type="number"
           className={classes.input}
           label="Confirmation Code"

@@ -8,6 +8,7 @@ const SignUp = ({formState, onChange, handleClickShowPassword, handleClickShowCo
     <Box className={classes.inputContainer}>
     <TextField
       id="User Name"
+      autoComplete="off"
       label="Full Name"
       className={classes.input}
       name="name"
@@ -18,6 +19,7 @@ const SignUp = ({formState, onChange, handleClickShowPassword, handleClickShowCo
     />
     <TextField
       id="Email"
+      autoComplete="off"
       label="Email"
       name="email"
       variant="outlined"
@@ -30,6 +32,7 @@ const SignUp = ({formState, onChange, handleClickShowPassword, handleClickShowCo
       <InputLabel htmlFor="password">Password</InputLabel>
       <OutlinedInput
         id="password"
+        autoComplete="off"
         type={formState.showPassword ? "text" : "password"}
         name="password"
         onChange={onChange}
@@ -58,6 +61,7 @@ const SignUp = ({formState, onChange, handleClickShowPassword, handleClickShowCo
       </InputLabel>
       <OutlinedInput
         id="Confirm password"
+        autoComplete="off"
         type={formState.showConfirmPassword ? "text" : "password"}
         name="confirmPassword"
         onChange={onChange}
