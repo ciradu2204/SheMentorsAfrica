@@ -19,7 +19,7 @@ const Mentors = ({mentorsProfiles}) => {
        setFilteredProfiles(mentorsProfiles);
        setLoading(false)
      }
-     //// eslint-disable-next-line
+     // eslint-disable-next-line
    }, [mentorsProfiles])
  
  //clear the filtering fields selected
