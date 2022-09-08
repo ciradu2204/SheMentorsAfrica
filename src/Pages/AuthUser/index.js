@@ -123,11 +123,9 @@ const AuthUser = () => {
 
   const areFieldsValid = async () => {
     setSuccess("");
-    console.log(formState)
     try {
       switch (formType) {
         case "Sign Up":
-          console.log("called")
           await signUpValidationShema.validate(formState);
           break;
         case "Sign In":

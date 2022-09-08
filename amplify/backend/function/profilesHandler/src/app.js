@@ -64,15 +64,28 @@ const getUserId = (request) => {
 };
 
 app.get("/profiles",  function (request, response) {
-  let params = {
-    TableName: tableName,
-    IndexName: "profilesByRole",
-    KeyConditionExpression: "#4db11 = :4db11",
-    ProjectionExpression: "#4db10",
-    ExpressionAttributeNames: {"#4db10":"profile","#4db11":"role", "#4db12": "PK"},
-    ExpressionAttributeValues: {":4db11": "Mentor", ":4db12": getUserId(request)},
-    FilterExpression: "#4db12 <> :4db12"
-  };
+  let params = null; 
+  //if a user is authenticated, fetch other mentors
+  if(getUserId(request) !== "Auth"){
+    params = {
+      TableName: tableName,
+      IndexName: "profilesByRole",
+      KeyConditionExpression: "#4db11 = :4db11",
+      ProjectionExpression: "#4db10",
+      ExpressionAttributeNames: {"#4db10":"profile","#4db11":"role", "#4db12": "PK"},
+      ExpressionAttributeValues: {":4db11": "Mentor", ":4db12": getUserId(request)},
+      FilterExpression: "#4db12 <> :4db12"
+    };
+  }else{
+    params = {
+      TableName: tableName,
+      IndexName: "profilesByRole",
+      KeyConditionExpression: "#4db11 = :4db11",
+      ProjectionExpression: "#4db10",
+      ExpressionAttributeNames: {"#4db10":"profile","#4db11":"role"},
+      ExpressionAttributeValues: {":4db11": "Mentor"},
+    };
+  }
   dynamodb.query(params, (error, result) => {
     if (error) {
       response.json({ statusCode: 500, error: error.message });

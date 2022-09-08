@@ -2,7 +2,7 @@
   "version": "1",
   "cognitoConfig": {
     "identityPoolName": "shementorsafrica9d562494_identitypool_9d562494",
-    "allowUnauthenticatedIdentities": false,
+    "allowUnauthenticatedIdentities": true,
     "resourceNameTruncated": "shemen9d562494",
     "userPoolName": "shementorsafrica9d562494_userpool_9d562494",
     "autoVerifiedAttributes": [
@@ -70,7 +70,6 @@
       "Ref": "AWS::StackId"
     },
     "permissions": [],
-    "hostedUIProviderCreds": "[]",
     "oAuthMetadata": "{\"AllowedOAuthFlows\":[\"code\"],\"AllowedOAuthScopes\":[\"phone\",\"email\",\"openid\",\"profile\",\"aws.cognito.signin.user.admin\"],\"CallbackURLs\":[\"http://localhost:3000/mentors/\",\"https://dev.d355u8qyf4162x.amplifyapp.com/mentors/\"],\"LogoutURLs\":[\"http://localhost:3000/login/\",\"https://dev.d355u8qyf4162x.amplifyapp.com/login/\"]}"
   }
 }

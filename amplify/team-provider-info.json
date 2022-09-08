@@ -14,12 +14,13 @@
     },
     "categories": {
       "auth": {
-        "shementorsafrica9d562494": {}
+        "shementorsafrica9d562494": {},
+        "true": {}
       },
       "function": {
         "profilesHandler": {
           "deploymentBucketName": "amplify-shementorsafrica-dev-124643-deployment",
-          "s3Key": "amplify-builds/profilesHandler-6e7650584c377365556a-build.zip"
+          "s3Key": "amplify-builds/profilesHandler-622f31554455586b4d37-build.zip"
         },
         "bookingsHandler": {
           "deploymentBucketName": "amplify-shementorsafrica-dev-124643-deployment",

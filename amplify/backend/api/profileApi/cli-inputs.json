@@ -1,19 +1,6 @@
 {
   "version": 1,
   "paths": {
-    "/profiles": {
-      "name": "/profiles",
-      "lambdaFunction": "profilesHandler",
-      "permissions": {
-        "setting": "private",
-        "auth": [
-          "create",
-          "read",
-          "update",
-          "delete"
-        ]
-      }
-    },
     "/bookings": {
       "name": "/bookings",
       "lambdaFunction": "bookingsHandler",
@@ -25,6 +12,13 @@
           "update",
           "delete"
         ]
+      }
+    },
+    "/profiles": {
+      "name": "/profiles",
+      "lambdaFunction": "profilesHandler",
+      "permissions": {
+        "setting": "open"
       }
     }
   }

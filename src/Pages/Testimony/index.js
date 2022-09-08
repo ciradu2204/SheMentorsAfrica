@@ -13,7 +13,6 @@ import { useState } from "react";
 
 const Testimony = () => {
   const classes = useStyles();
-
   const [testimonies, setTestimonies]  = useState( [
     {
       role: "MENTOR",
@@ -46,22 +45,18 @@ const Testimony = () => {
           "https://shementorsafrica-img.s3.amazonaws.com/Testimonies/testimony_sample2.png",
       },
   ]);
-
   const [count, setCount] = useState(2);
-
   const handlePrev = () => {
       let removedElement = testimonies[0]; 
      setTestimonies(testimonies => [...testimonies.slice(1)]); 
      setTestimonies(testimonies => [...testimonies, removedElement])
  
   };
-
   useEffect(() => {
       if(window.innerWidth <=600){
           setCount(1)
       }
   }, [])
-
   return (
     <Container className={classes.container}>
       <IconButton

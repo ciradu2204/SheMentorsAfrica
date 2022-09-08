@@ -88,7 +88,7 @@
       "dependsOn": [
         {
           "category": "function",
-          "resourceName": "profilesHandler",
+          "resourceName": "bookingsHandler",
           "attributes": [
             "Name",
             "Arn"
@@ -96,7 +96,7 @@
         },
         {
           "category": "function",
-          "resourceName": "bookingsHandler",
+          "resourceName": "profilesHandler",
           "attributes": [
             "Name",
             "Arn"

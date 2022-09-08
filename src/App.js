@@ -58,7 +58,7 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [profile, setProfile] = useState(null);
   const [registerForm, setRegisterForm] = useState(false);
-  const [mentorsProfileNoUrl, setMentorsProfileNoUrl] = useState(null);
+  const [mentorsProfilesNoImage, setMentorsProfilesNoImage] = useState(null);
   const [mentorsProfiles, setMentorsProfiles] = useState(null);
   const getCurrentUser = async () => {
     try {
@@ -68,37 +68,48 @@ function App() {
       return null;
     }
   };
-
   const getImage = async (key, identityId) => {
-    if(identityId !== ""){
+    if (identityId !== "") {
       const result = await Storage.get(key, {
         level: "protected",
         expires: "604800",
         identityId: identityId,
       });
       return result;
-
-    }else{
+    } else {
       const result = await Storage.get(key, {
         level: "protected",
         expires: "604800",
       });
       return result;
-
     }
-     
+  };
+  const fetchMentors = () => {
+    const token = user?.signInUserSession?.idToken?.jwtToken;
+    const requestInfo = {
+      headers: { Authorization: token },
+      body: { profile: profile },
+    };
+    API.get("profileApi", "/profiles", requestInfo)
+      .then((result) => {
+        setMentorsProfilesNoImage(JSON.parse(result.body));
+      })
+      .catch((err) => {
+        console.log({ err });
+      });
   };
 
   useEffect(() => {
-    setLoading(true)
-    const updateUser = async () => { 
+    setLoading(true);
+    const updateUser = async () => {
       setUser(await getCurrentUser());
-      setLoading(false)
-      console.log(user); 
+      setLoading(false);
     };
     Hub.listen("auth", updateUser);
     updateUser();
+    fetchMentors();
     return () => Hub.remove("auth", updateUser);
+    //eslint-disable-next-line
   }, []);
 
   useEffect(() => {
@@ -109,7 +120,7 @@ function App() {
         const requestInfo = {
           headers: { Authorization: token },
         };
-         API.get("profileApi", `/profiles/${user.attributes.sub}`, requestInfo)
+        API.get("profileApi", `/profiles/${user.attributes.sub}`, requestInfo)
           .then((result) => {
             let profile = JSON.parse(result.body);
             setProfile(profile);
@@ -119,57 +130,44 @@ function App() {
             console.log(err);
           });
       };
-      
+
       checkUserProfile();
       setLoading(false);
     }
   }, [user]);
 
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     if (profile != null) {
-      if( !profile.profile.hasOwnProperty("url")){
-      const getCurrentUserUrl = async () => {
-        let url = await getImage( profile.profile.profileImage.file.key, "");
-        let newProfile = { ...profile.profile, url };
-        setProfile({ profile: newProfile });
-      };
-      getCurrentUserUrl();
-      }
-      const fetchMentors = () => {
-        const token = user.signInUserSession.idToken.jwtToken;
-        const requestInfo = {
-          headers: { Authorization: token },
-          body: {profile: profile}
+      if (!profile.profile.hasOwnProperty("url")) {
+        const getCurrentUserUrl = async () => {
+          let url = await getImage(profile.profile.profileImage.file.key, "");
+          let newProfile = { ...profile.profile, url };
+          setProfile({ profile: newProfile });
         };
-        API.get("profileApi", "/profiles", requestInfo)
-          .then((result) => {
-            setMentorsProfileNoUrl(JSON.parse(result.body));
-          })
-          .catch((err) => {
-            console.log({err} );
-          });
-      };
+        getCurrentUserUrl();
+      }
       fetchMentors();
     }
-    setLoading(false)
+    setLoading(false);
     //eslint-disable-next-line
   }, [profile]);
 
   useEffect(() => {
-    if (mentorsProfileNoUrl != null) {
+    if (mentorsProfilesNoImage != null) {
       const getProfilesUrl = async () => {
         setLoading(true);
         let result = await Promise.all(
-          mentorsProfileNoUrl.map(async (mentor) => {
+          mentorsProfilesNoImage.map(async (mentor) => {
             try {
-              let url = await getImage(
+               let url = await getImage(
                 mentor.profile?.profileImage.file.key,
                 mentor.profile?.identityId
               );
-              let profile = { ...mentor.profile, url };
+              let profile = {...mentor.profile, url};
               return { profile: profile };
             } catch (err) {
+              console.log(err);
               throw err;
             }
           })
@@ -177,10 +175,9 @@ function App() {
         setMentorsProfiles(result);
         setLoading(false);
       };
-
       getProfilesUrl();
     }
-  }, [mentorsProfileNoUrl]);
+  }, [mentorsProfilesNoImage]);
 
   return (
     <ThemeProvider theme={theme}>
@@ -193,6 +190,10 @@ function App() {
           <Route exact path="/" element={<Home />} />
           <Route path="/aboutus" element={<AboutUs />} />
           <Route path="/faqs" element={<FAQs />} />
+          <Route
+            path="/mentors"
+            element={<Mentors mentorsProfiles={mentorsProfiles} />}
+          />
           <Route path="/testimony" element={<Testimony />} />
           <Route path="/login/" element={<AuthUser />} />
         </Route>
@@ -217,10 +218,7 @@ function App() {
             path="/mentors"
             element={<Mentors mentorsProfiles={mentorsProfiles} />}
           />
-           <Route
-            path="/bookings"
-            element={<Bookings user={user}  />}
-          />
+          <Route path="/bookings" element={<Bookings user={user} />} />
         </Route>
       </Routes>
     </ThemeProvider>

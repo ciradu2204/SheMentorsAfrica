@@ -1,7 +1,13 @@
 import React, { useEffect } from "react";
 import Navbar from "../../Components/Navbar";
 import Box from "@material-ui/core/Box";
-import { Backdrop, CircularProgress, Container, IconButton, Typography } from "@material-ui/core";
+import {
+  Backdrop,
+  CircularProgress,
+  Container,
+  IconButton,
+  Typography,
+} from "@material-ui/core";
 import useStyles from "./unauthLayoutStyle";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import LinkedInIcon from "@material-ui/icons/LinkedIn";
@@ -14,8 +20,8 @@ import { useState } from "react";
 import NavigateNext from "@material-ui/icons/NavigateNext";
 import { Outlet } from "react-router-dom";
 import { motion } from "framer-motion";
-import HomeIcon from '@material-ui/icons/Home';
-import LogoutIcon from '@material-ui/icons/ExitToApp';
+import HomeIcon from "@material-ui/icons/Home";
+import LogoutIcon from "@material-ui/icons/ExitToApp";
 
 import NavigateBefore from "@material-ui/icons/NavigateBefore";
 
@@ -37,8 +43,8 @@ const pages = [
   },
   {
     id: 3,
-    text: "TESTIMONY",
-    path: "/testimony",
+    text: "MENTORS",
+    path: "/mentors",
   },
   {
     id: 4,
@@ -46,10 +52,6 @@ const pages = [
     path: "/login/",
   },
 ];
-
-
-
-
 
 const partners = [
   {
@@ -75,20 +77,14 @@ const settings = [
   {
     text: "Home",
     path: "/mentors",
-    icon: <HomeIcon/>,
+    icon: <HomeIcon />,
   },
-  // {
-  //     text: "Profile",
-  //     path: "/profile/me",
-  //     icon: <AccountCircleIcon/>
-  //   },
-    {
-      text: "Logout",
-      path: "/login/",
-      icon: <LogoutIcon/>
-
-    },
-]
+  {
+    text: "Logout",
+    path: "/login/",
+    icon: <LogoutIcon />,
+  },
+];
 
 const ButtonMailto = ({ mailto, ...props }) => {
   return (
@@ -107,31 +103,28 @@ const ButtonMailto = ({ mailto, ...props }) => {
 const pageVariants = {
   initial: {
     opacity: 0,
-    transform: "translate(0, -10%)"
+    transform: "translate(0, -10%)",
   },
   in: {
     opacity: 1,
-    transform: "translate(0, 0%)"
-
+    transform: "translate(0, 0%)",
   },
   out: {
     opacity: 0,
-    transform: "translate(0, 10%)"
-
+    transform: "translate(0, 10%)",
   },
 };
- 
+
 const pageTransition = {
   type: "tween",
   ease: "linear",
   duration: 1,
 };
 
-
-export default function UnauthLayout({user, loading, profile}) {
+export default function UnauthLayout({ user, loading, profile }) {
   const location = useLocation();
   const [countStart, SetCounterStart] = useState(0);
-  const [backdropOpen, setBackdropOpen] = useState(false); 
+  const [backdropOpen, setBackdropOpen] = useState(false);
   const [countEnd, SetCounterEnd] = useState(pages.length - 1);
   const handlePrev = () => {
     if (countStart > 0) {
@@ -153,17 +146,20 @@ export default function UnauthLayout({user, loading, profile}) {
     }
   }, []);
 
- 
-
   const classes = useStyles();
 
-  return (
-    loading? 
-      (<Box className={classes.loading}> 
-          <CircularProgress/>
-      </Box>)
-    : (<div className={classes.parent}>
-      <Navbar  user={user} pages={pages.slice(0, 4)} settings={settings} profile={profile} />
+  return loading ? (
+    <Box className={classes.loading}>
+      <CircularProgress />
+    </Box>
+  ) : (
+    <div className={classes.parent}>
+      <Navbar
+        user={user}
+        pages={pages.slice(0, 4)}
+        settings={settings}
+        profile={profile}
+      />
 
       <Container className={classes.container} disableGutters>
         <Box className={classes.childrenBox}>
@@ -171,14 +167,14 @@ export default function UnauthLayout({user, loading, profile}) {
             key={location.pathname}
             initial="initial"
             animate="in"
-            style={{height: "100%"}}
+            style={{ height: "100%" }}
             variants={pageVariants}
             transition={pageTransition}
           >
             <Outlet context={[setBackdropOpen]} />
           </motion.div>
         </Box>
-        <VerticalSlider pages={pages} className={classes.verticalSlider}  />
+        <VerticalSlider pages={pages} className={classes.verticalSlider} />
       </Container>
 
       {location.pathname === pages[1].path ? (
@@ -210,7 +206,12 @@ export default function UnauthLayout({user, loading, profile}) {
                     />
                   );
                 })} */}
-                <Typography variant="subtitle2" sx={{fontFamily: "Poppins, sans-serif !important"}}>Upcoming...</Typography>
+              <Typography
+                variant="subtitle2"
+                sx={{ fontFamily: "Poppins, sans-serif !important" }}
+              >
+                Upcoming...
+              </Typography>
             </Box>
           </Box>
 
@@ -273,12 +274,9 @@ export default function UnauthLayout({user, loading, profile}) {
           </Box>
         </Box>
       ) : null}
-      <Backdrop
-        className={classes.backdrop}
-        open={backdropOpen}
-      >
+      <Backdrop className={classes.backdrop} open={backdropOpen}>
         <CircularProgress color="inherit" />
       </Backdrop>
-    </div>)
+    </div>
   );
 }

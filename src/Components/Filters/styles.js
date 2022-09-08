@@ -4,9 +4,8 @@ const useStyles = makeStyles((theme) => {
 
     return {
         form: {
-           // backgroundColor: "#F5F5F5", 
             width: "30%",
-            height: "100% !important",
+            //height: "100% !important",
             borderRadius: "30px 0px 0px 0px",
             backgroundColor: "#F5F5F5",
             paddingLeft: "30px",
