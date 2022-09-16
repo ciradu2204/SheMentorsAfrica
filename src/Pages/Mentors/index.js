@@ -6,7 +6,7 @@ import usePagination from "../../Hooks/Pagination";
 import { useNavigate } from "react-router-dom";
 import Paginator from "./paginator";
 import Profiles from "./profiles";
-import { Box, Container } from "@material-ui/core";
+import { Box, CircularProgress, Container } from "@material-ui/core";
 
 const Mentors = ({mentorsProfiles, user}) => {
   const [loading, setLoading] = useState(true);
@@ -44,7 +44,9 @@ const Mentors = ({mentorsProfiles, user}) => {
         user={user}
         className={classes.filter}
       />
+     
       <Box className={classes.profilesBox}>
+      {loading && <CircularProgress className={classes.circularProgress}/>}
       {!loading && <Profiles profiles={getCurrentData()} loading={loading} handleViewProfile={handleViewProfile} />}
       {!loading && <Paginator   itemsPerPage="4" pageCount={pageCount} currentPage={currentPage} onPageChange={(event, new_page) => setCurrentPage(new_page)} />}
       </Box>
