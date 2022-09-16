@@ -9,12 +9,12 @@ A mentoring app for young African women in ICT to connect to more experienced wo
 
 **Server:** AWS Amplify and Express
 
-
+## Architecture
+ ![Architecture](./public/shementorsafricadraw.io.png)
 ## Features
 
 - View mentors profiles
 - Book a session
-
 
 ## Acknowledgements
 
