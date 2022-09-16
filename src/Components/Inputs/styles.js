@@ -1,9 +1,7 @@
 import { makeStyles } from "@material-ui/core";
 
 const useStyles = makeStyles((theme) => {
-
     return {
-
          avatar: {
             height: 90,
             width: 90,
@@ -43,15 +41,10 @@ const useStyles = makeStyles((theme) => {
             width: "100% !important",
             marginTop: "15px !important",
           },
-          formControl: {
-            width: "100% !important",
-            fontFamily: "Poppins !important",
-            marginTop: "15px !important",
-          },
           item: {
             display: "flex",
+            maxWidth: "300px !important", 
             flexDirection: "column",
-            width: "100% !important",
             fontFamily: "Poppins !important",
             justifyContent: "center",
             gap: "2%",
@@ -68,7 +61,7 @@ const useStyles = makeStyles((theme) => {
           }, 
           labelDashboard:{
             '&.MuiInputLabel-root':{
-                backgroundColor: "#F5F5F5 !important",
+               backgroundColor: (props => `${props.page? "#F5F5F5 !important": "white !important"}`),
             }
             
           },

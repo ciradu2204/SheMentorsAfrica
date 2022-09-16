@@ -5,7 +5,7 @@ const OpportunityType = ({formik, hasError,  required=true, label="label", focus
 
     return (
 
-        <FormControl variant="outlined" fullWidth  className={classes.formControl} required={required} focused={focused} >
+        <FormControl variant="outlined" fullWidth  className={classes.item} required={required} focused={focused} >
         <InputLabel id="opportunityType-label" classes={{
                  root: label === "label" ? classes.label: classes.labelDashboard
         }}>Opportunity Type</InputLabel>

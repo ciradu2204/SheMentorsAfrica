@@ -8,7 +8,9 @@ const useStyles = makeStyles((theme) =>{
             padding: 'unset !important',
             alignCenter: "stretch",
             height: "100%",
-            marginLeft: "10px",
+            [theme.breakpoints.down("sm")]: {
+                flexDirection: 'column', 
+            }
         }, 
         profilesBox:{
             display: 'flex', 
@@ -24,11 +26,10 @@ const useStyles = makeStyles((theme) =>{
             justifyContent: "center",
         },
         mentorsBox: {
-            paddingTop: "115px",
-            paddingLeft: "30px",
+            paddingTop: "85px",
             height: "100%",
+            width: "95%", 
             flex: 0,
-            paddingRight: "30px",
             color: "rgba(124,123,122, 1)",
             display: "grid", 
             justifyContent: "center",
@@ -38,7 +39,16 @@ const useStyles = makeStyles((theme) =>{
             [theme.breakpoints.down("md")]:{
                 gridTemplateColumns: "50%",
 
+            },
+            [theme.breakpoints.down("sm")]:{
+                display: 'flex !important', 
+                flexDirection: 'column', 
+                alignItems: 'center', 
+                paddingTop: "50px",
+                rowGap: "2%", 
+
             }
+
         }, 
         circularProgressBox: {
            width: "80%", 

@@ -6,7 +6,7 @@ const Role = ({formik, hasError,  required=true, focused=false}) => {
 
     return (
 
-        <FormControl variant="outlined" fullWidth  className={classes.formControl} required={required} focused={focused}>
+        <FormControl variant="outlined" fullWidth  className={classes.item} required={required} focused={focused}>
         <InputLabel required id="role-label">I am using She Mentors Africa to</InputLabel>
         <Select
           labelId="role-label"

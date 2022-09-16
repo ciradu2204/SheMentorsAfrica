@@ -9,10 +9,13 @@ import {
   } from "@material-ui/core";
   import useStyles from "./styles";
 
-const MentorshipTopics = ({formik, hasError,  required=true, label="label", focused=false}) => {
-     const classes = useStyles(); 
-
-     const MentorshipTopics = [
+const MentorshipTopics = ({formik, hasError, user, required=true, label="label", focused=false}) => {
+  const authenticated = user === null;
+  const props =  {
+    page: authenticated
+  }
+  const classes = useStyles(props);
+  const MentorshipTopics = [
         "Code Review", 
          "Mock Interview",
          "Technical Writing", 
@@ -25,7 +28,7 @@ const MentorshipTopics = ({formik, hasError,  required=true, label="label", focu
 
     return (
 
-        <FormControl variant="outlined" fullWidth className={classes.formControl} required={required} focused={focused}>
+        <FormControl variant="outlined" fullWidth className={classes.item} required={required} focused={focused}>
         <InputLabel id="mentorshipTopics-label" classes={{
                  root: label === "label" ? classes.label: classes.labelDashboard
         }}>{formik.values.role === "Mentor"? "Mentoring Topics":"I’d love some help with"}</InputLabel>

@@ -3,7 +3,7 @@ import useStyles from "./styles"
 const SortBy =  ({formik, hasError,  required=true, label="label", focused=false}) => {
       const classes = useStyles(); 
     return (
-        <FormControl variant="outlined" fullWidth  className={classes.formControl} required={required} focused={focused} >
+        <FormControl variant="outlined" fullWidth  className={classes.item} required={required} focused={focused} >
         <InputLabel id="sortBy-label" classes={{
                  root: label === "label" ? classes.label: classes.labelDashboard
         }}>Sort By</InputLabel>

@@ -3,7 +3,6 @@ import useStyles from "./styles";
 
 const Country = ({formik, hasError, required=true, label="label", focused=false}) => {
     const classes = useStyles(); 
-    const labelString = `classes. + ${label}`
     const countries = [
         "Algeria",
         "Egypt",
@@ -63,7 +62,7 @@ const Country = ({formik, hasError, required=true, label="label", focused=false}
     ]
     return (
 
-        <FormControl variant="outlined" fullWidth  className={classes.formControl} required={required} focused={focused}>
+        <FormControl variant="outlined" fullWidth  className={classes.item} required={required} focused={focused}>
         <InputLabel  id="country-label" classes={{
                  root: label === "label" ? classes.label: classes.labelDashboard
         }}>Country</InputLabel>

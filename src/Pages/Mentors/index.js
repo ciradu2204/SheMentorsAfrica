@@ -6,12 +6,16 @@ import usePagination from "../../Hooks/Pagination";
 import { useNavigate } from "react-router-dom";
 import Paginator from "./paginator";
 import Profiles from "./profiles";
-import { Box, Container, Typography } from "@material-ui/core";
+import { Box, Container } from "@material-ui/core";
 
-const Mentors = ({mentorsProfiles}) => {
+const Mentors = ({mentorsProfiles, user}) => {
   const [loading, setLoading] = useState(true);
   const {currentPage, getCurrentData, setCurrentPage, setFilteredProfiles, pageCount, filter} = usePagination(mentorsProfiles, 4, setLoading);
-  const classes = useStyles();
+  const authenticated = user === null;
+  const props =  {
+    page: authenticated
+  }
+  const classes = useStyles(props);
   let navigate = useNavigate(); 
 
   useEffect(() => {
@@ -37,6 +41,7 @@ const Mentors = ({mentorsProfiles}) => {
         filter={filter}
         clear = {clear}
         loading={loading}
+        user={user}
         className={classes.filter}
       />
       <Box className={classes.profilesBox}>

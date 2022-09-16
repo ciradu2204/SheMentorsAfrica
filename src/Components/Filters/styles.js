@@ -5,13 +5,17 @@ const useStyles = makeStyles((theme) => {
     return {
         form: {
             width: "30%",
-            //height: "100% !important",
+            display: "flex", 
+            flexDirection: "column", 
+            alignItems: "center",
+            padding: "20px" ,
             borderRadius: "30px 0px 0px 0px",
-            backgroundColor: "#F5F5F5",
-            paddingLeft: "30px",
-            paddingRight: "30px",
+            background: (props => `${props.page? "#F5F5F5": "white"}`),
             paddingTop: "73px",
-            fontFamily: "Poppins, sans-serif !important"
+            fontFamily: "Poppins, sans-serif !important",
+            [theme.breakpoints.down("sm")]:{
+               width: "100%"
+            }
         }, 
         title: {
             fontFamily: "Poppins, sans-serif !important", 
@@ -27,20 +31,27 @@ const useStyles = makeStyles((theme) => {
             color: "white !important"
 
         }, 
-        textField:{
-            width: "100% !important",
+        filterButton: {
+            width: "100% !important", 
+            maxWidth: "300px !important", 
+            margin: "auto", 
+            backgroundColor: `${theme.palette.primary.main} !important`, 
+            color: "white !important", 
+        },
+        item:{
+            display: "flex",
+            maxWidth: "300px !important", 
+            flexDirection: "column",
+            fontFamily: "Poppins !important",
+            justifyContent: "center",
+            gap: "2%",
             marginTop: "15px !important",
-            textAlign: "center",
-            display: "flex !important", 
-            flexDirection: "column !important", 
-            justifyContent: "center !important", 
-            fontFamily: "Poppins, sans-serif !important"
         },
         icon:{
             color: `${theme.palette.primary.main} !important`,
         },
         label:{
-            backgroundColor: "#F5F5F5 !important",
+            backgroundColor: (props => `${props.page? "#F5F5F5 !important": "white"}`),
         }, 
 
     }

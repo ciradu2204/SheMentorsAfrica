@@ -8,8 +8,12 @@ import {
   Select,
 } from "@material-ui/core";
 import useStyles from "./styles";
-const AreasOfExpertise = ({ formik, hasError, required=true, label="label", focused=false}) => {
-  const classes = useStyles();
+const AreasOfExpertise = ({ formik, hasError, required=true, user, label="label", focused=false}) => {
+  const authenticated = user === null;
+  const props = {
+    page: authenticated
+  }
+  const classes = useStyles(props);
 
   const AreasOfExpertise = [
     "Frontend Development",
@@ -46,7 +50,6 @@ const AreasOfExpertise = ({ formik, hasError, required=true, label="label", focu
         name="areasOfExpertise"
         multiple
         value={formik.values.areasOfExpertise}
-        //label="Areas of Expertise"
         onChange={formik.handleChange}
         error= {hasError.areasOfExpertise}
         inputProps={{

@@ -1,15 +1,22 @@
 import useStyles from "./styles";
 import { useFormik } from "formik";
-import { Box, Button, InputAdornment, TextField, Typography } from "@material-ui/core";
+import { Box, Button, InputAdornment, TextField } from "@material-ui/core";
 import Country from "../Inputs/countries";
 import AreasOfExpertise from "../Inputs/areasOfExpertise";
 import MentorshipTopics from "../Inputs/mentorshipTopics";
 import Level from "../Inputs/level";
 import SortBy from "../Inputs/sortBy";
 import SearchIcon from '@material-ui/icons/Search';
+import { useTheme } from '@material-ui/core/styles';
+import {useMediaQuery} from '@material-ui/core';
+import { useState } from "react";
 
-const Filters = ({ page, loading, filter, clear }) => {
+const Filters = ({ page, loading, filter, clear, user }) => {
   const classes = useStyles();
+  const [showFilters, setShowFilters]  = useState(false);
+  const theme = useTheme(); 
+  const isSmallOrLess = useMediaQuery(theme.breakpoints.down('sm'));
+  console.log(isSmallOrLess)
   const initialValues = {
     country: "",
     mentorshipTopics: [],
@@ -41,8 +48,9 @@ const Filters = ({ page, loading, filter, clear }) => {
     clear()
   }
   return (
-    <form className={classes.form} >
-      <Typography variant="h6" className={classes.title}>Filter:</Typography>
+    <>
+     {isSmallOrLess && <Button variant="contained" className={classes.filterButton} onClick={() => setShowFilters((prev) => !prev)}>Show Filters</Button>}
+     {(showFilters || !isSmallOrLess) && <form className={classes.form} >
       {page === "Mentors" && (
         <TextField
           fullWidth
@@ -54,7 +62,7 @@ const Filters = ({ page, loading, filter, clear }) => {
           margin="dense"
           type="string"
           value={formik.values.mentorName}
-          className={classes.textField}
+          className={classes.item}
           onChange={formik.handleChange}
           InputLabelProps={{
             classes: {
@@ -82,7 +90,7 @@ const Filters = ({ page, loading, filter, clear }) => {
         <Country formik={formik} hasError={hasError} required={false} label="labelDashboard" focused={true} />
       )}
       {(page === "Mentors" || page === "Opportunities") && (
-        <AreasOfExpertise formik={formik} hasError={hasError} required={false} label="labelDashboard" focused={true}  />
+        <AreasOfExpertise formik={formik} hasError={hasError} required={false} label="labelDashboard" focused={true} user={user} />
       )}
       <MentorshipTopics formik={formik} hasError={hasError} required={false} label="labelDashboard" focused={true} />
       {page === "Mentor" && <Level formik={formik} hasError={hasError} required={false} label="labelDashboard" focused={true} />}
@@ -91,7 +99,8 @@ const Filters = ({ page, loading, filter, clear }) => {
            <Button disabled={loading} className={classes.submit} onClick={handleSubmit} variant="contained" disableElevation disableRipple >Submit</Button>
            <Button  disabled={loading}  className={classes.clear} onClick={handleClear} variant="contained"  disableElevation disableRipple>Clear</Button>
        </Box>
-    </form>
+    </form>}
+    </>
   );
 };
 

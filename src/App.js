@@ -192,7 +192,7 @@ function App() {
           <Route path="/faqs" element={<FAQs />} />
           <Route
             path="/mentors"
-            element={<Mentors mentorsProfiles={mentorsProfiles} />}
+            element={<Mentors mentorsProfiles={mentorsProfiles} user={user} />}
           />
           <Route path="/testimony" element={<Testimony />} />
           <Route path="/login/" element={<AuthUser />} />

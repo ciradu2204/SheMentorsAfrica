@@ -83,7 +83,7 @@ const Language = ({ formik, hasError,  required=true }) => {
     <FormControl
       variant="outlined"
       fullWidth
-      className={classes.formControl}
+      className={classes.item}
       required={required}
     >
       <InputLabel  id="languages-label">

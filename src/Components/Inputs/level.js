@@ -6,7 +6,7 @@ const Level = ({formik, hasError,  required=true, label="label", focused=false})
 
     return (
 
-        <FormControl variant="outlined" fullWidth  className={classes.formControl} required={required} focused={focused}>
+        <FormControl variant="outlined" fullWidth  className={classes.item} required={required} focused={focused}>
         <InputLabel id="level-label" classes={{
                  root: label === "label" ? classes.label: classes.labelDashboard
         }}>Level</InputLabel>
