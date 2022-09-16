@@ -21,6 +21,8 @@ A mentoring app for young African women in ICT to connect to more experienced wo
  - [React](https://reactjs.org/)
  - [Material UI](https://mui.com/)
  - [AWS](https://aws.amazon.com/)
+ - [Yup](https://www.npmjs.com/package/yup)
+ - [Formik](https://formik.org/)
  - [React Step Wizard](https://www.npmjs.com/package/react-step-wizard)
 
 
