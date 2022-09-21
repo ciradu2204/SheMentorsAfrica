@@ -13,8 +13,6 @@ const VerticalSlider = (props) => {
   const classes = useStyles();
   let navigate = useNavigate(); 
 
-
-
   const handleClick = (props) => {
  
     if (props.id !== props.activeID) {

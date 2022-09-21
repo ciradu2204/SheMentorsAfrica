@@ -17,11 +17,10 @@ import PlaceIcon from "@material-ui/icons/Place";
 import Tab from "@mui/material/Tab";
 import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import BusinessIcon from "@material-ui/icons/Business";
 import Label from "@material-ui/icons/LabelImportant";
 import AboutMe from "./aboutMe";
-import BookingForm from "../../Components/BookingForm";
 
 
 const Profile = () => {

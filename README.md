@@ -24,8 +24,8 @@ A mentoring app for young African women in ICT to connect to more experienced wo
  - [Yup](https://www.npmjs.com/package/yup)
  - [Formik](https://formik.org/)
  - [React Step Wizard](https://www.npmjs.com/package/react-step-wizard)
-
-
+ - [React Shedule Meeting](https://www.npmjs.com/package/react-schedule-meeting)
+ - [Full Calendar](https://fullcalendar.io/)
 ## Feedback
 
 If you have any feedback, please reach out to us at ciradukunda2204@gmail.com
