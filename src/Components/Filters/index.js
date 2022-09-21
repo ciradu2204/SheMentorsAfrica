@@ -12,11 +12,14 @@ import {useMediaQuery} from '@material-ui/core';
 import { useState } from "react";
 
 const Filters = ({ page, loading, filter, clear, user }) => {
-  const classes = useStyles();
   const [showFilters, setShowFilters]  = useState(false);
   const theme = useTheme(); 
+  const authenticated = user !== null;
+  const props = {
+    page : authenticated
+  }
+  const classes = useStyles(props);
   const isSmallOrLess = useMediaQuery(theme.breakpoints.down('sm'));
-  console.log(isSmallOrLess)
   const initialValues = {
     country: "",
     mentorshipTopics: [],

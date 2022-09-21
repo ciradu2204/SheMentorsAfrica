@@ -67,12 +67,12 @@ const ExperienceStep = ({ formik, onComplete, loading, ...props }) => {
       )}
       <CardContent className={classes.cardContent}>
         {formik.values.role === "Mentee" && (
-          <Education formik={formik} hasError={hasError} />
+          <Education formik={formik} hasError={hasError} fullWidth={true} />
         )}
         {formik.values.role === "Mentor" && (
-          <Experience formik={formik} hasError={hasError} />
+          <Experience formik={formik} hasError={hasError} fullWidth={true} />
         )}
-        <Connect formik={formik} hasError={hasError} />
+        <Connect formik={formik} hasError={hasError} fullWidth={true}/>
       </CardContent>
       <ActionButtons {...props} lastStep={validateMentee} nextStep={validateMentor} loading={loading}/>
     </Container>

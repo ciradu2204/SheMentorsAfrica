@@ -50,7 +50,6 @@ const GeneralInfo = ({mentorProfile, formik, ...props}) =>{
         <MentorshipTopics formik={formik}  hasError={hasError} />
         <TextArea formik={formik} label="Where do you need help" hasError={hasError}/>
         </CardContent>
-
         <ActionButtons {...props} nextStep={validate} />
         </Container>
     )

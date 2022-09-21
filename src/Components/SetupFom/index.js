@@ -105,12 +105,8 @@ const SetUpForm = ({ user, profile, setProfile, updateForm }) => {
   const handleStepChange = (e) => {
     setActiveStep(e.activeStep - 1);
   };
-
-
-
   const onComplete = async() =>{
     setLoading(true);
-
       if (profile == null) {
        await createProfile();
      } else {
@@ -118,7 +114,7 @@ const SetUpForm = ({ user, profile, setProfile, updateForm }) => {
      }
      setLoading(false)
      updateForm(false);
-     navigate("/mentors");
+     navigate("auth/mentors");
     
    
   }

@@ -1,8 +1,11 @@
 import { Container, TextField } from "@material-ui/core";
 import useStyles from "./styles";
 
-const Connect = ({ formik, hasError,  required= true }) => {
-  const classes = useStyles();
+const Connect = ({ formik, hasError,  required= true, fullWidth=false }) => {
+  const props = {
+    fullWidth
+  }
+  const classes = useStyles(props);
 
   return (
     <Container className={classes.item} disableGutters>

@@ -8,8 +8,11 @@ import {
   Select,
 } from "@material-ui/core";
 import useStyles from "./styles";
-const Language = ({ formik, hasError,  required=true }) => {
-  const classes = useStyles();
+const Language = ({ formik, hasError,  required=true, fullWidth=false }) => {
+  const props = {
+    fullWidth
+  }
+  const classes = useStyles(props);
 
   const Languages = [
     "Zulu",

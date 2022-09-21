@@ -212,13 +212,13 @@ function App() {
             />
           }
         >
-          <Route exact path="/dashboard" element={<Dashboard user={user} />} />
-          <Route path="/profile/:id" element={<Profile />} />
+          <Route exact path="/auth/dashboard" element={<Dashboard user={user} />} />
+          <Route path="/auth/profile/:id" element={<Profile />} />
           <Route
-            path="/mentors"
+            path="/auth/mentors"
             element={<Mentors mentorsProfiles={mentorsProfiles} />}
           />
-          <Route path="/bookings" element={<Bookings user={user} />} />
+          <Route path="/auth/bookings" element={<Bookings user={user} />} />
         </Route>
       </Routes>
     </ThemeProvider>

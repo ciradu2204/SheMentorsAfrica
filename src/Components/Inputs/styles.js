@@ -43,7 +43,7 @@ const useStyles = makeStyles((theme) => {
           },
           item: {
             display: "flex",
-            maxWidth: "300px !important", 
+            width: (props) => props.fullWidth? "100% !important": "300px", 
             flexDirection: "column",
             fontFamily: "Poppins !important",
             justifyContent: "center",

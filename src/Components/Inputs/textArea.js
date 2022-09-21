@@ -1,7 +1,10 @@
 import { TextField } from "@material-ui/core";
 import useStyles from "./styles";
-const TextArea = ({formik, hasError, label="What inspired you to join tech?"}) => {
-    const classes = useStyles()
+const TextArea = ({formik, hasError, label="What inspired you to join tech?", fullWidth=false}) => {
+  const props = {
+    fullWidth
+  }
+  const classes = useStyles(props)
     return (
         <TextField
         required

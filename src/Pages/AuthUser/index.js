@@ -49,7 +49,7 @@ const AuthUser = () => {
         switch (formType) {
           case "Sign In":
             await Auth.signIn({ username, password });
-            navigate("/mentors");
+            navigate("");
             break;
           case "Sign Up":
             await Auth.signUp({

@@ -11,11 +11,7 @@ import { Box, CircularProgress, Container } from "@material-ui/core";
 const Mentors = ({mentorsProfiles, user}) => {
   const [loading, setLoading] = useState(true);
   const {currentPage, getCurrentData, setCurrentPage, setFilteredProfiles, pageCount, filter} = usePagination(mentorsProfiles, 4, setLoading);
-  const authenticated = user === null;
-  const props =  {
-    page: authenticated
-  }
-  const classes = useStyles(props);
+  const classes = useStyles();
   let navigate = useNavigate(); 
 
   useEffect(() => {
@@ -31,7 +27,7 @@ const Mentors = ({mentorsProfiles, user}) => {
     setFilteredProfiles(mentorsProfiles);
   }
   const handleViewProfile = (sub) => {
-    navigate(`/profile/${sub}`)
+    navigate(`/auth/profile/${sub}`)
   }
 
   return (

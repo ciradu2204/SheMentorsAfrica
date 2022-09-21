@@ -1,9 +1,11 @@
 import {FormControl, InputLabel, MenuItem, Select} from "@material-ui/core"
 import useStyles from "./styles";
 
-const Level = ({formik, hasError,  required=true, label="label", focused=false}) => {
-    const classes = useStyles(); 
-
+const Level = ({formik, hasError,  required=true, label="label", focused=false, fullWidth=false}) => {
+    const props = {
+      fullWidth
+    }
+    const classes = useStyles(props); 
     return (
 
         <FormControl variant="outlined" fullWidth  className={classes.item} required={required} focused={focused}>

@@ -8,10 +8,11 @@ import {
   Select,
 } from "@material-ui/core";
 import useStyles from "./styles";
-const AreasOfExpertise = ({ formik, hasError, required=true, user, label="label", focused=false}) => {
+const AreasOfExpertise = ({ formik, hasError, required=true, user, label="label", focused=false, fullWidth=false}) => {
   const authenticated = user === null;
   const props = {
-    page: authenticated
+    page: authenticated,
+    fullWidth
   }
   const classes = useStyles(props);
 

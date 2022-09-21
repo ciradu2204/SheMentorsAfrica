@@ -9,10 +9,11 @@ import {
   } from "@material-ui/core";
   import useStyles from "./styles";
 
-const MentorshipTopics = ({formik, hasError, user, required=true, label="label", focused=false}) => {
+const MentorshipTopics = ({formik, hasError, user, required=true, label="label", focused=false, fullWidth=false}) => {
   const authenticated = user === null;
   const props =  {
-    page: authenticated
+    page: authenticated,
+    fullWidth
   }
   const classes = useStyles(props);
   const MentorshipTopics = [

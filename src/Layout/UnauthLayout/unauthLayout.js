@@ -76,7 +76,7 @@ const partners = [
 const settings = [
   {
     text: "Home",
-    path: "/mentors",
+    path: "/auth/mentors",
     icon: <HomeIcon />,
   },
   {

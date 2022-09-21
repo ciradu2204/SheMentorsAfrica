@@ -56,9 +56,9 @@ const PersonalInformation = ({ user, formik, ...props}) => {
       <CardContent className={classes.cardContent}>
         <UploadImage user={user} formik={formik} />
         <TextField required label="Full Name" name="fullName" value={formik.values.fullName} error={hasError.fullName} onChange={formik.handleChange} variant="outlined" className={classes.item}/>
-        <Country formik={formik} hasError={hasError} />
-        <Language formik={formik} hasError={hasError} />
-        <TextArea formik={formik} hasError={hasError} />
+        <Country formik={formik} hasError={hasError} fullWidth={true} />
+        <Language formik={formik} hasError={hasError} fullWidth={true} />
+        <TextArea formik={formik} hasError={hasError}  fullWidth={true}/>
      </CardContent>
       <ActionButtons {...props}  nextStep={validate}/>
     </Container>

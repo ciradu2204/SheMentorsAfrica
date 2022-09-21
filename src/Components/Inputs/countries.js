@@ -1,8 +1,12 @@
 import {FormControl, InputLabel, MenuItem, Select} from "@material-ui/core"
 import useStyles from "./styles";
 
-const Country = ({formik, hasError, required=true, label="label", focused=false}) => {
-    const classes = useStyles(); 
+const Country = ({formik, hasError, required=true, label="label", focused=false, fullWidth=false}) => {
+    const props = {
+        fullWidth
+    }
+    const classes = useStyles(props); 
+
     const countries = [
         "Algeria",
         "Egypt",

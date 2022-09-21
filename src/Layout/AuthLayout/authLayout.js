@@ -10,32 +10,20 @@ import SetUpForm from "../../Components/SetupFom";
 import BookingForm from "../../Components/BookingForm";
 import { useEffect, useState } from "react";
 const pages = [
-  // {
-  //   text: "DASHBOARD",
-  //   path: "/dashboard",
-  // },
   {
     text: "MENTORS",
-    path: "/mentors",
+    path: "/auth/mentors",
   },
-  // {
-  //   text: "DISCUSSIONS",
-  //   path: "/discussion",
-  // },
-  // {
-  //   text: "OPPORTUNITIES",
-  //   path: "/opportunities",
-  // },
   {
     text: "BOOKINGS",
-    path: "/bookings",
+    path: "/auth/bookings",
   },
 ];
 
 const settings = [
   {
     text: "My Profile",
-    path: "/profile/me",
+    path: "/auth/profile/me",
     icon: <AccountCircleIcon />,
   },
   {
@@ -60,7 +48,6 @@ export default function AuthLayout({
 
 
   useEffect(() => {
- 
     const updateMentors = ()  => {
       const updatedMentorsProfiles = mentorsProfiles?.map((obj) => {
         if (obj.profile.sub === mentorProfile?.profile?.sub) {

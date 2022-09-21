@@ -10,7 +10,7 @@ const useStyles = makeStyles((theme) => {
             alignItems: "center",
             padding: "20px" ,
             borderRadius: "30px 0px 0px 0px",
-            background: (props => `${props.page? "#F5F5F5": "white"}`),
+            background: (props => `${props.page? "#F5F5F5 !important": "white !important"}`),
             paddingTop: "73px",
             fontFamily: "Poppins, sans-serif !important",
             [theme.breakpoints.down("sm")]:{
