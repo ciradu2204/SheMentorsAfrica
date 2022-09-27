@@ -11,10 +11,16 @@ A mentoring app for young African women in ICT to connect to more experienced wo
 
 ## Architecture
  ![Architecture](./public/shementorsafricadraw.io.png)
+ 
+## Demo 
+
+Presentation link: https://docs.google.com/presentation/d/1bcJ6GDC8RIO2mgjpslOptAVzVtRFR1kQhJ_kW17IQyE/edit?usp=sharing
 ## Features
 
+- Create an account/log in
 - View mentors profiles
-- Book a session
+- Book a session (Mentees)
+- Select Available slots (Mentors) 
 
 ## Acknowledgements
 
