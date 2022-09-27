@@ -13,6 +13,7 @@ A mentoring app for young African women in ICT to connect to more experienced wo
  ![Architecture](./public/shementorsafricadraw.io.png)
  
 ## Demo 
+<img width="1280" alt="Screen Shot 2022-09-27 at 21 00 54" src="https://user-images.githubusercontent.com/37863089/192613155-2ad2642b-8300-4b62-acdc-835e77ab15fe.png">
 
 Presentation link: https://docs.google.com/presentation/d/1bcJ6GDC8RIO2mgjpslOptAVzVtRFR1kQhJ_kW17IQyE/edit?usp=sharing
 ## Features
