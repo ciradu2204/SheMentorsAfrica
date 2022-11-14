@@ -29,7 +29,20 @@ An AWS account with few credits!
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 ## Demo 
-<img width="1280" alt="Screen Shot 2022-09-27 at 21 00 54" src="https://user-images.githubusercontent.com/37863089/192613155-2ad2642b-8300-4b62-acdc-835e77ab15fe.png">
+Authentication.  
+<img width="722" alt="Screen Shot 2022-11-14 at 16 42 32" src="https://user-images.githubusercontent.com/37863089/201688688-9ca3acef-9553-41ba-b18b-b57be0d5ca34.png">
+
+Create a profile.  
+<img width="727" alt="Screen Shot 2022-11-14 at 16 43 32" src="https://user-images.githubusercontent.com/37863089/201689096-586dc7cb-d1d9-4496-941f-111908131ee1.png">
+
+View Mentors.  
+<img width="727" alt="Screen Shot 2022-11-14 at 16 45 00" src="https://user-images.githubusercontent.com/37863089/201689287-91d95b47-c017-448a-b288-127232f588e1.png">
+
+Mentors Profile.  
+<img width="723" alt="Screen Shot 2022-11-14 at 16 45 48" src="https://user-images.githubusercontent.com/37863089/201689470-1dfb9088-f1c7-4573-b608-e56582b15b9f.png">
+
+Book a session.  
+<img width="719" alt="Screen Shot 2022-11-14 at 16 46 38" src="https://user-images.githubusercontent.com/37863089/201689662-fdf3a79c-4eb3-41a8-b479-350e66dbb002.png">
 
 ## Features
 
